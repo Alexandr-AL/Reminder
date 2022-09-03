@@ -10,10 +10,13 @@
     <ScrollView >
         <Grid ColumnDefinitions="*"
               RowDefinitions="*">
-        
             <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Padding="10" Spacing="20">
 
-                <Button Text="GetData" Command="{Binding GetDataEventsCommand}" Padding="50,10" HorizontalOptions="Center"/>
+                <HorizontalStackLayout>
+                    <Button Text="Add Event"/>
+                    <Button Text="GetData" Command="{Binding GetDataEventsCommand}" Padding="50,10" HorizontalOptions="Center"/>
+                    
+                </HorizontalStackLayout>
             
                 <CollectionView ItemsSource="{Binding Events}" >
                     <CollectionView.ItemTemplate>
