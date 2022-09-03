@@ -13,21 +13,23 @@
                Text="Напоминалка"  
                FontSize="20" 
                TextColor="White" 
-               Margin="50, 0, 0, 0" />
+               Margin="50, 0, 0, 0"/>
+        
     </Shell.TitleView>
 
     <ScrollView>
         <Grid ColumnDefinitions="*" 
               RowDefinitions="*">
             
-            <VerticalStackLayout VerticalOptions="Center" 
+            <VerticalStackLayout VerticalOptions="Start" 
                                  HorizontalOptions="Center" 
                                  Padding="10" 
                                  Spacing="20">
 
                 <HorizontalStackLayout Margin="20" HorizontalOptions="Center">
                     
-                    <Button Text="Add Event"/>
+                    <Button Text="Add Event"
+                            Command="{Binding SaveDataEventsCommand}"/>
                     
                     <Button Text="GetData" 
                             Command="{Binding GetDataEventsCommand}" 
@@ -68,7 +70,6 @@
             </VerticalStackLayout>
             
         </Grid>
-
      </ScrollView>
 </ContentPage>
 

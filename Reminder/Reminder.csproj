@@ -49,7 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Raw\EventsData.json" />
+	  <None Remove="Resources\Raw\EventsTestData.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -57,7 +57,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiAsset Update="Resources\Raw\EventsData.json">
+	  <MauiAsset Update="Resources\Raw\EventsTestData.json">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiAsset>
 	</ItemGroup>
