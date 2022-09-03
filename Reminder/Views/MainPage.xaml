@@ -18,21 +18,37 @@
 
     </Shell.TitleView>
 
+
+   
+
+
     <ScrollView >
+        
+        
+        
+        
+        
         <Grid ColumnDefinitions="*"
               RowDefinitions="*">
-            <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Padding="10" Spacing="20">
 
-                <HorizontalStackLayout>
-                    <Button Text="Add Event"/>
-                    <Button Text="GetData" Command="{Binding GetDataEventsCommand}" Padding="50,10" HorizontalOptions="Center"/>
-                    
-                </HorizontalStackLayout>
             
+            
+            
+            
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Spacing="20">
+
+
+                <HorizontalStackLayout Margin="20" HorizontalOptions="Center">
+                    <Button Text="Add Event"/>
+                    <Button Text="GetData" Command="{Binding GetDataEventsCommand}" Padding="50,0,50,0" Margin="10,0,0,0" HorizontalOptions="Center"/>
+
+                </HorizontalStackLayout>
+                
+
                 <CollectionView ItemsSource="{Binding Events}" >
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Event">
-                            <VerticalStackLayout Padding="20,0">
+                            <VerticalStackLayout Padding="0,0">
                                 
                                 <Border Margin="0,10"/>
                                 
@@ -47,11 +63,38 @@
                                 <Label Text="{Binding Description}"/>
                                 
                              </VerticalStackLayout>
+                            
+                            
+                            
+                            
                         </DataTemplate>
+                        
+                        
+                        
+                        
                     </CollectionView.ItemTemplate>
+
+
+
+
                 </CollectionView>
-            
+
+
+
+
+
+
             </VerticalStackLayout>
         </Grid>
+        
+        
+        
     </ScrollView>
+
+
+
+
 </ContentPage>
+    
+
+   
