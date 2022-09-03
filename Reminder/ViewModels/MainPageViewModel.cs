@@ -21,7 +21,7 @@ namespace Reminder.ViewModels
         {
             this.eventFileIOService = eventFileIOService;
             Title = "Reminder";
-            
+            GetDataEvents();
         }
 
         [RelayCommand]
