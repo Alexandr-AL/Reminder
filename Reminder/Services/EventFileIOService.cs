@@ -30,14 +30,19 @@ namespace Reminder.Services
             return EventsData;
         }
 
-        public async Task SaveEventsData(List<Event> events)
+        public async Task SaveEventsDataAsync(List<Event> events)
         {
             try
             {
-                using var writeStream = File.OpenWrite(FileSystem.AppDataDirectory + "EventsData.json");
-                using var writer = new StreamWriter(writeStream);
+                var path = FileSystem.AppDataDirectory ;
+                var targetFile = Path.Combine(path, "EventsData.json");
+
+                using var writeStream = File.OpenWrite(targetFile);
+                using var streamWriter = new StreamWriter(writeStream);
+
                 var content = JsonSerializer.Serialize(events);
-                await writer.WriteAsync(content);
+
+                await streamWriter.WriteAsync(content);
             }
             catch (Exception ex)
             {
@@ -47,7 +52,7 @@ namespace Reminder.Services
             
         }
 
-        public List<Event> GetTestData()
+        public async Task<List<Event>> GetTestDataAsync()
         {
             EventsData.AddRange(new Event[] 
             {
@@ -58,6 +63,7 @@ namespace Reminder.Services
                 new Event{Name = "Fifth event", DateTimeEvent= DateTime.Now, Description="Description Fifth event"},
                 new Event{Name = "Sixth event", DateTimeEvent= DateTime.Now, Description="Description sixth event"}
             });
+            await SaveEventsDataAsync(EventsData);
             return EventsData;
         }
     }
