@@ -28,7 +28,7 @@ namespace Reminder.ViewModels
         public async void GetDataEvents()
         {
             if (Events?.Count > 0) return;
-            var events = await eventFileIOService.GetTestDataAsync();
+            var events = await eventFileIOService.LoadEventsData();
             foreach (var item in events)
                 Events.Add(item);
         }

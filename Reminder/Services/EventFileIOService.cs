@@ -26,6 +26,7 @@ namespace Reminder.Services
             {
                 Debug.WriteLine(ex.Message);
                 await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
+                return GetTestDataAsync();
             }
             return EventsData;
         }
@@ -34,7 +35,7 @@ namespace Reminder.Services
         {
             try
             {
-                var path = FileSystem.AppDataDirectory ;
+                var path = FileSystem.Current.AppDataDirectory;
                 var targetFile = Path.Combine(path, "EventsData.json");
 
                 using var writeStream = File.OpenWrite(targetFile);
@@ -52,7 +53,7 @@ namespace Reminder.Services
             
         }
 
-        public async Task<List<Event>> GetTestDataAsync()
+        private List<Event> GetTestDataAsync()
         {
             EventsData.AddRange(new Event[] 
             {
@@ -63,7 +64,6 @@ namespace Reminder.Services
                 new Event{Name = "Fifth event", DateTimeEvent= DateTime.Now, Description="Description Fifth event"},
                 new Event{Name = "Sixth event", DateTimeEvent= DateTime.Now, Description="Description sixth event"}
             });
-            await SaveEventsDataAsync(EventsData);
             return EventsData;
         }
     }
