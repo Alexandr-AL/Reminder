@@ -18,6 +18,10 @@
 
     </Shell.TitleView>
 
+
+   
+
+
     <ScrollView >
         
         
@@ -27,15 +31,14 @@
         <Grid ColumnDefinitions="*"
               RowDefinitions="*">
 
-
-
-
+            
+            
+            
             
             <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Spacing="20">
 
-                
+
                 <HorizontalStackLayout Margin="20" HorizontalOptions="Center">
-                    
                     <Button Text="Add Event"/>
                     <Button Text="GetData" Command="{Binding GetDataEventsCommand}" Padding="50,0,50,0" Margin="10,0,0,0" HorizontalOptions="Center"/>
 
@@ -45,22 +48,7 @@
                 <CollectionView ItemsSource="{Binding Events}" >
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Event">
-
-                            <Frame BorderColor="Black"  Margin="0,0,0,10" CornerRadius="5">
-
-
-                                <VerticalStackLayout Padding="0,0,0,0"  >
-
-                               
-
-                                    <Border Margin="0,0,0,0"  />
-
-
-                                
-
-                                    <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="25"/>
-
-
+                            <VerticalStackLayout Padding="0,0">
                                 
 
 
@@ -73,15 +61,12 @@
                                 <TimePicker Time="{Binding DateTimeEvent.TimeOfDay}"/>
                                 
                                 <Label Text="{Binding Description}"/>
-
-
                                 
-
-                            </VerticalStackLayout>
-
+                             </VerticalStackLayout>
                             
-</Frame>
-
+                            
+                            
+                            
                         </DataTemplate>
                         
                         
@@ -104,18 +89,15 @@
                 
 
         </Grid>
-
         
-
+        
+        
     </ScrollView>
 
 
 
 
 </ContentPage>
+    
 
-
-
-
-
- 
+   
