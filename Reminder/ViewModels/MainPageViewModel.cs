@@ -25,10 +25,10 @@ namespace Reminder.ViewModels
         }
 
         [RelayCommand]
-        public void GetDataEvents()
+        public async void GetDataEvents()
         {
             if (Events?.Count > 0) return;
-            var events = eventFileIOService.GetTestData();
+            var events = await eventFileIOService.GetTestDataAsync();
             foreach (var item in events)
                 Events.Add(item);
         }
