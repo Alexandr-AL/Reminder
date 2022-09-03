@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Models"
              x:DataType="vm:MainPageViewModel"
-             Title="{Binding Title}">
+             Title="{Binding Title}">    
 
     <ScrollView >
         <Grid ColumnDefinitions="*"
