@@ -7,6 +7,17 @@
              x:DataType="vm:MainPageViewModel"
              Title="{Binding Title}">    
 
+
+    <Shell.TitleView>
+        <Label VerticalOptions="Center"   FontFamily="Calibri" Text="Напоминалка"  FontSize="20" TextColor="White" Margin="50, 0, 0, 0" />
+
+        <!--
+    значения: первое - вправо, второе - вниз, третье - влево, четвертое - вверх
+    -->
+
+
+    </Shell.TitleView>
+
     <ScrollView >
         <Grid ColumnDefinitions="*"
               RowDefinitions="*">
