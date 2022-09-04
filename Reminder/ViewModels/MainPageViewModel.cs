@@ -24,10 +24,9 @@ namespace Reminder.ViewModels
             GetDataEvents();
         }
 
-        [RelayCommand]
         public async void GetDataEvents()
         {
-            var events = await eventFileIOService.GetTestDataAsync();
+            var events = await eventFileIOService.LoadEventsDataAsync();
 
             if (events is null) return;
 
@@ -35,10 +34,5 @@ namespace Reminder.ViewModels
                 Events.Add(item);
         }
 
-        [RelayCommand]
-        public async void SaveDataEvents()
-        {
-            
-        }
     }
 }
