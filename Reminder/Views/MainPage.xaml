@@ -49,6 +49,9 @@
 
                                     <Label Text="{Binding Description}"/>
 
+
+
+
                                 </VerticalStackLayout>
                             </Frame>
                         </DataTemplate>
@@ -57,6 +60,10 @@
                         
                         
                     </CollectionView.ItemTemplate>
+
+
+
+
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
