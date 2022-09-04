@@ -6,37 +6,69 @@
              xmlns:model="clr-namespace:Reminder.Models"
              x:DataType="vm:MainPageViewModel"
              Title="{Binding Title}">
+    
 
+   
+    
+    
     <Shell.TitleView>
-        <Label VerticalOptions="Center" 
+
+        <Grid>
+
+            <Button HorizontalOptions="End" Margin="0, 0, 10, 0" BackgroundColor="Transparent" ImageSource="plus.svg"  Text=""
+                           
+                         
+
+                        Command="{Binding AddNewEventCommand}"/>
+
+            <Label  VerticalOptions="Center" 
+                   
                FontFamily="Calibri" 
                Text="Напоминалка"  
                FontSize="20" 
                TextColor="White" 
-               Margin="50, 0, 0, 0" />
+               Margin="0, 0, 0, 0" />
 
+
+            </Grid>
+        
+        
     </Shell.TitleView>
+
+
+
+    
+
 
     <ScrollView>
 
         <Grid ColumnDefinitions="*"
               RowDefinitions="*">
 
+ 
+            
+            
             <VerticalStackLayout VerticalOptions="Start" 
                                  HorizontalOptions="Center" 
                                  Padding="10" 
                                  Spacing="20">
 
-                <HorizontalStackLayout Margin="20" HorizontalOptions="Center">
+                <HorizontalStackLayout Margin="0,0,20,0" HorizontalOptions="End">
 
-                    <Button Text="Add Event"
-                            Command="{Binding AddNewEventCommand}"/>
+
                     
-                    <Button Text="GetData" 
+
+                    <!--                   <Button Text="GetData" 
                             Padding="50,0,50,0" 
                             Margin="10,0,0,0" 
-                            HorizontalOptions="Center"/>
+                            HorizontalOptions="Center"
+                            
+                       ImageSource="plus.svg"
 
+                        />
+-->
+                    
+                    
                 </HorizontalStackLayout>
 
                 <CollectionView ItemsSource="{Binding Events}">
@@ -82,3 +114,4 @@
     </ScrollView>
 
 </ContentPage>
+
