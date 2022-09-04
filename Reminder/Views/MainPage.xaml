@@ -6,15 +6,33 @@
              xmlns:model="clr-namespace:Reminder.Models"
              x:DataType="vm:MainPageViewModel"
              Title="{Binding Title}">
+    
 
+   
+    
+    
     <Shell.TitleView>
-        <Label VerticalOptions="Center" 
+
+        <Grid>
+
+            <Button HorizontalOptions="End" Margin="0, 0, 10, 0" BackgroundColor="Transparent" ImageSource="plus.svg"  Text=""
+                           
+                         
+
+                        Command="{Binding AddNewEventCommand}"/>
+
+            <Label  VerticalOptions="Center" 
+                   
                FontFamily="Calibri" 
                Text="Напоминалка"  
                FontSize="20" 
                TextColor="White" 
-               Margin="50, 0, 0, 0" />
+               Margin="0, 0, 0, 0" />
 
+
+            </Grid>
+        
+        
     </Shell.TitleView>
     <Grid RowDefinitions="75,*">
         <HorizontalStackLayout Grid.Row="0" Margin="10" HorizontalOptions="End" VerticalOptions="Start" Opacity="100">
