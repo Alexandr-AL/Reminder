@@ -1,5 +1,6 @@
 ﻿using Reminder.Services;
 using Reminder.ViewModels;
+using Reminder.Views;
 
 namespace Reminder;
 
@@ -17,6 +18,9 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<MainPage>();
 		builder.Services.AddSingleton<MainPageViewModel>();
+
+		builder.Services.AddTransient<CreateEditEventPage>();
+		builder.Services.AddTransient<CreateEditEventViewModel>();
 
 		builder.Services.AddSingleton<EventFileIOService>();
 
