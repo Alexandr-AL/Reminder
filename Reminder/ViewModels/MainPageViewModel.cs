@@ -2,6 +2,7 @@
 using Reminder.Models;
 using Reminder.Services;
 using Reminder.ViewModels.Base;
+using Reminder.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,6 +33,12 @@ namespace Reminder.ViewModels
 
             foreach (var item in events)
                 Events.Add(item);
+        }
+
+        [RelayCommand]
+        private async Task AddNewEvent()
+        {
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true);
         }
 
     }
