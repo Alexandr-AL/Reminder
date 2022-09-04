@@ -18,25 +18,34 @@
 
         <HorizontalStackLayout VerticalOptions="Center">
             <Label Text="Date:" FontSize="25" Margin="10,0" VerticalOptions="Center"/>
+            
             <DatePicker Date="{Binding Event.DateTimeEvent}" 
                         FontSize="25" 
                         VerticalOptions="Start" 
-                        BackgroundColor="LightGrey"/>
+                        BackgroundColor="LightGrey"
+                        Format="dd MMMM yyyy"/>
         </HorizontalStackLayout>
         
         <TimePicker Time="{Binding Event.DateTimeEvent.TimeOfDay}" 
                     FontSize="25" 
                     HorizontalOptions="Center"
                     BackgroundColor="LightGrey"
-                    Format="t"/>
+                    Format="HH:mm"/>
 
         <Label Text="Description:" FontSize="25" HorizontalOptions="Center"/>
-        <Editor AutoSize="TextChanges"
+        
+        <Editor Text="{Binding Event.Description}"
+                AutoSize="TextChanges"
                 MaximumHeightRequest="400"
                 MinimumHeightRequest="150"
                 Margin="20,0,20,20"
                 BackgroundColor="DeepPink"
                 FontSize="22"/>
+
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End">
+            <Button Text="Create"/>
+            <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+        </HorizontalStackLayout>
 
     </VerticalStackLayout>
     
