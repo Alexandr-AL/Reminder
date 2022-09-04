@@ -16,7 +16,5 @@ namespace Reminder.ViewModels
         public CreateEditEventViewModel()
         {
         }
-
-
     }
 }

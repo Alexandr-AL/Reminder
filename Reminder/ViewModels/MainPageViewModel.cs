@@ -41,7 +41,8 @@ namespace Reminder.ViewModels
             await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true, 
                 new Dictionary<string, object> 
                 { 
-                    { "Title", "Add New Event"} 
+                    { "Title", "Add New Event"},
+                    {"_event", new Event{ Name = "some name", DateTimeEvent = DateTime.Now, Description = "Some description" } }
                 });
         }
 
