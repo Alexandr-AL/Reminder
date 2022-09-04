@@ -34,7 +34,7 @@
 
 
 
-            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Spacing="20">
+            <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Padding="10" Spacing="20">
 
 
                 <HorizontalStackLayout Margin="20" HorizontalOptions="Center">
