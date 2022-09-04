@@ -28,5 +28,7 @@ namespace Reminder.ViewModels
         {
             await Shell.Current.GoToAsync("..", true);
         }
+
+
     }
 }
