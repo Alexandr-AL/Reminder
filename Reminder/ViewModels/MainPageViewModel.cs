@@ -24,7 +24,7 @@ namespace Reminder.ViewModels
             GetDataEvents();
         }
 
-        public async void GetDataEvents()
+        private async void GetDataEvents()
         {
             var events = await eventFileIOService.LoadEventsDataAsync();
 
