@@ -38,7 +38,11 @@ namespace Reminder.ViewModels
         [RelayCommand]
         private async Task AddNewEvent()
         {
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true);
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true, 
+                new Dictionary<string, object> 
+                { 
+                    { "Title", "Add New Event"} 
+                });
         }
 
     }

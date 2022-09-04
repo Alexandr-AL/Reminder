@@ -6,12 +6,38 @@
              Title="{Binding Title}"
              x:DataType="vm:CreateEditEventViewModel">
     
-    <VerticalStackLayout>
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
         
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <HorizontalStackLayout>
+            <Label Text="Name:" FontSize="25" Margin="10,0"/>
+            <Entry Text="{Binding Event.Name}"  
+                   MaximumWidthRequest="200" 
+                   MinimumWidthRequest="200" 
+                   FontSize="20" BackgroundColor="LightGray"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout VerticalOptions="Center">
+            <Label Text="Date:" FontSize="25" Margin="10,0" VerticalOptions="Center"/>
+            <DatePicker Date="{Binding Event.DateTimeEvent}" 
+                        FontSize="25" 
+                        VerticalOptions="Start" 
+                        BackgroundColor="LightGrey"/>
+        </HorizontalStackLayout>
+        
+        <TimePicker Time="{Binding Event.DateTimeEvent.TimeOfDay}" 
+                    FontSize="25" 
+                    HorizontalOptions="Center"
+                    BackgroundColor="LightGrey"
+                    Format="t"/>
+
+        <Label Text="Description:" FontSize="25" HorizontalOptions="Center"/>
+        <Editor AutoSize="TextChanges"
+                MaximumHeightRequest="400"
+                MinimumHeightRequest="150"
+                Margin="20,0,20,20"
+                BackgroundColor="DeepPink"
+                FontSize="22"/>
+
     </VerticalStackLayout>
     
 </ContentPage>
