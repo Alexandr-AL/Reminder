@@ -34,7 +34,7 @@
         
         
     </Shell.TitleView>
-    <Grid RowDefinitions="75,*">
+    <Grid>
         <HorizontalStackLayout Grid.Row="0" Margin="10" HorizontalOptions="End" VerticalOptions="Start" Opacity="100">
 
 <!--            
