@@ -37,49 +37,26 @@
     <Grid RowDefinitions="75,*">
         <HorizontalStackLayout Grid.Row="0" Margin="10" HorizontalOptions="End" VerticalOptions="Start" Opacity="100">
 
-
-
-    
-
-
-    <ScrollView>
-
-        <Grid ColumnDefinitions="*"
-              RowDefinitions="*">
-
- 
-            
-            
-            <VerticalStackLayout VerticalOptions="Start" 
-                                 HorizontalOptions="Center" 
-                                 Padding="10" 
-                                 Spacing="20">
-
-                <HorizontalStackLayout Margin="0,0,20,0" HorizontalOptions="End">
-
-
-                    
-
-                    <!--                   <Button Text="GetData" 
-                            Padding="50,0,50,0" 
-                            Margin="10,0,0,0" 
-                            HorizontalOptions="Center"
-                            
-                       ImageSource="plus.svg"
-
-                        />
+<!--            
+            <Button Command="{Binding AddNewEventCommand}"
+                    Text="_" FontSize="50"
+                    CornerRadius="20"/>
 -->
-                    
-                    
-                </HorizontalStackLayout>
-
+            
+        </HorizontalStackLayout>
+        
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout VerticalOptions="Start" 
+                                    HorizontalOptions="Center" 
+                                    Margin="10" 
+                                    Spacing="20">
                 <CollectionView ItemsSource="{Binding Events}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Event">
                             <Frame BorderColor="Black"  
                                     Margin="0,0,0,10" 
                                     CornerRadius="5">
-                                <VerticalStackLayout Padding="0,0,0,0">
+                                <VerticalStackLayout Padding="10,0,0,0">
 
                                     <Border Margin="0,0,0,0"/>
 
