@@ -29,7 +29,9 @@
 
                 <HorizontalStackLayout Margin="20" HorizontalOptions="Center">
 
-                    <Button Text="Add Event"/>
+                    <Button Text="Add Event"
+                            Command="{Binding AddNewEventCommand}"/>
+                    
                     <Button Text="GetData" 
                             Padding="50,0,50,0" 
                             Margin="10,0,0,0" 

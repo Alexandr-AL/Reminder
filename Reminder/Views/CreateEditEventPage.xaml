@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Reminder.Views.CreateEditEventPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
-             Title="CreateEditEventPage"
+             Title="{Binding Title}"
              x:DataType="vm:CreateEditEventViewModel">
     
     <VerticalStackLayout>
