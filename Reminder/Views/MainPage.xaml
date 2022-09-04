@@ -6,30 +6,73 @@
              xmlns:model="clr-namespace:Reminder.Models"
              x:DataType="vm:MainPageViewModel"
              Title="{Binding Title}">
+    
 
+   
+    
+    
     <Shell.TitleView>
-        <Label VerticalOptions="Center" 
+
+        <Grid>
+
+            <Button HorizontalOptions="End" Margin="0, 0, 10, 0" BackgroundColor="Transparent" ImageSource="plus.svg"  Text=""
+                           
+                         
+
+                        Command="{Binding AddNewEventCommand}"/>
+
+            <Label  VerticalOptions="Center" 
+                   
                FontFamily="Calibri" 
                Text="Напоминалка"  
                FontSize="20" 
                TextColor="White" 
-               Margin="50, 0, 0, 0" />
+               Margin="0, 0, 0, 0" />
 
+
+            </Grid>
+        
+        
     </Shell.TitleView>
     <Grid RowDefinitions="75,*">
         <HorizontalStackLayout Grid.Row="0" Margin="10" HorizontalOptions="End" VerticalOptions="Start" Opacity="100">
 
-            <Button Command="{Binding AddNewEventCommand}"
-                    Text="_" FontSize="50"
-                    CornerRadius="20"/>
 
-        </HorizontalStackLayout>
-        
-        <ScrollView Grid.Row="1">
+
+    
+
+
+    <ScrollView>
+
+        <Grid ColumnDefinitions="*"
+              RowDefinitions="*">
+
+ 
+            
+            
             <VerticalStackLayout VerticalOptions="Start" 
-                                    HorizontalOptions="Center" 
-                                    Padding="10" 
-                                    Spacing="20">
+                                 HorizontalOptions="Center" 
+                                 Padding="10" 
+                                 Spacing="20">
+
+                <HorizontalStackLayout Margin="0,0,20,0" HorizontalOptions="End">
+
+
+                    
+
+                    <!--                   <Button Text="GetData" 
+                            Padding="50,0,50,0" 
+                            Margin="10,0,0,0" 
+                            HorizontalOptions="Center"
+                            
+                       ImageSource="plus.svg"
+
+                        />
+-->
+                    
+                    
+                </HorizontalStackLayout>
+
                 <CollectionView ItemsSource="{Binding Events}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Event">
@@ -56,6 +99,10 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
-        </ScrollView>
-    </Grid>
+
+        </Grid>
+
+    </ScrollView>
+
 </ContentPage>
+
