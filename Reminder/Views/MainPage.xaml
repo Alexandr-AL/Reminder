@@ -30,7 +30,7 @@
                 <HorizontalStackLayout Margin="20" HorizontalOptions="Center">
 
                     <Button Text="Add Event"/>
-                    <Button Text="GetData" Command="{Binding GetDataEventsCommand}" 
+                    <Button Text="GetData" 
                             Padding="50,0,50,0" 
                             Margin="10,0,0,0" 
                             HorizontalOptions="Center"/>
