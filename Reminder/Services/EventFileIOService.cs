@@ -6,56 +6,85 @@ namespace Reminder.Services
 {
     public class EventFileIOService
     {
-        //private List<Event> EventsData = new();
+        private readonly string pathToEventsData = Path.Combine(FileSystem.Current.AppDataDirectory, "EventsData.json");
 
-        public async Task<List<Event>> LoadEventsData()
+        public async Task<List<Event>> LoadEventsDataAsync()
         {
-            //try
-            //{
-            //    using var stream = await FileSystem.OpenAppPackageFileAsync("EventsData.json");
-            //    using var reader = new StreamReader(stream);
-            //    var events = await reader.ReadToEndAsync();
-            //    EventsData = JsonSerializer.Deserialize<List<Event>>(events);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(ex.Message);
-            //    await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
-            //}
-            return default;
+            if (!File.Exists(pathToEventsData)) 
+                return await CreateNewEventsData();
+
+            try
+            {
+                using var fileStreamToRead = File.OpenRead(pathToEventsData);
+                using var streamReader = new StreamReader(fileStreamToRead);
+                
+                var eventsData = await streamReader.ReadToEndAsync();
+                var events = JsonSerializer.Deserialize<List<Event>>(eventsData);
+
+                return events;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("Error reading from EventData file", ex.Message, "Ok");
+                return default;
+            }
         }
 
-        public async Task SaveEventsDataAsync(List<Event> events)
+        public async Task<bool> SaveEventsDataAsync(List<Event> events)
         {
-            //try
-            //{
-            //    using var stream = await FileSystem.OpenAppPackageFileAsync("EventsData.json");
-            //    using var reader = new StreamReader(stream);
-            //    var content = await reader.ReadToEndAsync();
+            if (!File.Exists(pathToEventsData))
+            {
+                await Shell.Current.DisplayAlert("Error", "Save file not found", "Ok");
+                return false;
+            }    
 
-            //    var targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "EventsData.json");
+            try
+            {
+                using var fileStreamToWrite = File.OpenWrite(pathToEventsData);
+                using var streamWriter = new StreamWriter(fileStreamToWrite);
 
-            //    content = JsonSerializer.Serialize<List<Event>>(events);
+                var eventsData = JsonSerializer.Serialize(events);
 
-            //    using var writeStream = File.OpenWrite(targetFile);
-            //    using var streamWriter = new StreamWriter(writeStream);
-
-            //    await streamWriter.WriteAsync(content);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.WriteLine(ex.Message);
-            //    await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
-            //}
-            
+                await streamWriter.WriteAsync(eventsData);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("Error writing to EventData file", ex.Message, "Ok");
+                return false;
+            }
         }
 
-        public async Task<List<Event>> GetTestDataAsync()
+        private async Task<List<Event>> CreateNewEventsData()
+        {
+            try
+            {
+                using var stream = File.Create(pathToEventsData);
+                using var streamWriter = new StreamWriter(stream);
+
+                var testEvents = await GetTestDataAsync();
+                var testEventsData = JsonSerializer.Serialize(testEvents);
+
+                streamWriter.Write(testEventsData);
+                return testEvents;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("Error create new EventData file", ex.Message, "Ok");
+                return default;
+            }
+        }
+
+        private async Task<List<Event>> GetTestDataAsync()
         {
             try
             {
                 using var stream = await FileSystem.OpenAppPackageFileAsync("EventsTestData.json");
                 using var reader = new StreamReader(stream);
+
                 var eventsInString = await reader.ReadToEndAsync();
                 var events = JsonSerializer.Deserialize<List<Event>>(eventsInString);
                 return events;
@@ -64,7 +93,7 @@ namespace Reminder.Services
             {
                 Debug.WriteLine(ex.Message);
                 await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
-                return new List<Event>();
+                return default;
             }
         }
     }
