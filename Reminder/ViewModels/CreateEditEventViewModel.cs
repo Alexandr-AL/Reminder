@@ -17,11 +17,6 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         Event _event;
 
-        public CreateEditEventViewModel()
-        {
-
-        }
-
         void CreateNewEvent()
         {
             if (_event is null) return;
@@ -29,9 +24,9 @@ namespace Reminder.ViewModels
         }
 
         [RelayCommand]
-        void Cancel()
+        async void Cancel()
         {
-            Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync("..", true);
         }
     }
 }
