@@ -12,6 +12,7 @@
             <Button HorizontalOptions="End" 
                     Margin="0, 0, 10, 0" 
                     
+                                       
                     ImageSource="search.svg"
                     FontFamily="Calibri"
                     
