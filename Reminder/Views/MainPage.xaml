@@ -37,7 +37,8 @@
                                    CornerRadius="5">
                                 <Frame.GestureRecognizers>
                                     <ClickGestureRecognizer
-                                        Command="{Binding }"/>
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
+                                        CommandParameter="{Binding .}"/>
                                     <TapGestureRecognizer/>
                                 </Frame.GestureRecognizers>
                                 
