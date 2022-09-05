@@ -11,15 +11,22 @@
         <Grid>
             <Button HorizontalOptions="End" 
                     Margin="0, 0, 10, 0" 
-                    BackgroundColor="Transparent" 
-                    ImageSource="plus.svg"
+                    
+                    ImageSource="search.svg"
+                    FontFamily="Calibri"
+                    
+                    FontSize="20"
+                    
+                    TextColor="White"
+                    
                     Command="{Binding AddNewEventCommand}"/>
 
             <Label VerticalOptions="Center"
                    FontFamily="Calibri" 
                    Text="Напоминалка"  
                    FontSize="20" 
-                   TextColor="White" 
+                   TextColor="White"
+                   
                    Margin="0, 0, 0, 0"/>
         </Grid>
     </Shell.TitleView>
@@ -56,16 +63,26 @@
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-        <ImageButton Source="plus01.png" 
+        <Button  ImageSource="plus1122.png" 
                      Grid.Column="0"
                      Grid.Row="0"
                      HorizontalOptions="End" 
                      VerticalOptions="End"
-                     MaximumHeightRequest="64"
-                     MaximumWidthRequest="64"
-                     Aspect="Fill"
-                     Margin="0,0,30,30"
-                     Opacity="0.6"
+                   
+                        
+                     Margin="0,0,0,0"
+                     
+                     
+                     
                      Command="{Binding AddNewEventCommand}"/>
     </Grid>
+
+
+    <!--                
+                     MaximumHeightRequest="16"
+                     MaximumWidthRequest="16"
+-->
+
+
+
 </ContentPage>
