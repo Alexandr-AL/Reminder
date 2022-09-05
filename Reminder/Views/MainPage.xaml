@@ -62,7 +62,7 @@
                             <Grid>
                                 
                                 
-                                <Image Margin="45,0,15,0" BackgroundColor="#141414"  Source="line.svg"/>
+                                <Image Margin="45,1,15,0" BackgroundColor="#141414"  Source="line.svg"/>
                                 <Frame 
                                    BorderColor="Transparent"
                                    Margin="15,0,0,0"
