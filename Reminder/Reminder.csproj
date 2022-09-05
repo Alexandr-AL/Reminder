@@ -49,6 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\plus01.png" />
 	  <None Remove="Resources\Raw\EventsTestData.json" />
 	</ItemGroup>
 
