@@ -52,10 +52,6 @@
                                 </VerticalStackLayout>
                             </Frame>
                         </DataTemplate>
-                        
-                        
-                        
-                        
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
