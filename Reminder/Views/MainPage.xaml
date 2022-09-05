@@ -43,7 +43,7 @@
                    FontSize="20" 
                    TextColor="White"
                    
-                   Margin="30, 0, 0, 0"/>
+                   Margin="28, 0, 0, 0"/>
         </Grid>
     </Shell.TitleView>
     
@@ -62,10 +62,11 @@
                             <Grid>
                                 
                                 
-                                <Image VerticalOptions="End" Margin="45,0,15,0" BackgroundColor="#141414" Source="line.svg"/>
+                                <Image Margin="45,0,15,0" BackgroundColor="#141414"  Source="line.svg"/>
                                 <Frame 
                                    BorderColor="Transparent"
-                                   Margin="15,0,0,0" 
+                                   Margin="15,0,0,0"
+                                   
                                    CornerRadius="0"
                                    HasShadow="True"
                                    
@@ -87,7 +88,7 @@
                                     <TapGestureRecognizer/>
                                 </Frame.GestureRecognizers>
 
-                                <VerticalStackLayout Padding="10,0,0,0" HeightRequest="70" >
+                                <VerticalStackLayout  Padding="10,0,0,0" HeightRequest="70" >
 
                                     <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="22" />
 
