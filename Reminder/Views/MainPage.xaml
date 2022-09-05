@@ -50,19 +50,36 @@
     <Grid ColumnDefinitions="*" RowDefinitions="*">
         <ScrollView Grid.Column="0" Grid.Row="0">
             <VerticalStackLayout VerticalOptions="Start" 
-                                 HorizontalOptions="Center"
-                                 Margin="10"
+                                 HorizontalOptions="Start"
+                                 Margin="0,0,0,0"
+                                 Padding="0,0,0,0"
                                  
                                  >
                 <CollectionView ItemsSource="{Binding Events}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Event">
-                            <Frame BorderColor="#141414"
-                                   Margin="5,0,5,10" 
+
+                            <Grid>
+                                
+                                
+                                <Image VerticalOptions="End" Margin="45,0,15,0" BackgroundColor="#141414" Source="line.svg"/>
+                                <Frame 
+                                   BorderColor="Transparent"
+                                   Margin="15,0,0,0" 
                                    CornerRadius="0"
-                                   
                                    HasShadow="True"
-                                   >
+                                   
+                                   
+                               
+
+
+                                >
+                                    <!--Padding="0,0,0,0"
+                                    это если сделать плотнее запоминалки, добавляем во фрейм выше
+                                    -->
+                                
+
+
                                 <Frame.GestureRecognizers>
                                     <ClickGestureRecognizer
                                         
@@ -74,12 +91,14 @@
 
                                     <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="22" />
 
-                                    <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
+                                        <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontFamily="Calibri"/>
 
-                                    <Label Text="{Binding Description}"/>
+                                        <Label Text="{Binding Description}" FontFamily="Calibri"/>
 
                                 </VerticalStackLayout>
+                                
                             </Frame>
+                            </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -90,9 +109,9 @@
                      Grid.Row="0"
                      HorizontalOptions="End" 
                      VerticalOptions="End"
-                   
+                     BackgroundColor="Transparent"
                         
-                     Margin="0,0,0,0"
+                     Margin="0,0,5,5"
                      
                      
                      
