@@ -25,22 +25,23 @@
     </Shell.TitleView>
     
     <Grid ColumnDefinitions="*" RowDefinitions="*">
+
+
         <ScrollView Grid.Column="0" Grid.Row="0">
-            <VerticalStackLayout VerticalOptions="Start" 
-                                 HorizontalOptions="Center"
-                                 Margin="10">
-                <CollectionView ItemsSource="{Binding Events}">
+            <VerticalStackLayout Margin="10">
+                <CollectionView ItemsSource="{Binding Events, Mode=TwoWay}"
+                                    SelectedItem="{Binding}" HorizontalOptions="Center">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Event">
-                            <Frame BorderColor="Black"
-                                   Margin="0,0,0,10" 
-                                   CornerRadius="5">
+                            <Frame BackgroundColor="Transparent"
+                                        IsClippedToBounds="False"
+                                        Margin="5">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
-                                        CommandParameter="{Binding .}"/>
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
+                                            CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
-                                
+
                                 <VerticalStackLayout Padding="10,0,0,0">
 
                                     <Label Text="{Binding Name, Mode=TwoWay}" FontFamily="Calibri" FontSize="22"/>
@@ -51,12 +52,12 @@
 
                                 </VerticalStackLayout>
                             </Frame>
-                    </DataTemplate>
+                        </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Label Text="{Binding}"/>
             </VerticalStackLayout>
         </ScrollView>
+
         <ImageButton Source="plus01.png" 
                      Grid.Column="0"
                      Grid.Row="0"
@@ -68,5 +69,6 @@
                      Margin="0,0,30,30"
                      Opacity="0.6"
                      Command="{Binding AddNewEventCommand}"/>
+        
     </Grid>
 </ContentPage>

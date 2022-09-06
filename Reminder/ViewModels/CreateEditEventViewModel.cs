@@ -14,24 +14,22 @@ namespace Reminder.ViewModels
 {
     [QueryProperty(nameof(Title), "Title")]
     [QueryProperty(nameof(EditableEvent), "Event")]
-    [QueryProperty(nameof(Events), "Events")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
         [ObservableProperty]
         private Event editableEvent;
 
-        [ObservableProperty]
-        private ObservableCollection<Event> events;
+        private readonly EventFileIOService eventFileIOService;
+        private readonly MainPageViewModel mainVM;
 
-        public MainPageViewModel mainVM { get; }
-
-        public CreateEditEventViewModel(MainPageViewModel mainVM)
+        public CreateEditEventViewModel(EventFileIOService fileIOService, MainPageViewModel mainVM)
         {
+            eventFileIOService = fileIOService;
             this.mainVM = mainVM;
         }
 
         [RelayCommand]
-        async void SaveEvent()
+        async Task SaveEvent()
         {
             if (EditableEvent is null) return;
             if (string.IsNullOrWhiteSpace(EditableEvent.Name))
@@ -39,22 +37,21 @@ namespace Reminder.ViewModels
                 await Shell.Current.DisplayAlert("Name is null","Не задано имя события","Cancel");
                 return;
             }
-            //var indexEvent = Events.IndexOf(EditableEvent);
-            //if (indexEvent == -1) return;
 
             //editableEvent.DateTimeEvent = editableEvent.DateTimeEvent.Add(timeEvent);
             EditableEvent.DateCreatedUpdated = DateTime.Now;
             EditableEvent.Done = false;
-            OnPropertyChanged(nameof(mainVM));
-            Cancel();
+
+            await eventFileIOService.SaveEventsDataAsync(mainVM.Events);
+
+            mainVM.GetDataEvents();
+
+            await Cancel();
         }
 
         [RelayCommand]
-        async void Cancel()
+        async Task Cancel()
         {
-            Title = null;
-            EditableEvent = null;
-            //Events = null;
             await Shell.Current.GoToAsync("..", true);
         }
     }

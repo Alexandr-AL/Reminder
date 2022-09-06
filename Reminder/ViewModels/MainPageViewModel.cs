@@ -18,7 +18,7 @@ namespace Reminder.ViewModels
         private readonly EventFileIOService eventFileIOService;
 
         [ObservableProperty]
-        private ObservableCollection<Event> events = new();
+        private ObservableCollection<Event> events;
 
         public MainPageViewModel(EventFileIOService eventFileIOService)
         {
@@ -26,24 +26,22 @@ namespace Reminder.ViewModels
             Title = "Reminder";
             GetDataEvents();
         }
-
-        private async void GetDataEvents()
+        
+        public async void GetDataEvents()
         {
             var _events = await eventFileIOService.LoadEventsDataAsync();
             if (_events is null) return;
-            foreach (var item in _events)
-                events.Add(item);
+            Events = _events;
         }
 
         [RelayCommand]
         private async Task AddNewEvent()
         {
-            events[0].Name = "FUCKING BINDING";
-            //await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true, 
-            //    new Dictionary<string, object> 
-            //    { 
-            //        { "Title", "Add New Event"}
-            //    });
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
+                new Dictionary<string, object>
+                {
+                    { "Title", "Add New Event"}
+                });
         }
 
         [RelayCommand]
@@ -58,7 +56,6 @@ namespace Reminder.ViewModels
                 {
                     { "Title", $"Edit \"{_event.Name}\""},
                     { "Event", _event }
-                    //{"Events", events }
                 });
         }
     }

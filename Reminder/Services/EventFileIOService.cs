@@ -1,4 +1,5 @@
 ﻿using Reminder.Models;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -8,7 +9,7 @@ namespace Reminder.Services
     {
         private readonly string pathToEventsData = Path.Combine(FileSystem.Current.AppDataDirectory, "EventsData.json");
 
-        public async Task<List<Event>> LoadEventsDataAsync()
+        public async Task<ObservableCollection<Event>> LoadEventsDataAsync()
         {
             if (!File.Exists(pathToEventsData)) 
                 return await CreateNewEventsData();
@@ -19,7 +20,7 @@ namespace Reminder.Services
                 using var streamReader = new StreamReader(fileStreamToRead);
                 
                 var eventsData = await streamReader.ReadToEndAsync();
-                var events = JsonSerializer.Deserialize<List<Event>>(eventsData);
+                var events = JsonSerializer.Deserialize<ObservableCollection<Event>>(eventsData);
 
                 return events;
             }
@@ -31,7 +32,7 @@ namespace Reminder.Services
             }
         }
 
-        public async Task<bool> SaveEventsDataAsync(List<Event> events)
+        public async Task<bool> SaveEventsDataAsync(ObservableCollection<Event> events)
         {
             if (!File.Exists(pathToEventsData))
             {
@@ -41,12 +42,14 @@ namespace Reminder.Services
 
             try
             {
-                using var fileStreamToWrite = File.OpenWrite(pathToEventsData);
-                using var streamWriter = new StreamWriter(fileStreamToWrite);
+                //using var fileStreamToWrite = File.OpenWrite(pathToEventsData);
+                //using var streamWriter = new StreamWriter(fileStreamToWrite);
+
+                using var streamWriter = File.CreateText(pathToEventsData);
 
                 var eventsData = JsonSerializer.Serialize(events);
 
-                await streamWriter.WriteAsync(eventsData);
+                streamWriter.Write(eventsData);
                 return true;
             }
             catch (Exception ex)
@@ -57,7 +60,7 @@ namespace Reminder.Services
             }
         }
 
-        private async Task<List<Event>> CreateNewEventsData()
+        private async Task<ObservableCollection<Event>> CreateNewEventsData()
         {
             try
             {
@@ -78,7 +81,7 @@ namespace Reminder.Services
             }
         }
 
-        private async Task<List<Event>> GetTestDataAsync()
+        private async Task<ObservableCollection<Event>> GetTestDataAsync()
         {
             try
             {
@@ -86,7 +89,7 @@ namespace Reminder.Services
                 using var reader = new StreamReader(stream);
 
                 var eventsInString = await reader.ReadToEndAsync();
-                var events = JsonSerializer.Deserialize<List<Event>>(eventsInString);
+                var events = JsonSerializer.Deserialize<ObservableCollection<Event>>(eventsInString);
                 return events;
             }
             catch (Exception ex)

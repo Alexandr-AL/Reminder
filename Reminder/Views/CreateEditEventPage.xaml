@@ -4,6 +4,7 @@
              x:Class="Reminder.Views.CreateEditEventPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              Title="{Binding Title}"
+             Shell.PresentationMode="Animated"
              x:DataType="vm:CreateEditEventViewModel">
     
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
