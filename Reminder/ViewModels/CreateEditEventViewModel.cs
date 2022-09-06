@@ -13,43 +13,48 @@ using System.Threading.Tasks;
 namespace Reminder.ViewModels
 {
     [QueryProperty(nameof(Title), "Title")]
-    [QueryProperty(nameof(Event), "EditableEvent")]
+    [QueryProperty(nameof(EditableEvent), "Event")]
+    [QueryProperty(nameof(Events), "Events")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
         [ObservableProperty]
-        private Event _event;
+        private Event editableEvent;
 
-        private readonly EventFileIOService eventFileIOService;
+        [ObservableProperty]
         private ObservableCollection<Event> events;
 
-        public CreateEditEventViewModel(EventFileIOService eventFileIOService, MainPageViewModel mainModel)
+        public MainPageViewModel mainVM { get; }
+
+        public CreateEditEventViewModel(MainPageViewModel mainVM)
         {
-            this.eventFileIOService = eventFileIOService;
-            events = mainModel.Events;
+            this.mainVM = mainVM;
         }
 
         [RelayCommand]
         async void SaveEvent()
         {
-            if (_event is null) return;
-            if (string.IsNullOrWhiteSpace(_event.Name))
+            if (EditableEvent is null) return;
+            if (string.IsNullOrWhiteSpace(EditableEvent.Name))
             {
                 await Shell.Current.DisplayAlert("Name is null","Не задано имя события","Cancel");
                 return;
             }
+            //var indexEvent = Events.IndexOf(EditableEvent);
+            //if (indexEvent == -1) return;
 
-            _event.DateCreatedUpdated = DateTime.Now;
-            _event.Done = false;
-
-            var indexEvent = events.IndexOf(_event);
-            events[indexEvent] = _event;
-
+            //editableEvent.DateTimeEvent = editableEvent.DateTimeEvent.Add(timeEvent);
+            EditableEvent.DateCreatedUpdated = DateTime.Now;
+            EditableEvent.Done = false;
+            OnPropertyChanged(nameof(mainVM));
             Cancel();
         }
 
         [RelayCommand]
         async void Cancel()
         {
+            Title = null;
+            EditableEvent = null;
+            //Events = null;
             await Shell.Current.GoToAsync("..", true);
         }
     }

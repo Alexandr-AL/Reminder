@@ -17,7 +17,8 @@ namespace Reminder.ViewModels
     {
         private readonly EventFileIOService eventFileIOService;
 
-        public ObservableCollection<Event> Events { get; set; } = new();
+        [ObservableProperty]
+        private ObservableCollection<Event> events = new();
 
         public MainPageViewModel(EventFileIOService eventFileIOService)
         {
@@ -28,35 +29,37 @@ namespace Reminder.ViewModels
 
         private async void GetDataEvents()
         {
-            var events = await eventFileIOService.LoadEventsDataAsync();
-
-            if (events is null) return;
-
-            foreach (var item in events)
-                Events.Add(item);
+            var _events = await eventFileIOService.LoadEventsDataAsync();
+            if (_events is null) return;
+            foreach (var item in _events)
+                events.Add(item);
         }
 
         [RelayCommand]
         private async Task AddNewEvent()
         {
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true, 
-                new Dictionary<string, object> 
-                { 
-                    { "Title", "Add New Event"}
-                });
+            events[0].Name = "FUCKING BINDING";
+            //await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true, 
+            //    new Dictionary<string, object> 
+            //    { 
+            //        { "Title", "Add New Event"}
+            //    });
         }
 
         [RelayCommand]
         private async Task EditEvent(Event _event)
         {
             if (_event is null) return;
+
+            //TimeEvent = _event.DateTimeEvent.TimeOfDay;
+
             await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
-                    { "Title", $"Edit \"{_event.Name}\" Event"},
-                    { "EditableEvent", _event }
+                    { "Title", $"Edit \"{_event.Name}\""},
+                    { "Event", _event }
+                    //{"Events", events }
                 });
         }
-
     }
 }

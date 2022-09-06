@@ -10,7 +10,7 @@
         
         <HorizontalStackLayout>
             <Label Text="Name:" FontSize="25" Margin="10,0"/>
-            <Entry Text="{Binding Event.Name}"  
+            <Entry Text="{Binding EditableEvent.Name}"  
                    MaximumWidthRequest="200" 
                    MinimumWidthRequest="200" 
                    FontSize="20" BackgroundColor="LightGray"/>
@@ -18,23 +18,23 @@
 
         <HorizontalStackLayout VerticalOptions="Center">
             <Label Text="Date:" FontSize="25" Margin="10,0" VerticalOptions="Center"/>
-            
-            <DatePicker Date="{Binding Event.DateTimeEvent}" 
+
+            <DatePicker Date="{Binding EditableEvent.DateTimeEvent}" 
                         FontSize="25" 
                         VerticalOptions="Start" 
                         BackgroundColor="LightGrey"
                         Format="dd MMMM yyyy"/>
         </HorizontalStackLayout>
-        
-        <TimePicker Time="{Binding Event.DateTimeEvent.TimeOfDay}" 
+
+        <TimePicker Time="{Binding EditableEvent.DateTimeEvent.TimeOfDay}"
                     FontSize="25" 
                     HorizontalOptions="Center"
                     BackgroundColor="LightGrey"
                     Format="HH:mm"/>
 
         <Label Text="Description:" FontSize="25" HorizontalOptions="Center"/>
-        
-        <Editor Text="{Binding Event.Description}"
+
+        <Editor Text="{Binding EditableEvent.Description}"
                 AutoSize="TextChanges"
                 MaximumHeightRequest="400"
                 MinimumHeightRequest="150"

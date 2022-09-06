@@ -16,5 +16,17 @@ namespace Reminder.Models
 
         public DateTime DateCreatedUpdated { get; set; } = DateTime.Now;
         public bool Done { get; set; } = false;
+
+        public Event() { }
+
+        public Event(Event _event)
+        {
+            Id = _event.Id;
+            Name = _event.Name;
+            DateTimeEvent = _event.DateTimeEvent;
+            Description = _event.Description;
+            DateCreatedUpdated = _event.DateCreatedUpdated;
+            Done = _event.Done;
+        }
     }
 }
