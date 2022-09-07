@@ -39,14 +39,9 @@ namespace Reminder.ViewModels
         async Task SaveEvent()
         {
             if (EditableEvent is null || mainVM.Events is null) return;
-            if (string.IsNullOrWhiteSpace(EditableEvent.Name))
-            {
-                await Shell.Current.DisplayAlert("", "Не задано имя события", "Cancel");
-                return;
-            }
 
             EditableEvent.DateTimeEvent = EditableEvent.DateTimeEvent.Add(timeEvent);
-            EditableEvent.DateCreatedUpdated = DateTime.Now;
+            EditableEvent.DateModified = DateTime.Now;
             EditableEvent.Done = false;
 
             if (isNew) mainVM.Events.Insert(0, EditableEvent);
@@ -59,7 +54,7 @@ namespace Reminder.ViewModels
         [RelayCommand]
         async Task Cancel() 
         {
-            mainVM.GetDataEvents();
+            await mainVM.GetDataEvents();
             await Shell.Current.GoToAsync("..", true);
         }
     }

@@ -32,7 +32,6 @@
                 
                 <CollectionView ItemsSource="{Binding Events}"
                                 SelectedItem="{Binding}"
-                                MaximumWidthRequest="350"
                                 HorizontalOptions="Center">
                     
                     <CollectionView.ItemTemplate>
@@ -61,7 +60,8 @@
                                                      MaximumHeightRequest="25"
                                                      Opacity="0.4"
                                                      Rotation="45"
-                                                     HorizontalOptions="End"/>
+                                                     HorizontalOptions="End"
+                                                     VerticalOptions="Start"/>
                                     </Grid>
 
                                     <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"

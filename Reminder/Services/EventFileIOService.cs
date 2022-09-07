@@ -44,7 +44,7 @@ namespace Reminder.Services
             {
                 using var streamWriter = File.CreateText(pathToEventsData);
                 var eventsData = JsonSerializer.Serialize(events);
-                streamWriter.Write(eventsData);
+                await streamWriter.WriteAsync(eventsData);
                 return true;
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace Reminder.Services
                 var testEvents = await GetTestDataAsync();
                 var testEventsData = JsonSerializer.Serialize(testEvents);
 
-                streamWriter.Write(testEventsData);
+                await streamWriter.WriteAsync(testEventsData);
                 return testEvents;
             }
             catch (Exception ex)

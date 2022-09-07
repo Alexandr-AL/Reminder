@@ -6,52 +6,78 @@
              Title="{Binding Title}"
              Shell.PresentationMode="Animated"
              x:DataType="vm:CreateEditEventViewModel">
-    <ScrollView>
-        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-        
-            <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="Name:" FontSize="25" Margin="10,0"/>
-                <Entry Text="{Binding EditableEvent.Name}"  
-                       MaximumWidthRequest="200" 
-                       MinimumWidthRequest="200" 
-                       FontSize="20" BackgroundColor="LightGray"/>
-            </HorizontalStackLayout>
+    
+    
+    <Grid>
+        <ScrollView>
+            <Grid>
+                <VerticalStackLayout Margin="10,70,10,10"
+                                     VerticalOptions="Center" 
+                                     HorizontalOptions="Center" 
+                                     Spacing="10">
 
-            <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="Date:" FontSize="25" Margin="10,0" VerticalOptions="Center"/>
+                    <Border Stroke="Transparent" Margin="0,0,0,20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5"/>
+                        </Border.StrokeShape>
+                        <Editor Text="{Binding EditableEvent.Name}"
+                            Placeholder="enter event name"
+                            PlaceholderColor="{StaticResource Gray200}"
+                            AutoSize="TextChanges"
+                            MaximumHeightRequest="150"
+                            MaxLength="256"
+                            MinimumWidthRequest="200"
+                            MaximumWidthRequest="300"
+                            FontSize="25"
+                            BackgroundColor="{StaticResource Yellow300Accent}"/>
+                    </Border>
 
-                <DatePicker Date="{Binding EditableEvent.DateTimeEvent}" 
-                            FontSize="25" 
-                            VerticalOptions="Start" 
-                            BackgroundColor="LightGrey"
-                            Format="dd MMMM yyyy"/>
-            </HorizontalStackLayout>
+                    <Border>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5"/>
+                        </Border.StrokeShape>
+                        <DatePicker Date="{Binding EditableEvent.DateTimeEvent}" 
+                                    HorizontalOptions="Center"
+                                    FontSize="25"
+                                    Format="dd MMMM yyyy"/>
+                    </Border>
 
-            <TimePicker Time="{Binding TimeEvent}"
-                        FontSize="25" 
-                        HorizontalOptions="Center"
-                        BackgroundColor="LightGrey"
-                        Format="HH:mm"/>
+                    <Border>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5"/>
+                        </Border.StrokeShape>
+                        <TimePicker Time="{Binding TimeEvent}"
+                                    HorizontalOptions="Center"
+                                    FontSize="25"
+                                    BackgroundColor="LightGrey"
+                                    Format="HH:mm"/>
+                    </Border>
 
-            <Label Text="Description:" FontSize="25" HorizontalOptions="Center"/>
+                    <Border Stroke="Transparent" Margin="0,30,0,0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5"/>
+                        </Border.StrokeShape>
+                        <Editor Text="{Binding EditableEvent.Description}"
+                                Placeholder="description"
+                                PlaceholderColor="{StaticResource Yellow100Accent}"
+                                AutoSize="TextChanges"
+                                MinimumHeightRequest="100"
+                                MaximumHeightRequest="300"
+                                FontSize="22"
+                                MinimumWidthRequest="300"
+                                BackgroundColor="{StaticResource Gray100}"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+            
+        <Button Command="{Binding SaveEventCommand}"
+                Text="Save"
+                FontSize="20"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                CornerRadius="20"
+                Margin="0,10,10,10"/>
 
-            <Editor Text="{Binding EditableEvent.Description}"
-                    AutoSize="TextChanges"
-                    MaximumHeightRequest="250"
-                    MinimumHeightRequest="150"
-                    MaximumWidthRequest="370"
-                    MinimumWidthRequest="370"
-                    Margin="20,0,20,20"
-                    BackgroundColor="DeepPink"
-                    FontSize="22"/>
-
-            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End">
-                <Button Text="Save" Command="{Binding SaveEventCommand}"/>
-                <Button Text="Cancel" Command="{Binding CancelCommand}"/>
-            </HorizontalStackLayout>
-        
-        </VerticalStackLayout>
-
-    </ScrollView>
-
+    </Grid>
 </ContentPage>

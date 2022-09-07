@@ -11,10 +11,14 @@ namespace Reminder.Models
         public Guid Id { get; set; } = Guid.NewGuid();
 
         public string Name { get; set; }
+
         public DateTime DateTimeEvent { get; set; }
+
         public string Description { get; set; }
 
-        public DateTime DateCreatedUpdated { get; set; } = DateTime.Now;
+        public DateTime DateModified { get; set; } = DateTime.Now;
+
+
         public bool Done { get; set; } = false;
 
         public Event() { }
@@ -25,7 +29,7 @@ namespace Reminder.Models
             Name = _event.Name;
             DateTimeEvent = _event.DateTimeEvent;
             Description = _event.Description;
-            DateCreatedUpdated = _event.DateCreatedUpdated;
+            DateModified = _event.DateModified;
             Done = _event.Done;
         }
     }

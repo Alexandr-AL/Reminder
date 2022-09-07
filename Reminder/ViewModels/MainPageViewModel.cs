@@ -27,7 +27,7 @@ namespace Reminder.ViewModels
             GetDataEvents();
         }
         
-        public async void GetDataEvents()
+        public async Task GetDataEvents()
         {
             var _events = await eventFileIOService.LoadEventsDataAsync();
             if (_events is null) return;
@@ -68,8 +68,10 @@ namespace Reminder.ViewModels
         private async Task DeleteEvent(Event _event)
         {
             Events.Remove(_event);
+            OnPropertyChanged(nameof(Events));
             await eventFileIOService.SaveEventsDataAsync(Events);
-            GetDataEvents();
+            await GetDataEvents();
         }
+
     }
 }
