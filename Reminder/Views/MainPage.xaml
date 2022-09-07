@@ -49,7 +49,9 @@
     
     <Grid ColumnDefinitions="*" RowDefinitions="*">
         <ScrollView Grid.Column="0" Grid.Row="0">
-            <VerticalStackLayout VerticalOptions="Start" 
+            <VerticalStackLayout 
+                
+                                 VerticalOptions="Start" 
                                  HorizontalOptions="Start"
                                  Margin="0,0,0,0"
                                  Padding="0,0,0,0"
@@ -61,12 +63,14 @@
 
                             <Grid>
 
-                                
-                                
+                               
+
                                 <Frame 
-                                   BorderColor="#141414"
+                                   BorderColor="#909090"
                                    
-                                   Margin="0,0,0,10" 
+                                   MaximumWidthRequest="500"
+                                   MaximumHeightRequest="500"
+                                   Margin="13,10,13,10" 
                                    CornerRadius="5"
                                    HasShadow="True"
                                    
