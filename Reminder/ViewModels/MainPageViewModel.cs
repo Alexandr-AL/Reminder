@@ -18,7 +18,7 @@ namespace Reminder.ViewModels
         private readonly EventFileIOService eventFileIOService;
 
         [ObservableProperty]
-        private ObservableCollection<Event> events;
+        private ObservableCollection<Event> events = new();
 
         public MainPageViewModel(EventFileIOService eventFileIOService)
         {
@@ -49,13 +49,14 @@ namespace Reminder.ViewModels
         {
             if (_event is null) return;
 
-            //TimeEvent = _event.DateTimeEvent.TimeOfDay;
+            var timeEvent = _event.DateTimeEvent.TimeOfDay;
 
             await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
                     { "Title", $"Edit \"{_event.Name}\""},
-                    { "Event", _event }
+                    { "Event", _event },
+                    { "TimeEvent", timeEvent }
                 });
         }
     }

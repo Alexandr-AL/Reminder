@@ -14,44 +14,47 @@ namespace Reminder.ViewModels
 {
     [QueryProperty(nameof(Title), "Title")]
     [QueryProperty(nameof(EditableEvent), "Event")]
+    [QueryProperty(nameof(TimeEvent), "TimeEvent")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
         [ObservableProperty]
         private Event editableEvent;
 
-        private readonly EventFileIOService eventFileIOService;
+        [ObservableProperty]
+        private TimeSpan timeEvent;
+
+        private readonly EventFileIOService fileIOService;
         private readonly MainPageViewModel mainVM;
 
         public CreateEditEventViewModel(EventFileIOService fileIOService, MainPageViewModel mainVM)
         {
-            eventFileIOService = fileIOService;
+            this.fileIOService = fileIOService;
             this.mainVM = mainVM;
         }
 
         [RelayCommand]
         async Task SaveEvent()
         {
-            if (EditableEvent is null) return;
+            if (EditableEvent is null || mainVM.Events is null) return;
             if (string.IsNullOrWhiteSpace(EditableEvent.Name))
             {
-                await Shell.Current.DisplayAlert("Name is null","Не задано имя события","Cancel");
+                await Shell.Current.DisplayAlert("","Не задано имя события","Cancel");
                 return;
             }
 
-            //editableEvent.DateTimeEvent = editableEvent.DateTimeEvent.Add(timeEvent);
+            EditableEvent.DateTimeEvent = EditableEvent.DateTimeEvent.Add(timeEvent);
             EditableEvent.DateCreatedUpdated = DateTime.Now;
             EditableEvent.Done = false;
 
-            await eventFileIOService.SaveEventsDataAsync(mainVM.Events);
-
-            mainVM.GetDataEvents();
-
+            await fileIOService.SaveEventsDataAsync(mainVM.Events);
+            
             await Cancel();
         }
 
         [RelayCommand]
-        async Task Cancel()
+        async Task Cancel() 
         {
+            mainVM.GetDataEvents();
             await Shell.Current.GoToAsync("..", true);
         }
     }
