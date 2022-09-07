@@ -20,35 +20,47 @@
                    Text="Напоминалка"  
                    FontSize="20" 
                    TextColor="White" 
-                   Margin="0, 0, 0, 0"/>
+                   Margin="10, 0, 0, 0"/>
         </Grid>
     </Shell.TitleView>
     
     <Grid ColumnDefinitions="*" RowDefinitions="*">
 
-
         <ScrollView Grid.Column="0" Grid.Row="0">
+            
             <VerticalStackLayout Margin="10">
-                <CollectionView ItemsSource="{Binding Events, Mode=TwoWay}"
-                                    SelectedItem="{Binding}" HorizontalOptions="Center">
+                
+                <CollectionView ItemsSource="{Binding Events}"
+                                SelectedItem="{Binding}"
+                                MaximumWidthRequest="350">
+                    
                     <CollectionView.ItemTemplate>
+                        
                         <DataTemplate x:DataType="model:Event">
+                            
                             <Frame BackgroundColor="Transparent"
-                                        IsClippedToBounds="False"
-                                        Margin="5">
+                                   IsClippedToBounds="False"
+                                   Margin="5">
+                                
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
                                             CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
 
-                                <VerticalStackLayout Padding="10,0,0,0">
+                                <VerticalStackLayout Padding="10,0,0,0"
+                                                     Margin="1">
 
-                                    <Label Text="{Binding Name, Mode=TwoWay}" FontFamily="Calibri" FontSize="22"/>
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="Calibri" 
+                                           FontSize="24"/>
 
-                                    <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}', Mode=TwoWay}"/>
+                                    <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                           FontSize="14"/>
 
-                                    <Label Text="{Binding Description, Mode=TwoWay}"/>
+                                    <Border BackgroundColor="Transparent" Margin="0,3"/>
+
+                                    <Label Text="{Binding Description}" FontSize="16"/>
 
                                 </VerticalStackLayout>
                             </Frame>

@@ -18,7 +18,7 @@ namespace Reminder.ViewModels
         private readonly EventFileIOService eventFileIOService;
 
         [ObservableProperty]
-        private ObservableCollection<Event> events = new();
+        private ObservableCollection<Event> events;
 
         public MainPageViewModel(EventFileIOService eventFileIOService)
         {
