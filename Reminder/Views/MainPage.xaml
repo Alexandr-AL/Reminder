@@ -28,11 +28,12 @@
 
         <ScrollView Grid.Column="0" Grid.Row="0">
             
-            <VerticalStackLayout Margin="10">
+            <VerticalStackLayout Margin="5">
                 
                 <CollectionView ItemsSource="{Binding Events}"
                                 SelectedItem="{Binding}"
-                                MaximumWidthRequest="350">
+                                MaximumWidthRequest="350"
+                                HorizontalOptions="Center">
                     
                     <CollectionView.ItemTemplate>
                         
@@ -40,7 +41,7 @@
                             
                             <Frame BackgroundColor="Transparent"
                                    IsClippedToBounds="False"
-                                   Margin="5">
+                                   Margin="10,5,10,10" Padding="20,5,10,15">
                                 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
@@ -48,17 +49,26 @@
                                             CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
 
-                                <VerticalStackLayout Padding="10,0,0,0"
-                                                     Margin="1">
+                                <VerticalStackLayout Margin="1">
 
-                                    <Label Text="{Binding Name}"
-                                           FontFamily="Calibri" 
-                                           FontSize="24"/>
+                                    <Grid>
+                                        <Label Text="{Binding Name}"
+                                               FontFamily="Calibri" 
+                                               FontSize="24"/>
+                                        <ImageButton Source="plus01.png"
+                                                     MaximumWidthRequest="25"
+                                                     MaximumHeightRequest="25"
+                                                     Opacity="0.4"
+                                                     Rotation="45"
+                                                     HorizontalOptions="End"/>
+                                    </Grid>
 
                                     <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
                                            FontSize="14"/>
 
-                                    <Border BackgroundColor="Transparent" Margin="0,3"/>
+                                    <Border BackgroundColor="Transparent" 
+                                            Margin="0,1,0,0" 
+                                            Padding="0,1,0,0"/>
 
                                     <Label Text="{Binding Description}" FontSize="16"/>
 
