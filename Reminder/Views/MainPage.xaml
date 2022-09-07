@@ -16,8 +16,8 @@
             <Button HorizontalOptions="End" 
                     Margin="0, 0, 5, 0" 
                     
-                                       
-                    ImageSource="search01.svg"
+                    BackgroundColor="Transparent"                   
+                    ImageSource="search.png"
                     FontFamily="Calibri"
                     
                     FontSize="20"
@@ -108,10 +108,12 @@
         <Button  ImageSource="plus1122.png" 
                      Grid.Column="0"
                      Grid.Row="0"
-                     HorizontalOptions="End" 
+                     BorderColor="Transparent"
+                 HorizontalOptions="End" 
                      VerticalOptions="End"
                      BackgroundColor="Transparent"
-                        
+                     MaximumHeightRequest="64"
+                    MinimumWidthRequest="64"
                      Margin="0,0,5,5"
                      
                      
