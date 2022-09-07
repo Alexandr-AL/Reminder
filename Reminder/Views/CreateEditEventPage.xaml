@@ -6,52 +6,52 @@
              Title="{Binding Title}"
              Shell.PresentationMode="Animated"
              x:DataType="vm:CreateEditEventViewModel">
-    
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+    <ScrollView>
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
         
-        <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label Text="Name:" FontSize="25" Margin="10,0"/>
-            <Entry Text="{Binding EditableEvent.Name}"  
-                   MaximumWidthRequest="200" 
-                   MinimumWidthRequest="200" 
-                   FontSize="20" BackgroundColor="LightGray"/>
-        </HorizontalStackLayout>
+            <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="Name:" FontSize="25" Margin="10,0"/>
+                <Entry Text="{Binding EditableEvent.Name}"  
+                       MaximumWidthRequest="200" 
+                       MinimumWidthRequest="200" 
+                       FontSize="20" BackgroundColor="LightGray"/>
+            </HorizontalStackLayout>
 
-        <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label Text="Date:" FontSize="25" Margin="10,0" VerticalOptions="Center"/>
+            <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="Date:" FontSize="25" Margin="10,0" VerticalOptions="Center"/>
 
-            <DatePicker Date="{Binding EditableEvent.DateTimeEvent}" 
+                <DatePicker Date="{Binding EditableEvent.DateTimeEvent}" 
+                            FontSize="25" 
+                            VerticalOptions="Start" 
+                            BackgroundColor="LightGrey"
+                            Format="dd MMMM yyyy"/>
+            </HorizontalStackLayout>
+
+            <TimePicker Time="{Binding TimeEvent}"
                         FontSize="25" 
-                        VerticalOptions="Start" 
+                        HorizontalOptions="Center"
                         BackgroundColor="LightGrey"
-                        Format="dd MMMM yyyy"/>
-        </HorizontalStackLayout>
+                        Format="HH:mm"/>
 
-        <TimePicker Time="{Binding TimeEvent}"
-                    FontSize="25" 
-                    HorizontalOptions="Center"
-                    BackgroundColor="LightGrey"
-                    Format="HH:mm"/>
+            <Label Text="Description:" FontSize="25" HorizontalOptions="Center"/>
 
-        <Label Text="Description:" FontSize="25" HorizontalOptions="Center"/>
+            <Editor Text="{Binding EditableEvent.Description}"
+                    AutoSize="TextChanges"
+                    MaximumHeightRequest="250"
+                    MinimumHeightRequest="150"
+                    MaximumWidthRequest="370"
+                    MinimumWidthRequest="370"
+                    Margin="20,0,20,20"
+                    BackgroundColor="DeepPink"
+                    FontSize="22"/>
 
-        <Editor Text="{Binding EditableEvent.Description}"
-                AutoSize="TextChanges"
-                MaximumHeightRequest="250"
-                MinimumHeightRequest="150"
-                MaximumWidthRequest="370"
-                MinimumWidthRequest="370"
-                Margin="20,0,20,20"
-                BackgroundColor="DeepPink"
-                FontSize="22"/>
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End">
+                <Button Text="Save" Command="{Binding SaveEventCommand}"/>
+                <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+            </HorizontalStackLayout>
+        
+        </VerticalStackLayout>
 
-        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End">
-            <Button Text="Save" Command="{Binding SaveEventCommand}"/>
-            <Button Text="Cancel" Command="{Binding CancelCommand}"/>
-        </HorizontalStackLayout>
+    </ScrollView>
 
-    </VerticalStackLayout>
-    
-    
-    
 </ContentPage>
