@@ -15,6 +15,7 @@ namespace Reminder.ViewModels
     [QueryProperty(nameof(Title), "Title")]
     [QueryProperty(nameof(EditableEvent), "Event")]
     [QueryProperty(nameof(TimeEvent), "TimeEvent")]
+    [QueryProperty (nameof(isNew), "IsNew")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
         [ObservableProperty]
@@ -25,6 +26,8 @@ namespace Reminder.ViewModels
 
         private readonly EventFileIOService fileIOService;
         private readonly MainPageViewModel mainVM;
+
+        public bool isNew { get; set; }
 
         public CreateEditEventViewModel(EventFileIOService fileIOService, MainPageViewModel mainVM)
         {
@@ -38,7 +41,7 @@ namespace Reminder.ViewModels
             if (EditableEvent is null || mainVM.Events is null) return;
             if (string.IsNullOrWhiteSpace(EditableEvent.Name))
             {
-                await Shell.Current.DisplayAlert("","Не задано имя события","Cancel");
+                await Shell.Current.DisplayAlert("", "Не задано имя события", "Cancel");
                 return;
             }
 
@@ -46,8 +49,10 @@ namespace Reminder.ViewModels
             EditableEvent.DateCreatedUpdated = DateTime.Now;
             EditableEvent.Done = false;
 
+            if (isNew) mainVM.Events.Insert(0, EditableEvent);
+
             await fileIOService.SaveEventsDataAsync(mainVM.Events);
-            
+
             await Cancel();
         }
 

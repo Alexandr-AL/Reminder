@@ -42,13 +42,8 @@ namespace Reminder.Services
 
             try
             {
-                //using var fileStreamToWrite = File.OpenWrite(pathToEventsData);
-                //using var streamWriter = new StreamWriter(fileStreamToWrite);
-
                 using var streamWriter = File.CreateText(pathToEventsData);
-
                 var eventsData = JsonSerializer.Serialize(events);
-
                 streamWriter.Write(eventsData);
                 return true;
             }

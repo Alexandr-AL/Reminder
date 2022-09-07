@@ -44,9 +44,8 @@
                                    Margin="10,5,10,10" Padding="20,5,10,15">
                                 
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
-                                            CommandParameter="{Binding .}"/>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"/>
                                 </Frame.GestureRecognizers>
 
                                 <VerticalStackLayout Margin="1">
@@ -55,7 +54,9 @@
                                         <Label Text="{Binding Name}"
                                                FontFamily="Calibri" 
                                                FontSize="24"/>
-                                        <ImageButton Source="plus01.png"
+                                        <ImageButton CommandParameter="{Binding .}"
+                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
+                                                     Source="plus01.png"
                                                      MaximumWidthRequest="25"
                                                      MaximumHeightRequest="25"
                                                      Opacity="0.4"

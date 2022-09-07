@@ -40,7 +40,10 @@ namespace Reminder.ViewModels
             await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
-                    { "Title", "Add New Event"}
+                    { "Title", "Add New Event"},
+                    { "Event", new Event{DateTimeEvent = DateTime.Now } },
+                    { "TimeEvent", DateTime.Now.TimeOfDay },
+                    { "IsNew", true }
                 });
         }
 
@@ -56,8 +59,17 @@ namespace Reminder.ViewModels
                 {
                     { "Title", $"Edit \"{_event.Name}\""},
                     { "Event", _event },
-                    { "TimeEvent", timeEvent }
+                    { "TimeEvent", timeEvent },
+                    { "IsNew", false }
                 });
+        }
+
+        [RelayCommand]
+        private async Task DeleteEvent(Event _event)
+        {
+            Events.Remove(_event);
+            await eventFileIOService.SaveEventsDataAsync(Events);
+            GetDataEvents();
         }
     }
 }
