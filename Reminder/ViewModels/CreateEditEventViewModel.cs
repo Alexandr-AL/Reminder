@@ -24,11 +24,6 @@ namespace Reminder.ViewModels
 
         public bool IsNew { get; set; }
 
-        public CreateEditEventViewModel(MainPageViewModel mainVM)
-        {
-            //events = mainVM.Events;
-        }
-
         [RelayCommand]
         private async Task SaveEvent()
         {
@@ -47,7 +42,7 @@ namespace Reminder.ViewModels
                 if (index < 0) return;
 
                 lock(Events) 
-                    Events[index] = new Event(EditableEvent);
+                    Events[index] = EditableEvent;
             }
 
             await Cancel();
@@ -56,8 +51,6 @@ namespace Reminder.ViewModels
         [RelayCommand]
         private async Task Cancel()
         {
-            //await Shell.Current.DisplayAlert("test", "test", "test");
-            //TimeEvent = default;
             await Shell.Current.GoToAsync("..", true);
         }
     }

@@ -6,169 +6,108 @@
              xmlns:model="clr-namespace:Reminder.Models"
              x:DataType="vm:MainPageViewModel"
              Title="{Binding Title}">
-    
+
     <Shell.TitleView>
-
-
-        
-        
         <Grid>
             <Button HorizontalOptions="End" 
-                    Margin="0, 0, 5, 0" 
-                    
+                    Margin="0, 0, 5, 0"
                     BackgroundColor="Transparent"                   
                     ImageSource="search.png"
                     FontFamily="Calibri"
-                    
                     FontSize="20"
-                    
                     TextColor="White"
-                    
                     Command="{Binding AddNewEventCommand}"/>
  <!--           
-            <ImageButton  
-                    Margin="0" 
-                    Padding="0"
-                    HorizontalOptions="Start"            
-                    Source="three03.svg"
-                    
-                    
-                
-                    Command="{Binding AddNewEventCommand}"/>
+            <ImageButton Margin="0" 
+                         Padding="0"
+                         HorizontalOptions="Start"            
+                         Source="three03.svg"
+                         Command="{Binding AddNewEventCommand}"/>
 -->
-            
             <Label VerticalOptions="Center"
                    FontFamily="Calibri" 
-                   Text="Напоминалка"  
+                   Text="Reminder"  
                    FontSize="20" 
                    TextColor="White"
-                   
-                   Margin="28, 0, 0, 0"/>
+                   Margin="28,0,0,0"/>
         </Grid>
     </Shell.TitleView>
     
     <Grid ColumnDefinitions="*" RowDefinitions="*">
 
         <ScrollView Grid.Column="0" Grid.Row="0">
-            <VerticalStackLayout 
-                
-                                 VerticalOptions="Start" 
+            
+            <VerticalStackLayout VerticalOptions="Start" 
                                  HorizontalOptions="Start"
                                  Margin="0,0,0,0"
-                                 Padding="0,0,0,0"
-                                 
-                                 >
+                                 Padding="0,0,0,0">
+                
                 <CollectionView ItemsSource="{Binding Events}">
+                    
                     <CollectionView.ItemTemplate>
                         
                         <DataTemplate x:DataType="model:Event">
 
                             <Grid>
-
-                               
-
-                                <Frame 
-                                   BorderColor="#909090"
-                                   
-                                   MaximumWidthRequest="500"
-                                   MaximumHeightRequest="500"
-                                   Margin="13,10,13,10" 
-                                   CornerRadius="5"
-                                   HasShadow="True"
-                                   
-                                   
-                               
-
-
-                                >
                                 
-                                
-                                    <!--
+                                <Frame BorderColor="#909090"
+                                       MaximumWidthRequest="500"
+                                       MaximumHeightRequest="500"
+                                       Margin="13,10,13,10" 
+                                       CornerRadius="5"
+                                       HasShadow="True">
                                     
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"/>
+                                    </Frame.GestureRecognizers>
+                                                <!--
+                                            <Image Margin="45,1,15,0" BackgroundColor="#141414"  Source="line.svg"/>
+                                            <Frame BorderColor="Transparent"
+                                                   Margin="15,0,0,0"
+                                                   CornerRadius="0"
+                                                   HasShadow="True">
                                     
-                                 <Image Margin="45,1,15,0" BackgroundColor="#141414"  Source="line.svg"/>
-                                <Frame 
-                                   BorderColor="Transparent"
-                                   Margin="15,0,0,0"
-                                   
-                                   CornerRadius="0"
-                                   HasShadow="True"
-                                   
-                                   
-                               
+                                                 Padding="0,0,0,0"
+                                                 это если сделать плотнее запоминалки, добавляем во фрейм выше
+                                                 -->
 
+                                    <VerticalStackLayout Margin="1">
+                                        <Grid RowDefinitions="Auto" ColumnDefinitions="Auto">
 
-                                >
-                                    
-                                    
-                                    
-                                    
-                                    Padding="0,0,0,0"
-                                    это если сделать плотнее запоминалки, добавляем во фрейм выше
-                                    -->
-                                
-
-
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"/>
-                                </Frame.GestureRecognizers>
-
-                                <VerticalStackLayout Margin="1">
-
-                                    <Grid>
-                                        <Label Text="{Binding Name}"
-                                               FontFamily="Calibri" 
-                                               FontSize="24"/>
-                                        <ImageButton CommandParameter="{Binding .}"
-                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
-                                                     Source="plus01.png"
-                                                     MaximumWidthRequest="25"
-                                                     MaximumHeightRequest="25"
-                                                     Opacity="0.4"
-                                                     Rotation="45"
-                                                     HorizontalOptions="End"
-                                                     VerticalOptions="Start"/>
-                                    </Grid>
-
-                                    <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="22"/>
+                                        <Button CommandParameter="{Binding .}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
+                                                Text="X"
+                                                TextColor="Red"/>
+                                        
+                                        </Grid>
+                                        <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="24"/>
 
                                         <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontFamily="Calibri"/>
 
                                         <Label Text="{Binding Description}" FontFamily="Calibri"/>
 
-                                </VerticalStackLayout>
-                                
-                            </Frame>
+                                    </VerticalStackLayout>
+                                </Frame>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-        <Button  ImageSource="plus1122.png" 
-                     Grid.Column="0"
-                     Grid.Row="0"
-                     BorderColor="Transparent"
-                 HorizontalOptions="End" 
-                     VerticalOptions="End"
-                     BackgroundColor="Transparent"
-                     MaximumHeightRequest="64"
-                    MinimumWidthRequest="64"
-                     Margin="0,0,5,5"
-                     
-                     
-                     
-                     Command="{Binding AddNewEventCommand}"/>
+        
+        <Button ImageSource="plus1122.png" 
+                Grid.Column="0"
+                Grid.Row="0"
+                BorderColor="Transparent"
+                HorizontalOptions="End" 
+                VerticalOptions="End"
+                BackgroundColor="Transparent"
+                MaximumHeightRequest="64"
+                MinimumWidthRequest="64"
+                Margin="0,0,5,5"
+                Command="{Binding AddNewEventCommand}"/>
         
     </Grid>
-
-
-    <!--                
-                     MaximumHeightRequest="16"
-                     MaximumWidthRequest="16"
--->
-
-    
 
 </ContentPage>

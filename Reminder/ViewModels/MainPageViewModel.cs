@@ -48,6 +48,7 @@ namespace Reminder.ViewModels
         [RelayCommand]
         private async Task AddNewEvent()
         {
+
             await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
@@ -63,16 +64,17 @@ namespace Reminder.ViewModels
         private async Task EditEvent(Event _event)
         {
             if (_event is null) return;
+            var newEvent = new Event(_event);
 
-            var timeEvent = _event.DateTimeEvent.TimeOfDay;
-           _event.DateTimeEvent = ClearTimeOfDay(_event.DateTimeEvent);
+            var timeEvent = newEvent.DateTimeEvent.TimeOfDay;
+            newEvent.DateTimeEvent = ClearTimeOfDay(newEvent.DateTimeEvent);
 
             await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
                     { "Title", $"Edit \"{_event.Name}\""},
                     { "Events", Events },
-                    { "Event", _event },
+                    { "Event", newEvent },
                     { "TimeEvent", timeEvent },
                     { "IsNew", false }
                 });

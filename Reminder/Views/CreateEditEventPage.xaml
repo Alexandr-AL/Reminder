@@ -11,9 +11,6 @@
                             BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
                             IconOverride="back.png" />   
     </Shell.BackButtonBehavior>-->
-    <!--<Shell.BackButtonBehavior>
-        <BackButtonBehavior Command="{Binding CancelCommand}"/>
-    </Shell.BackButtonBehavior>-->
     
 
     <Grid>
@@ -28,6 +25,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
+                        
                         <Editor Text="{Binding EditableEvent.Name}"
                                 Placeholder="enter event name"
                                 PlaceholderColor="{StaticResource Gray200}"
@@ -44,6 +42,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
+                        
                         <DatePicker Date="{Binding EditableEvent.DateTimeEvent}" 
                                     HorizontalOptions="Center"
                                     FontSize="25"
@@ -54,6 +53,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
+                        
                         <TimePicker Time="{Binding TimeEvent}"
                                     HorizontalOptions="Center"
                                     FontSize="25"
@@ -65,6 +65,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
+                        
                         <Editor Text="{Binding EditableEvent.Description}"
                                 Placeholder="description"
                                 PlaceholderColor="{StaticResource Yellow100Accent}"
