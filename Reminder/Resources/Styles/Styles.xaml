@@ -17,18 +17,23 @@
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />
         <Setter Property="StrokeShape" Value="Rectangle"/>
         <Setter Property="StrokeThickness" Value="1"/>
+        
     </Style>
 
     <Style TargetType="BoxView">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+        
     </Style>
 
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}" />
-        <Setter Property="BackgroundColor" Value="Black" />
+        
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="BackgroundColor" Value="#141414" />
+        
         
 <!--        
+        <Setter Property="BackgroundColor" Value="#141414" />
         <Setter Property="ImageSource" Value="plus.svg"/>
         <Setter Property="Image.Source" Value="..\..\Images\plus.svg"/>
  -->       
@@ -46,9 +51,14 @@
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
 
-                            
+
+
+                            <Setter Property="Image.Source" Value="..\..\Images\plus1122.png"/>
+
+                            <!--                            
+                            <Setter Property="Image.Source" Value="..\..\Images\search01.svg"/>
                             <Setter Property="Image.Source" Value="..\..\Images\plus.svg"/>
-<!--                            
+                            
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
                           
                             
@@ -142,6 +152,14 @@
         <Setter Property="HasShadow" Value="False" />
         <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="CornerRadius" Value="8" />
+
+
+        
+
+
+
+
+
     </Style>
 
     <Style TargetType="ImageButton">
