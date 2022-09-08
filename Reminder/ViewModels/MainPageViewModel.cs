@@ -17,30 +17,42 @@ namespace Reminder.ViewModels
 
         public MainPageViewModel(EventFileIOService eventFileIOService, EventProcessor eventProcessor)
         {
-            this.eventFileIOService = eventFileIOService;
             Title = "Reminder";
+            this.eventFileIOService = eventFileIOService;
             GetDataEvents();
-            eventProcessor.Start(events);
+            Events.CollectionChanged += Events_CollectionChanged;
+            eventProcessor.Start(Events);
         }
-        
-        public void GetDataEvents()
+
+        private void GetDataEvents()
         {
-                var _events = eventFileIOService.LoadEventsData();
-                if (_events is null) return;
-                Events = _events;
+            var _events = eventFileIOService.LoadEventsData();
+            if (_events is null) return;
+
+            if (Events is null) Events = _events;
+            else lock (Events) Events = _events;
+        }
+
+        private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (Events is null) return;
+            lock (sender) 
+                eventFileIOService.SaveEventsData(Events);
+        }
+
+        private DateTime ClearTimeOfDay(DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
         }
 
         [RelayCommand]
         private async Task AddNewEvent()
         {
-            var dateEvent = DateTime.Now;
-            dateEvent = new DateTime(dateEvent.Year, dateEvent.Month, dateEvent.Day, 0, 0, 0);
-
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), false,
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
                     { "Title", "Add new"},
-                    { "Event", new Event{DateTimeEvent = dateEvent } },
+                    { "Event", new Event{DateTimeEvent = ClearTimeOfDay(DateTime.Now) } },
                     { "TimeEvent", DateTime.Now.TimeOfDay },
                     { "IsNew", true }
                 });
@@ -49,29 +61,26 @@ namespace Reminder.ViewModels
         [RelayCommand]
         private async Task EditEvent(Event _event)
         {
-            var timeEvent = _event.DateTimeEvent.TimeOfDay;
-
-            var dateEvent = _event.DateTimeEvent;
-            dateEvent = new DateTime(dateEvent.Year, dateEvent.Month, dateEvent.Day, 0, 0, 0);
-           _event.DateTimeEvent = dateEvent;
-
             if (_event is null) return;
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), false,
+
+            var timeEvent = _event.DateTimeEvent.TimeOfDay;
+           _event.DateTimeEvent = ClearTimeOfDay(_event.DateTimeEvent);
+
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
                     { "Title", $"Edit \"{_event.Name}\""},
-                    { "Event", _event },
+                    { "Event", new Event(_event) },
                     { "TimeEvent", timeEvent },
                     { "IsNew", false }
                 });
         }
 
         [RelayCommand]
-        private async Task DeleteEvent(Event _event)
+        private void DeleteEvent(Event _event)
         {
             if (_event is null) return;
             Events.Remove(_event);
-            await eventFileIOService.SaveEventsDataAsync(Events);
         }
     }
 }

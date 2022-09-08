@@ -25,13 +25,14 @@ namespace Reminder.Services
                         foreach (var _event in events)
                         {
                             if (_event.IsDone) continue;
+
                             if (CompareEventTime(_event))
                             {
                                 Application.Current.Dispatcher.Dispatch(() =>
                                 {
                                     Shell.Current.DisplayAlert(_event.Name, _event.Description, "OK");
+                                    EventIsDone(_event);
                                 });
-                                _event.IsDone = true;
                             }
                         }
                     }
@@ -40,18 +41,23 @@ namespace Reminder.Services
             },token);
         }
 
-        public void Start(ObservableCollection<Event> events)
+        private void EventIsDone(Event _event)
         {
-            if (events == null) return;
-            this.events = events;
+            if (events is null || _event is null) return;
 
-            cts ??= new CancellationTokenSource();
-            ThreadPool.QueueUserWorkItem(new WaitCallback(EventExecution), cts.Token);
+            var index = events.IndexOf(events.FirstOrDefault(x => x.Id == _event.Id));
+
+            if (index < 0) return;
+
+            _event.IsDone = true;
+            _event.DateModified = DateTime.Now;
+            events[index] = _event;
         }
 
         private bool CompareEventTime(Event _event)
         {
             if (_event is null) return false;
+
             if (_event.DateTimeEvent.Date != DateTime.Now.Date) return false;
 
             var timeNow = DateTime.Now.TimeOfDay;
@@ -61,6 +67,15 @@ namespace Reminder.Services
                 return true;
 
             return false;
+        }
+
+        public void Start(ObservableCollection<Event> events)
+        {
+            if (events == null) return;
+            this.events = events;
+
+            cts ??= new CancellationTokenSource();
+            ThreadPool.QueueUserWorkItem(new WaitCallback(EventExecution), cts.Token);
         }
     }
 }

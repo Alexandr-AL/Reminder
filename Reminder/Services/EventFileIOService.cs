@@ -9,52 +9,13 @@ namespace Reminder.Services
     {
         private readonly string pathToEventsData = Path.Combine(FileSystem.Current.AppDataDirectory, "EventsData.json");
 
-        public ObservableCollection<Event> LoadEventsData()
+        private ObservableCollection<Event> GetTestData()
         {
-            if (!File.Exists(pathToEventsData)) 
-                return CreateNewEventsData();
-
-            try
+            return new ObservableCollection<Event> 
             {
-                using var fileStreamToRead = File.OpenRead(pathToEventsData);
-                using var streamReader = new StreamReader(fileStreamToRead);
-                
-                var eventsData = streamReader.ReadToEnd();
-                var events = JsonSerializer.Deserialize<ObservableCollection<Event>>(eventsData);
-
-                return events;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                Shell.Current.DisplayAlert("Error reading from EventData file", ex.Message, "Ok");
-                return default;
-            }
-        }
-
-        public async Task<bool> SaveEventsDataAsync(ObservableCollection<Event> events)
-        {
-            if (events is null) return false;
-            if (!File.Exists(pathToEventsData))
-            {
-                await Shell.Current.DisplayAlert("Error", "Save file not found", "Ok");
-                return false;
-            }    
-
-            try
-            {
-                string eventsData;
-                lock (events) eventsData = JsonSerializer.Serialize(events);
-                using var streamWriter = File.CreateText(pathToEventsData);
-                await streamWriter.WriteAsync(eventsData);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                await Shell.Current.DisplayAlert("Error writing to EventData file", ex.Message, "Ok");
-                return false;
-            }
+                new Event{Name="My first Event", DateTimeEvent = DateTime.Now, Description = "My first Description"},
+                new Event{Name="My second Event", DateTimeEvent = DateTime.Now, Description = "My second Description"}
+            };
         }
 
         private ObservableCollection<Event> CreateNewEventsData()
@@ -78,13 +39,51 @@ namespace Reminder.Services
             }
         }
 
-        private ObservableCollection<Event> GetTestData()
+        public ObservableCollection<Event> LoadEventsData()
         {
-            return new ObservableCollection<Event> 
+            if (!File.Exists(pathToEventsData)) 
+                return CreateNewEventsData();
+
+            try
             {
-                new Event{Name="My first Event", DateTimeEvent = DateTime.Now, Description = "My first Description"},
-                new Event{Name="My second Event", DateTimeEvent = DateTime.Now, Description = "My second Description"}
-            };
+                using var fileStreamToRead = File.OpenRead(pathToEventsData);
+                using var streamReader = new StreamReader(fileStreamToRead);
+                
+                var eventsData = streamReader.ReadToEnd();
+                var events = JsonSerializer.Deserialize<ObservableCollection<Event>>(eventsData);
+
+                return events;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                Shell.Current.DisplayAlert("Error reading from EventData file", ex.Message, "Ok");
+                return default;
+            }
+        }
+
+        public bool SaveEventsData(ObservableCollection<Event> events)
+        {
+            if (events is null) return false;
+            if (!File.Exists(pathToEventsData))
+            {
+                Shell.Current.DisplayAlert("Error", "Save file not found", "Ok");
+                return false;
+            }    
+
+            try
+            {
+                var eventsData = JsonSerializer.Serialize(events);
+                using var streamWriter = File.CreateText(pathToEventsData);
+                streamWriter.Write(eventsData);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                Shell.Current.DisplayAlert("Error writing to EventData file", ex.Message, "Ok");
+                return false;
+            }
         }
     }
 }
