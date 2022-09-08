@@ -11,8 +11,8 @@
     <Grid>
         <ScrollView>
             <Grid>
-                <VerticalStackLayout Margin="10,50,10,10"
-                                     VerticalOptions="Center" 
+                <VerticalStackLayout Margin="15,50,15,10"
+                                     VerticalOptions="Start" 
                                      HorizontalOptions="Center" 
                                      Spacing="10">
 
@@ -21,15 +21,15 @@
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
                         <Editor Text="{Binding EditableEvent.Name}"
-                            Placeholder="enter event name"
-                            PlaceholderColor="{StaticResource Gray200}"
-                            AutoSize="TextChanges"
-                            MaximumHeightRequest="150"
-                            MaxLength="256"
-                            MinimumWidthRequest="200"
-                            MaximumWidthRequest="300"
-                            FontSize="25"
-                            BackgroundColor="{StaticResource Yellow300Accent}"/>
+                                Placeholder="enter event name"
+                                PlaceholderColor="{StaticResource Gray200}"
+                                AutoSize="TextChanges"
+                                MaximumHeightRequest="150"
+                                MaxLength="256"
+                                MinimumWidthRequest="200"
+                                MaximumWidthRequest="300"
+                                FontSize="25"
+                                BackgroundColor="{StaticResource Yellow300Accent}"/>
                     </Border>
 
                     <Border>
@@ -70,7 +70,7 @@
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>
-            
+
         <Button Command="{Binding SaveEventCommand}"
                 Text="Save"
                 FontSize="20"
@@ -78,14 +78,6 @@
                 VerticalOptions="Start"
                 CornerRadius="20"
                 Margin="0,10,10,10"/>
-        
-        <Button Command="{Binding CancelCommand}"
-                Text="Close"
-                FontSize="20"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
-                CornerRadius="20"
-                Margin="0,10,80,10"/>
 
     </Grid>
 </ContentPage>
