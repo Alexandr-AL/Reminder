@@ -7,12 +7,14 @@ using System.Collections.ObjectModel;
 namespace Reminder.ViewModels
 {
     [QueryProperty(nameof(Title), "Title")]
+    [QueryProperty(nameof(Events),"Events")]
     [QueryProperty(nameof(EditableEvent), "Event")]
     [QueryProperty(nameof(TimeEvent), "TimeEvent")]
     [QueryProperty (nameof(IsNew), "IsNew")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
-        private readonly ObservableCollection<Event> events;
+        [ObservableProperty]
+        private ObservableCollection<Event> events;
 
         [ObservableProperty]
         private Event editableEvent;
@@ -24,28 +26,28 @@ namespace Reminder.ViewModels
 
         public CreateEditEventViewModel(MainPageViewModel mainVM)
         {
-            events = mainVM.Events;
+            //events = mainVM.Events;
         }
 
         [RelayCommand]
         private async Task SaveEvent()
         {
-            if (EditableEvent is null || events is null) return;
+            if (EditableEvent is null || Events is null) return;
 
             EditableEvent.DateTimeEvent = EditableEvent.DateTimeEvent.Add(TimeEvent);
             EditableEvent.DateModified = DateTime.Now;
             EditableEvent.IsDone = false;
 
             if (IsNew) 
-                lock (events) 
-                    events.Insert(0, EditableEvent);
+                lock (Events) 
+                    Events.Insert(0, EditableEvent);
             else
             {
-                var index = events.IndexOf(events.FirstOrDefault(x => x.Id == EditableEvent.Id));
+                var index = Events.IndexOf(Events.FirstOrDefault(x => x.Id == EditableEvent.Id));
                 if (index < 0) return;
 
-                lock(events) 
-                    events[index] = EditableEvent;
+                lock(Events) 
+                    Events[index] = new Event(EditableEvent);
             }
 
             await Cancel();
@@ -54,7 +56,8 @@ namespace Reminder.ViewModels
         [RelayCommand]
         private async Task Cancel()
         {
-            TimeEvent = default;
+            //await Shell.Current.DisplayAlert("test", "test", "test");
+            //TimeEvent = default;
             await Shell.Current.GoToAsync("..", true);
         }
     }

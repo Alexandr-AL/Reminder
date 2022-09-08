@@ -52,6 +52,7 @@ namespace Reminder.ViewModels
                 new Dictionary<string, object>
                 {
                     { "Title", "Add new"},
+                    { "Events", Events },
                     { "Event", new Event{DateTimeEvent = ClearTimeOfDay(DateTime.Now) } },
                     { "TimeEvent", DateTime.Now.TimeOfDay },
                     { "IsNew", true }
@@ -70,7 +71,8 @@ namespace Reminder.ViewModels
                 new Dictionary<string, object>
                 {
                     { "Title", $"Edit \"{_event.Name}\""},
-                    { "Event", new Event(_event) },
+                    { "Events", Events },
+                    { "Event", _event },
                     { "TimeEvent", timeEvent },
                     { "IsNew", false }
                 });

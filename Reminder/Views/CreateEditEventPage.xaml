@@ -6,8 +6,16 @@
              Title="{Binding Title}"
              Shell.PresentationMode="Animated"
              x:DataType="vm:CreateEditEventViewModel">
+    <!--<Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"
+                            BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
+                            IconOverride="back.png" />   
+    </Shell.BackButtonBehavior>-->
+    <!--<Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding CancelCommand}"/>
+    </Shell.BackButtonBehavior>-->
     
-    
+
     <Grid>
         <ScrollView>
             <Grid>
