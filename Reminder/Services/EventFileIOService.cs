@@ -9,17 +9,17 @@ namespace Reminder.Services
     {
         private readonly string pathToEventsData = Path.Combine(FileSystem.Current.AppDataDirectory, "EventsData.json");
 
-        public async Task<ObservableCollection<Event>> LoadEventsDataAsync()
+        public ObservableCollection<Event> LoadEventsData()
         {
             if (!File.Exists(pathToEventsData)) 
-                return await CreateNewEventsData();
+                return CreateNewEventsData();
 
             try
             {
                 using var fileStreamToRead = File.OpenRead(pathToEventsData);
                 using var streamReader = new StreamReader(fileStreamToRead);
                 
-                var eventsData = await streamReader.ReadToEndAsync();
+                var eventsData = streamReader.ReadToEnd();
                 var events = JsonSerializer.Deserialize<ObservableCollection<Event>>(eventsData);
 
                 return events;
@@ -27,13 +27,14 @@ namespace Reminder.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                await Shell.Current.DisplayAlert("Error reading from EventData file", ex.Message, "Ok");
+                Shell.Current.DisplayAlert("Error reading from EventData file", ex.Message, "Ok");
                 return default;
             }
         }
 
         public async Task<bool> SaveEventsDataAsync(ObservableCollection<Event> events)
         {
+            if (events is null) return false;
             if (!File.Exists(pathToEventsData))
             {
                 await Shell.Current.DisplayAlert("Error", "Save file not found", "Ok");
@@ -42,8 +43,9 @@ namespace Reminder.Services
 
             try
             {
+                string eventsData;
+                lock (events) eventsData = JsonSerializer.Serialize(events);
                 using var streamWriter = File.CreateText(pathToEventsData);
-                var eventsData = JsonSerializer.Serialize(events);
                 await streamWriter.WriteAsync(eventsData);
                 return true;
             }
@@ -55,44 +57,34 @@ namespace Reminder.Services
             }
         }
 
-        private async Task<ObservableCollection<Event>> CreateNewEventsData()
+        private ObservableCollection<Event> CreateNewEventsData()
         {
             try
             {
                 using var stream = File.Create(pathToEventsData);
                 using var streamWriter = new StreamWriter(stream);
 
-                var testEvents = await GetTestDataAsync();
+                var testEvents = GetTestData();
                 var testEventsData = JsonSerializer.Serialize(testEvents);
 
-                await streamWriter.WriteAsync(testEventsData);
+                streamWriter.WriteAsync(testEventsData);
                 return testEvents;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                await Shell.Current.DisplayAlert("Error create new EventData file", ex.Message, "Ok");
+                Shell.Current.DisplayAlert("Error create new EventData file", ex.Message, "Ok");
                 return default;
             }
         }
 
-        private async Task<ObservableCollection<Event>> GetTestDataAsync()
+        private ObservableCollection<Event> GetTestData()
         {
-            try
+            return new ObservableCollection<Event> 
             {
-                using var stream = await FileSystem.OpenAppPackageFileAsync("EventsTestData.json");
-                using var reader = new StreamReader(stream);
-
-                var eventsInString = await reader.ReadToEndAsync();
-                var events = JsonSerializer.Deserialize<ObservableCollection<Event>>(eventsInString);
-                return events;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
-                return default;
-            }
+                new Event{Name="My first Event", DateTimeEvent = DateTime.Now, Description = "My first Description"},
+                new Event{Name="My second Event", DateTimeEvent = DateTime.Now, Description = "My second Description"}
+            };
         }
     }
 }

@@ -23,6 +23,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<CreateEditEventViewModel>();
 
 		builder.Services.AddSingleton<EventFileIOService>();
+		builder.Services.AddSingleton<EventProcessor>();
 
 		return builder.Build();
 	}

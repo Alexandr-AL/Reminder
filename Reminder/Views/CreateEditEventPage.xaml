@@ -46,7 +46,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
-                        <TimePicker Time="{Binding EditableEvent.DateTimeEvent.TimeOfDay}"
+                        <TimePicker Time="{Binding TimeEvent}"
                                     HorizontalOptions="Center"
                                     FontSize="25"
                                     BackgroundColor="LightGrey"

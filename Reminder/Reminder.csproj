@@ -50,17 +50,10 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\plus01.png" BaseSize="64,64" />
-	  <None Remove="Resources\Raw\EventsTestData.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiAsset Update="Resources\Raw\EventsTestData.json">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </MauiAsset>
 	</ItemGroup>
 
 	<ItemGroup>

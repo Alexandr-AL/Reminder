@@ -8,11 +8,15 @@ namespace Reminder.ViewModels
 {
     [QueryProperty(nameof(Title), "Title")]
     [QueryProperty(nameof(EditableEvent), "Event")]
+    [QueryProperty(nameof(TimeEvent), "TimeEvent")]
     [QueryProperty (nameof(IsNew), "IsNew")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
         [ObservableProperty]
         private Event editableEvent;
+
+        [ObservableProperty]
+        private TimeSpan timeEvent;
 
         private readonly EventFileIOService fileIOService;
         private readonly ObservableCollection<Event> events;
@@ -30,6 +34,7 @@ namespace Reminder.ViewModels
         {
             if (EditableEvent is null || events is null) return;
 
+            EditableEvent.DateTimeEvent = EditableEvent.DateTimeEvent.Add(TimeEvent);
             EditableEvent.DateModified = DateTime.Now;
             EditableEvent.IsDone = false;
 
@@ -38,7 +43,7 @@ namespace Reminder.ViewModels
             {
                 var index = events.IndexOf(events.FirstOrDefault(x => x.Id == EditableEvent.Id));
                 if (index < 0) return;
-                events[index] = EditableEvent;
+                events[index] = new Event(EditableEvent);
             }
 
             await fileIOService.SaveEventsDataAsync(events);
@@ -47,6 +52,10 @@ namespace Reminder.ViewModels
         }
 
         [RelayCommand]
-        async Task Cancel() => await Shell.Current.GoToAsync("..", false);
+        async Task Cancel()
+        {
+            TimeEvent = default;
+            await Shell.Current.GoToAsync("..", false);
+        }
     }
 }
