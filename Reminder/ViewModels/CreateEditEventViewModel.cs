@@ -1,61 +1,52 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
 using Reminder.Models;
 using Reminder.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reminder.ViewModels
 {
     [QueryProperty(nameof(Title), "Title")]
     [QueryProperty(nameof(EditableEvent), "Event")]
-    [QueryProperty(nameof(TimeEvent), "TimeEvent")]
-    [QueryProperty (nameof(isNew), "IsNew")]
+    [QueryProperty (nameof(IsNew), "IsNew")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
         [ObservableProperty]
         private Event editableEvent;
 
-        [ObservableProperty]
-        private TimeSpan timeEvent;
-
         private readonly EventFileIOService fileIOService;
-        private readonly MainPageViewModel mainVM;
+        private readonly ObservableCollection<Event> events;
 
-        public bool isNew { get; set; }
+        public bool IsNew { get; set; }
 
         public CreateEditEventViewModel(EventFileIOService fileIOService, MainPageViewModel mainVM)
         {
             this.fileIOService = fileIOService;
-            this.mainVM = mainVM;
+            events = mainVM.Events;
         }
 
         [RelayCommand]
         async Task SaveEvent()
         {
-            if (EditableEvent is null || mainVM.Events is null) return;
+            if (EditableEvent is null || events is null) return;
 
-            EditableEvent.DateTimeEvent = EditableEvent.DateTimeEvent.Add(timeEvent);
             EditableEvent.DateModified = DateTime.Now;
-            EditableEvent.Done = false;
+            EditableEvent.IsDone = false;
 
-            if (isNew) mainVM.Events.Insert(0, EditableEvent);
+            if (IsNew) events.Insert(0, EditableEvent);
+            else
+            {
+                var index = events.IndexOf(events.FirstOrDefault(x => x.Id == EditableEvent.Id));
+                if (index < 0) return;
+                events[index] = EditableEvent;
+            }
 
-            await fileIOService.SaveEventsDataAsync(mainVM.Events);
+            await fileIOService.SaveEventsDataAsync(events);
 
             await Cancel();
         }
 
         [RelayCommand]
-        async Task Cancel() 
-        {
-            await mainVM.GetDataEvents();
-            await Shell.Current.GoToAsync("..", true);
-        }
+        async Task Cancel() => await Shell.Current.GoToAsync("..", false);
     }
 }

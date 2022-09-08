@@ -18,8 +18,7 @@ namespace Reminder.Models
 
         public DateTime DateModified { get; set; } = DateTime.Now;
 
-
-        public bool Done { get; set; } = false;
+        public bool IsDone { get; set; } = false;
 
         public Event() { }
 
@@ -30,7 +29,7 @@ namespace Reminder.Models
             DateTimeEvent = _event.DateTimeEvent;
             Description = _event.Description;
             DateModified = _event.DateModified;
-            Done = _event.Done;
+            IsDone = _event.IsDone;
         }
     }
 }

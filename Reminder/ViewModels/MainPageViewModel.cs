@@ -4,12 +4,7 @@ using Reminder.Models;
 using Reminder.Services;
 using Reminder.ViewModels.Base;
 using Reminder.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reminder.ViewModels
 {
@@ -27,7 +22,7 @@ namespace Reminder.ViewModels
             GetDataEvents();
         }
         
-        public async Task GetDataEvents()
+        public async void GetDataEvents()
         {
             var _events = await eventFileIOService.LoadEventsDataAsync();
             if (_events is null) return;
@@ -37,12 +32,11 @@ namespace Reminder.ViewModels
         [RelayCommand]
         private async Task AddNewEvent()
         {
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), false,
                 new Dictionary<string, object>
                 {
-                    { "Title", "Add New Event"},
+                    { "Title", "Add new"},
                     { "Event", new Event{DateTimeEvent = DateTime.Now } },
-                    { "TimeEvent", DateTime.Now.TimeOfDay },
                     { "IsNew", true }
                 });
         }
@@ -51,15 +45,11 @@ namespace Reminder.ViewModels
         private async Task EditEvent(Event _event)
         {
             if (_event is null) return;
-
-            var timeEvent = _event.DateTimeEvent.TimeOfDay;
-
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), false,
                 new Dictionary<string, object>
                 {
                     { "Title", $"Edit \"{_event.Name}\""},
-                    { "Event", _event },
-                    { "TimeEvent", timeEvent },
+                    { "Event", new Event(_event) },
                     { "IsNew", false }
                 });
         }
@@ -67,11 +57,9 @@ namespace Reminder.ViewModels
         [RelayCommand]
         private async Task DeleteEvent(Event _event)
         {
+            if (_event is null) return;
             Events.Remove(_event);
-            OnPropertyChanged(nameof(Events));
             await eventFileIOService.SaveEventsDataAsync(Events);
-            await GetDataEvents();
         }
-
     }
 }
