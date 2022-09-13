@@ -40,10 +40,8 @@ namespace Reminder.ViewModels
                 eventFileIOService.SaveEventsData(Events);
         }
 
-        private DateTime ClearTimeOfDay(DateTime dateTime)
-        {
-            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
-        }
+        private DateTime ClearTimeOfDay(DateTime dateTime) =>
+            new(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
 
         [RelayCommand]
         private async Task AddNewEvent()

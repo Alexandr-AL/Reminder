@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Reminder.Models;
 using Reminder.Services;
 using System.Collections.ObjectModel;
+using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
 
 namespace Reminder.ViewModels
 {
@@ -53,5 +54,13 @@ namespace Reminder.ViewModels
         {
             await Shell.Current.GoToAsync("..", true);
         }
+
+        [RelayCommand]
+        private void HideKeyboard()
+        {
+            //entry.On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetImeOptions(ImeFlags.Send);
+        }
+
+
     }
 }
