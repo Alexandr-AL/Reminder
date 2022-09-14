@@ -23,6 +23,9 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         private TimeSpan timeEvent;
 
+        [ObservableProperty]
+        private bool isEnabledEditors = true;
+
         public bool IsNew { get; set; }
 
         [RelayCommand]
@@ -45,22 +48,14 @@ namespace Reminder.ViewModels
                 lock(Events) 
                     Events[index] = EditableEvent;
             }
-
             await Cancel();
         }
 
         [RelayCommand]
         private async Task Cancel()
         {
+            IsEnabledEditors = false;
             await Shell.Current.GoToAsync("..", true);
         }
-
-        [RelayCommand]
-        private void HideKeyboard()
-        {
-            //entry.On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetImeOptions(ImeFlags.Send);
-        }
-
-
     }
 }

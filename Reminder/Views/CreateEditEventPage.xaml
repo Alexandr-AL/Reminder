@@ -12,17 +12,15 @@
                             BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
                             IconOverride="back.png" />   
     </Shell.BackButtonBehavior>-->
-    
 
-    <Grid>
-        <ScrollView>
+    <Grid RowDefinitions="*,auto" ColumnDefinitions="*,*">
+        <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
             <Grid>
                 <VerticalStackLayout Margin="15,50,15,10"
                                      VerticalOptions="Start" 
                                      HorizontalOptions="Center" 
                                      Spacing="10">
-
-                    <Button Text="unfocused" Command="{Binding }"/>
+                    
                     <Border Stroke="Transparent" Margin="0,0,0,20">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
@@ -37,7 +35,9 @@
                                 MinimumWidthRequest="200"
                                 MaximumWidthRequest="300"
                                 FontSize="25"
-                                BackgroundColor="{StaticResource Yellow300Accent}"/>
+                                BackgroundColor="{StaticResource Yellow300Accent}"
+                                x:Name="NameEditor"
+                                IsEnabled="{Binding IsEnabledEditors}"/>
                     </Border>
 
                     <Border>
@@ -77,19 +77,25 @@
                                 FontSize="22"
                                 MinimumWidthRequest="300"
                                 BackgroundColor="{StaticResource Gray100}"
-                                />
+                                x:Name="DescriptionEditor"
+                                IsEnabled="{Binding IsEnabledEditors}"/>
                     </Border>
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>
 
         <Button Command="{Binding SaveEventCommand}"
+                Grid.Row="1" Grid.Column="0"
                 Text="Save"
                 FontSize="20"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
                 CornerRadius="20"
-                Margin="0,10,10,10"/>
+                Margin="2"/>
+        <Button Command="{Binding CancelCommand}"
+                Grid.Row="1" Grid.Column="1"
+                Text="Close"
+                FontSize="20"
+                CornerRadius="20"
+                Margin="2"/>
 
     </Grid>
 </ContentPage>
