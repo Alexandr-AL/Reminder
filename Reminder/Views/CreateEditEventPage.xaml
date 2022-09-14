@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              Title="{Binding Title}"
-             Shell.PresentationMode="Animated"
+             Shell.PresentationMode="ModalAnimated"
              x:DataType="vm:CreateEditEventViewModel">
     <!--<Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding BackCommand}"
