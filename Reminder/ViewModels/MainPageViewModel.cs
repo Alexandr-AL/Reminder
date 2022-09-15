@@ -15,6 +15,8 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         private ObservableCollection<Event> events;
 
+        public static IList<Event> Ev { get; private set; }
+
         [ObservableProperty]
         private Event deletedEvent;
 
@@ -25,6 +27,7 @@ namespace Reminder.ViewModels
             GetDataEvents();
             Events.CollectionChanged += Events_CollectionChanged;
             eventProcessor.Start(Events);
+            Ev = Events.ToList();
         }
 
         private void GetDataEvents()
@@ -32,8 +35,11 @@ namespace Reminder.ViewModels
             var _events = eventFileIOService.LoadEventsData();
             if (_events is null) return;
 
-            if (Events is null) Events = _events;
-            else lock (Events) Events = _events;
+            if (Events is null) 
+                Events = _events;
+            else 
+                lock (Events) 
+                    Events = _events;
         }
 
         private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -100,5 +106,6 @@ namespace Reminder.ViewModels
         {
             Shell.Current.DisplayAlert("test","test","Ok");
         }
+
     }
 }

@@ -4,6 +4,7 @@
              x:Class="Reminder.MainPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Models"
+             xmlns:controls="clr-namespace:Reminder.Controls"
              x:DataType="vm:MainPageViewModel"
              Title="{Binding Title}"
              MaximumWidthRequest="800">
@@ -44,6 +45,21 @@
                     Command="{Binding AddNewEventCommand}"/>
         </Grid>
     </Shell.TitleView>
+
+    <Shell.SearchHandler>
+        <controls:EventSearchHandler Events="{x:Static vm:MainPageViewModel.Ev}"
+                                     SearchBoxVisibility="Collapsible">
+            <controls:EventSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="model:Event">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Name}"/>
+                        <Label Text="{Binding DateTimeEvent,StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </controls:EventSearchHandler.ItemTemplate>
+        </controls:EventSearchHandler>
+        
+    </Shell.SearchHandler>
 
     <Grid ColumnDefinitions="*" RowDefinitions="*">
 
@@ -105,7 +121,7 @@
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-
+        
         <Button ImageSource="plus1122.png" 
                 Grid.Column="0"
                 Grid.Row="0"

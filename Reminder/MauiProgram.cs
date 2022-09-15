@@ -1,4 +1,5 @@
-﻿using Reminder.Services;
+﻿using Reminder.Controls;
+using Reminder.Services;
 using Reminder.ViewModels;
 using Reminder.Views;
 
