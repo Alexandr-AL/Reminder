@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Reminder.Models
 {
-    public class Event
+    public partial class Event : ObservableObject
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
@@ -18,7 +19,8 @@ namespace Reminder.Models
 
         public DateTime DateModified { get; set; } = DateTime.Now;
 
-        public bool IsDone { get; set; } = false;
+        [ObservableProperty]
+        public bool displayed = false;
 
         public Event() { }
 
@@ -29,7 +31,7 @@ namespace Reminder.Models
             DateTimeEvent = _event.DateTimeEvent;
             Description = _event.Description;
             DateModified = _event.DateModified;
-            IsDone = _event.IsDone;
+            Displayed = _event.Displayed;
         }
     }
 }

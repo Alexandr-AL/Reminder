@@ -24,7 +24,7 @@ namespace Reminder.Services
                     { 
                         foreach (var _event in events)
                         {
-                            if (_event.IsDone) continue;
+                            if (!_event.Displayed) continue;
 
                             if (CompareEventTime(_event))
                             {
@@ -49,7 +49,7 @@ namespace Reminder.Services
 
             if (index < 0) return;
 
-            _event.IsDone = true;
+            _event.Displayed = false;
             _event.DateModified = DateTime.Now;
             events[index] = _event;
         }

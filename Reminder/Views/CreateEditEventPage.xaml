@@ -20,12 +20,26 @@
             
             <Grid>
                 
-                <VerticalStackLayout Margin="15,50,15,10"
+                <VerticalStackLayout Margin="15,20,15,10"
                                      VerticalOptions="Start" 
                                      HorizontalOptions="Center" 
                                      Spacing="10">
-                    
-                    <Border Stroke="Transparent" Margin="0,0,0,20">
+
+                    <HorizontalStackLayout HorizontalOptions="End" Margin="0,0,0,10">
+                        <Label Text="Show event" 
+                               VerticalOptions="Center"
+                               TextColor="{StaticResource Gray200}"/>
+
+                        <Border Stroke="Transparent">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="100"/>
+                            </Border.StrokeShape>
+                            <Switch BackgroundColor="{StaticResource Yellow300Accent}"
+                                    IsToggled="{Binding EditableEvent.Displayed}"/>
+                        </Border>
+                    </HorizontalStackLayout>
+
+                    <Border Stroke="Transparent" Margin="0,0,0,10">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
@@ -36,15 +50,13 @@
                                 AutoSize="TextChanges"
                                 MaximumHeightRequest="150"
                                 MaxLength="256"
-                                MinimumWidthRequest="200"
-                                MaximumWidthRequest="300"
                                 FontSize="25"
                                 BackgroundColor="{StaticResource Yellow300Accent}"
                                 x:Name="NameEditor"
                                 IsEnabled="{Binding IsEnabledEditors}"/>
                     </Border>
 
-                    <Border>
+                    <Border IsVisible="{Binding EditableEvent.Displayed}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
@@ -55,7 +67,7 @@
                                     Format="dd MMMM yyyy"/>
                     </Border>
 
-                    <Border>
+                    <Border IsVisible="{Binding EditableEvent.Displayed}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
@@ -67,7 +79,7 @@
                                     Format="HH:mm"/>
                     </Border>
 
-                    <Border Stroke="Transparent" Margin="0,30,0,0">
+                    <Border Stroke="Transparent" Margin="0,10,0,0">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
@@ -76,30 +88,31 @@
                                 Placeholder="description"
                                 PlaceholderColor="{StaticResource Yellow100Accent}"
                                 AutoSize="TextChanges"
-                                MinimumHeightRequest="100"
+                                MinimumHeightRequest="300"
                                 MaximumHeightRequest="300"
                                 FontSize="22"
-                                MinimumWidthRequest="300"
+                                MinimumWidthRequest="600"
                                 BackgroundColor="{StaticResource Gray100}"
                                 x:Name="DescriptionEditor"
                                 IsEnabled="{Binding IsEnabledEditors}"/>
                     </Border>
+                    
                 </VerticalStackLayout>
             </Grid>
         </ScrollView>
+
+        <Button Command="{Binding CancelCommand}"
+                Grid.Row="1" Grid.Column="0"
+                Text="Close"
+                FontSize="20"
+                CornerRadius="20"
+                Margin="20,3,20,0"/>
 
         <Button Command="{Binding SaveEventCommand}"
                 Grid.Row="1" Grid.Column="1"
                 Text="Save"
                 FontSize="20"
                 CornerRadius="20"
-                Margin="2"/>
-        <Button Command="{Binding CancelCommand}"
-                Grid.Row="1" Grid.Column="0"
-                Text="Close"
-                FontSize="20"
-                CornerRadius="20"
-                Margin="2"/>
-
+                Margin="20,3,20,0"/>
     </Grid>
 </ContentPage>

@@ -33,7 +33,6 @@ namespace Reminder.ViewModels
 
             EditableEvent.DateTimeEvent = EditableEvent.DateTimeEvent.Add(TimeEvent);
             EditableEvent.DateModified = DateTime.Now;
-            EditableEvent.IsDone = false;
 
             if (IsNew) 
                 lock (Events) 
