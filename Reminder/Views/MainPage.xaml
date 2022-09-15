@@ -33,7 +33,7 @@
                                            AllowDrop="True"/>
                 </ImageButton.GestureRecognizers>
             </ImageButton>
-            
+
             <Button HorizontalOptions="End" 
                     Margin="0, 0, 5, 0"
                     BackgroundColor="Transparent"                   
@@ -44,31 +44,31 @@
                     Command="{Binding AddNewEventCommand}"/>
         </Grid>
     </Shell.TitleView>
-    
+
     <Grid ColumnDefinitions="*" RowDefinitions="*">
 
         <ScrollView Grid.Column="0" Grid.Row="0">
-            
+
             <VerticalStackLayout VerticalOptions="Start" 
                                  HorizontalOptions="Start"
                                  Margin="0,0,0,0"
                                  Padding="0,0,0,0">
-                
+
                 <CollectionView ItemsSource="{Binding Events}">
-                    
+
                     <CollectionView.ItemTemplate>
-                        
+
                         <DataTemplate x:DataType="model:Event">
 
                             <Grid>
-                                
+
                                 <Frame BorderColor="#909090"
                                        MaximumWidthRequest="500"
                                        MaximumHeightRequest="500"
                                        Margin="13,10,13,10" 
                                        CornerRadius="5"
                                        HasShadow="True">
-                                    
+
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer CommandParameter="{Binding .}"
                                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
@@ -78,7 +78,7 @@
                                                                DragStartingCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DragForDeleteCommand}"
                                                                DragStartingCommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                                <!--
+                                    <!--
                                             <Image Margin="45,1,15,0" BackgroundColor="#141414"  Source="line.svg"/>
                                             <Frame BorderColor="Transparent"
                                                    Margin="15,0,0,0"
@@ -90,7 +90,7 @@
                                                  -->
 
                                     <VerticalStackLayout Margin="1">
-                                        
+
                                         <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="24"/>
 
                                         <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontFamily="Calibri"/>
@@ -105,7 +105,7 @@
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-        
+
         <Button ImageSource="plus1122.png" 
                 Grid.Column="0"
                 Grid.Row="0"
@@ -117,7 +117,5 @@
                 MinimumWidthRequest="64"
                 Margin="0,0,5,5"
                 Command="{Binding AddNewEventCommand}"/>
-        
     </Grid>
-
 </ContentPage>

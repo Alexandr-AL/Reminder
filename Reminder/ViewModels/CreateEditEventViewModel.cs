@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Reminder.Models;
-using Reminder.Services;
 using System.Collections.ObjectModel;
-using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
 
 namespace Reminder.ViewModels
 {

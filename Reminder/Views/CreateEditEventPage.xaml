@@ -15,8 +15,11 @@
     </Shell.BackButtonBehavior>-->
 
     <Grid RowDefinitions="*,auto" ColumnDefinitions="*,*">
+        
         <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
+            
             <Grid>
+                
                 <VerticalStackLayout Margin="15,50,15,10"
                                      VerticalOptions="Start" 
                                      HorizontalOptions="Center" 
