@@ -50,6 +50,8 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\plus01.png" BaseSize="64,64" />
+	  <None Remove="Resources\Images\trash_can.png" />
+	  <None Remove="Resources\Images\trash_can2.png" />
 	</ItemGroup>
 
 	<ItemGroup>

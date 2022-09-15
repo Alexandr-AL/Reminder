@@ -15,6 +15,9 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         private ObservableCollection<Event> events;
 
+        [ObservableProperty]
+        private Event deletedEvent;
+
         public MainPageViewModel(EventFileIOService eventFileIOService, EventProcessor eventProcessor)
         {
             Title = "Reminder";
@@ -83,6 +86,19 @@ namespace Reminder.ViewModels
         {
             if (_event is null) return;
             Events.Remove(_event);
+        }
+
+        [RelayCommand]
+        private void DragForDelete(Event _event)
+        {
+            if (_event is null) return;
+            DeletedEvent = _event;
+        }
+
+        [RelayCommand]
+        private void Drop(Event _event)
+        {
+            Shell.Current.DisplayAlert("test","test","Ok");
         }
     }
 }

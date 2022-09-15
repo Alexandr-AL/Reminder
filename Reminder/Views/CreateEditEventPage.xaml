@@ -6,7 +6,8 @@
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              Title="{Binding Title}"
              Shell.PresentationMode="ModalAnimated"
-             x:DataType="vm:CreateEditEventViewModel">
+             x:DataType="vm:CreateEditEventViewModel"
+             MaximumWidthRequest="800">
     <!--<Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding BackCommand}"
                             BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
@@ -85,13 +86,13 @@
         </ScrollView>
 
         <Button Command="{Binding SaveEventCommand}"
-                Grid.Row="1" Grid.Column="0"
+                Grid.Row="1" Grid.Column="1"
                 Text="Save"
                 FontSize="20"
                 CornerRadius="20"
                 Margin="2"/>
         <Button Command="{Binding CancelCommand}"
-                Grid.Row="1" Grid.Column="1"
+                Grid.Row="1" Grid.Column="0"
                 Text="Close"
                 FontSize="20"
                 CornerRadius="20"
