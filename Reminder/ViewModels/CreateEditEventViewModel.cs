@@ -35,14 +35,14 @@ namespace Reminder.ViewModels
             EditableEvent.DateModified = DateTime.Now;
 
             if (IsNew) 
-                lock (Events) 
+                //lock(Events) 
                     Events.Insert(0, EditableEvent);
             else
             {
                 var index = Events.IndexOf(Events.FirstOrDefault(x => x.Id == EditableEvent.Id));
                 if (index < 0) return;
 
-                lock(Events) 
+                //lock(Events) 
                     Events[index] = EditableEvent;
             }
             await Cancel();

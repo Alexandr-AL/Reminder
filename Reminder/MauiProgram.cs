@@ -25,6 +25,7 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<EventFileIOService>();
 		builder.Services.AddSingleton<EventProcessor>();
+		builder.Services.AddSingleton<EventTimerService>();
 
 		return builder.Build();
 	}
