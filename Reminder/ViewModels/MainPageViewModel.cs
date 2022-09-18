@@ -27,8 +27,8 @@ namespace Reminder.ViewModels
             GetDataEvents();
             Events.CollectionChanged += Events_CollectionChanged;
 
-            //eventProcessor.Start(Events);
-            eventTimerService.Start(Events);
+            eventProcessor.Start(Events);
+            //eventTimerService.Start(Events);
 
             Ev = Events.ToList();
         }
@@ -38,17 +38,17 @@ namespace Reminder.ViewModels
             var _events = eventFileIOService.LoadEventsData();
             if (_events is null) return;
 
-            //if (Events is null) 
-            //    Events = _events;
-            //else 
-            //    lock (Events) 
+            if (Events is null)
+                Events = _events;
+            else
+                lock (Events)
                     Events = _events;
         }
 
         private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (Events is null) return;
-            //lock (sender) 
+            lock (sender) 
                 eventFileIOService.SaveEventsData(Events);
         }
 
@@ -108,6 +108,7 @@ namespace Reminder.ViewModels
         private void Drop(Event _event)
         {
             Shell.Current.DisplayAlert("test","test","Ok");
+
         }
 
     }
