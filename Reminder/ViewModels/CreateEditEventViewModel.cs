@@ -9,7 +9,7 @@ namespace Reminder.ViewModels
     [QueryProperty(nameof(Events),"Events")]
     [QueryProperty(nameof(EditableEvent), "Event")]
     [QueryProperty(nameof(TimeEvent), "TimeEvent")]
-    [QueryProperty (nameof(IsNew), "IsNew")]
+    [QueryProperty(nameof(IsNew), "IsNew")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
         [ObservableProperty]

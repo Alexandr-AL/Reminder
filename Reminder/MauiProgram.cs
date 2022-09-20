@@ -1,5 +1,4 @@
-﻿using Reminder.Controls;
-using Reminder.Services;
+﻿using Reminder.Services;
 using Reminder.ViewModels;
 using Reminder.Views;
 
@@ -25,7 +24,6 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<EventFileIOService>();
 		builder.Services.AddSingleton<EventProcessor>();
-		builder.Services.AddSingleton<EventTimerService>();
 
 		return builder.Build();
 	}

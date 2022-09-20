@@ -4,62 +4,47 @@
              x:Class="Reminder.MainPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Models"
-             xmlns:controls="clr-namespace:Reminder.Controls"
              x:DataType="vm:MainPageViewModel"
              Title="{Binding Title}"
              MaximumWidthRequest="800">
 
     <Shell.TitleView>
-        
+
         <Grid>
-            
+
             <Label VerticalOptions="Center"
-                   FontFamily="Calibri" 
-                   Text="Reminder"  
+                   FontFamily="Calibri"
+                   Text="Reminder"
                    FontSize="20" 
                    TextColor="White"
-                   Margin="28,0,0,0"/>
+                   Margin="20,0,0,0"/>
 
-            <ImageButton Source="trash_can2.png" 
-                         HorizontalOptions="End"
-                         BackgroundColor="White"
-                         Aspect="AspectFill"
-                         MaximumHeightRequest="25"
-                         MaximumWidthRequest="25"
-                         Margin="0,10,70,5"
-                         CornerRadius="5">
-                <ImageButton.GestureRecognizers>
-                    <DropGestureRecognizer DropCommand="{Binding DeleteEventCommand}"
-                                           DropCommandParameter="{Binding DeletedEvent}"
-                                           AllowDrop="True"/>
-                </ImageButton.GestureRecognizers>
-            </ImageButton>
+            <HorizontalStackLayout HorizontalOptions="End">
+                <Border Stroke="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="30"/>
+                    </Border.StrokeShape>
 
-            <Button HorizontalOptions="End" 
-                    Margin="0, 0, 5, 0"
-                    BackgroundColor="Transparent"                   
-                    ImageSource="search.png"
-                    FontFamily="Calibri"
-                    FontSize="20"
-                    TextColor="White"
-                    Command="{Binding AddNewEventCommand}"/>
+                    <SearchBar BackgroundColor="WhiteSmoke"
+                               WidthRequest="200"
+                               MaximumWidthRequest="200"
+                               VerticalOptions="Center"
+                               HorizontalOptions="End"
+                               x:Name="searchBar"
+                               Text="{Binding TextSearch}"/>
+                </Border>
+
+                <!--<Button HorizontalOptions="End" 
+                        Margin="0, 0, 5, 0"
+                        BackgroundColor="Transparent"                   
+                        ImageSource="search.png"
+                        FontFamily="Calibri"
+                        FontSize="20"
+                        TextColor="White"
+                        Command="{Binding}"/>-->
+            </HorizontalStackLayout>
         </Grid>
     </Shell.TitleView>
-
-    <Shell.SearchHandler>
-        <controls:EventSearchHandler Events="{x:Static vm:MainPageViewModel.Ev}"
-                                     SearchBoxVisibility="Collapsible">
-            <controls:EventSearchHandler.ItemTemplate>
-                <DataTemplate x:DataType="model:Event">
-                    <VerticalStackLayout>
-                        <Label Text="{Binding Name}"/>
-                        <Label Text="{Binding DateTimeEvent,StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </controls:EventSearchHandler.ItemTemplate>
-        </controls:EventSearchHandler>
-        
-    </Shell.SearchHandler>
 
     <Grid ColumnDefinitions="*" RowDefinitions="*">
 
@@ -70,52 +55,49 @@
                                  Margin="0,0,0,0"
                                  Padding="0,0,0,0">
 
-                <CollectionView ItemsSource="{Binding Events}">
+                <CollectionView ItemsSource="{Binding FoundEvents}">
 
                     <CollectionView.ItemTemplate>
 
                         <DataTemplate x:DataType="model:Event">
+                            
+                            <SwipeView>
+                                
+                                <SwipeView.LeftItems>
+                                    <SwipeItems>
+                                        <SwipeItem IconImageSource="trash_can2.png"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
+                                                   CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
 
-                            <Grid>
+                                <Grid>
 
-                                <Frame BorderColor="#909090"
-                                       MaximumWidthRequest="500"
-                                       MaximumHeightRequest="500"
-                                       Margin="13,10,13,10" 
-                                       CornerRadius="5"
-                                       HasShadow="True">
+                                    <Frame BorderColor="#909090"
+                                           MaximumWidthRequest="500"
+                                           MaximumHeightRequest="500"
+                                           Margin="13,10,13,10" 
+                                           CornerRadius="5"
+                                           HasShadow="True">
 
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
-                                                              NumberOfTapsRequired="1"/>
-
-                                        <DragGestureRecognizer CanDrag="True" 
-                                                               DragStartingCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DragForDeleteCommand}"
-                                                               DragStartingCommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
-                                    <!--
-                                            <Image Margin="45,1,15,0" BackgroundColor="#141414"  Source="line.svg"/>
-                                            <Frame BorderColor="Transparent"
-                                                   Margin="15,0,0,0"
-                                                   CornerRadius="0"
-                                                   HasShadow="True">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
+                                                                  CommandParameter="{Binding .}"
+                                                                  NumberOfTapsRequired="1"/>
+                                        </Frame.GestureRecognizers>
                                     
-                                                 Padding="0,0,0,0"
-                                                 это если сделать плотнее запоминалки, добавляем во фрейм выше
-                                                 -->
+                                        <VerticalStackLayout Margin="1">
 
-                                    <VerticalStackLayout Margin="1">
+                                            <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="24"/>
 
-                                        <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="24"/>
+                                            <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontFamily="Calibri"/>
 
-                                        <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontFamily="Calibri"/>
+                                            <Label Text="{Binding Description}" FontFamily="Calibri"/>
 
-                                        <Label Text="{Binding Description}" FontFamily="Calibri"/>
-
-                                    </VerticalStackLayout>
-                                </Frame>
-                            </Grid>
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </Grid>
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

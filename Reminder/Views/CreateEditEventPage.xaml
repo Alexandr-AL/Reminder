@@ -32,10 +32,11 @@
 
                         <Border Stroke="Transparent">
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="100"/>
+                                <RoundRectangle CornerRadius="25"/>
                             </Border.StrokeShape>
                             <Switch BackgroundColor="{StaticResource Yellow300Accent}"
-                                    IsToggled="{Binding EditableEvent.Displayed}"/>
+                                    IsToggled="{Binding EditableEvent.Displayed}"
+                                    HorizontalOptions="Center"/>
                         </Border>
                     </HorizontalStackLayout>
 
@@ -53,7 +54,8 @@
                                 FontSize="25"
                                 BackgroundColor="{StaticResource Yellow300Accent}"
                                 x:Name="NameEditor"
-                                IsEnabled="{Binding IsEnabledEditors}"/>
+                                IsEnabled="{Binding IsEnabledEditors}"
+                                Keyboard="Text"/>
                     </Border>
 
                     <Border IsVisible="{Binding EditableEvent.Displayed}">
@@ -94,7 +96,8 @@
                                 MinimumWidthRequest="600"
                                 BackgroundColor="{StaticResource Gray100}"
                                 x:Name="DescriptionEditor"
-                                IsEnabled="{Binding IsEnabledEditors}"/>
+                                IsEnabled="{Binding IsEnabledEditors}"
+                                Keyboard="Text"/>
                     </Border>
                     
                 </VerticalStackLayout>
