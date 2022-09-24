@@ -1,8 +1,7 @@
-﻿using Reminder.ViewModels;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using Reminder.Models;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Dynamic;
 
 namespace Reminder.Services
 {
@@ -30,7 +29,7 @@ namespace Reminder.Services
                             {
                                 Application.Current.Dispatcher.Dispatch(() =>
                                 {
-                                    Shell.Current.DisplayAlert(_event.Name, _event.Description, "OK");
+                                    EventDisplayed(_event.Name);
                                     EventIsDone(_event);
                                 });
                             }
@@ -39,6 +38,12 @@ namespace Reminder.Services
                     Task.Delay(1000).Wait(token);
                 }
             },token);
+        }
+
+        private void EventDisplayed(string textMSG)
+        {
+            var toast = Toast.Make($"{textMSG}", ToastDuration.Long, 30d);
+            toast.Show();
         }
 
         private void EventIsDone(Event _event)

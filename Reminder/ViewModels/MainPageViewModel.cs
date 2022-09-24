@@ -120,6 +120,5 @@ namespace Reminder.ViewModels
             if (_event is null) return;
             Events.Remove(_event);
         }
-
     }
 }
