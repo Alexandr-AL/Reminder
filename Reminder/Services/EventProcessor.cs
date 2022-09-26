@@ -12,13 +12,14 @@ namespace Reminder.Services
 
         private async void EventExecution(object ct) 
         {
-            if (events is null) return;
             var token = (CancellationToken)ct;
 
             await Task.Run(() =>
             {
                 while (!token.IsCancellationRequested)
                 {
+                    if (events is null) continue;
+
                     lock (events)
                     { 
                         foreach (var _event in events)
@@ -76,9 +77,7 @@ namespace Reminder.Services
 
         public void Start(ObservableCollection<Event> events)
         {
-            if (events == null) return;
             this.events = events;
-
             cts ??= new CancellationTokenSource();
             ThreadPool.QueueUserWorkItem(new WaitCallback(EventExecution), cts.Token);
         }
