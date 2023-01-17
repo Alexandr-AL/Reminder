@@ -5,42 +5,70 @@
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Models"
              x:DataType="vm:MainPageViewModel"
-             Title="{Binding Title}"
+             
+            
              MaximumWidthRequest="800">
+
+
+
+   
+        
+
+
 
     <Shell.TitleView>
 
+        
+        
         <Grid>
 
-            <Label VerticalOptions="Center"
+            
+
+                <Label VerticalOptions="Center"
                    FontFamily="Calibri"
                    Text="Reminder"
                    FontSize="20" 
                    TextColor="White"
                    Margin="20,0,0,0"/>
 
-            <HorizontalStackLayout HorizontalOptions="End">
-                <Border Stroke="Transparent">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="30"/>
-                    </Border.StrokeShape>
 
-                    <SearchBar BackgroundColor="WhiteSmoke"
+
+
+
+
+
+            <ImageButton Source="search03.png" BackgroundColor="#141414"  WidthRequest="18" HeightRequest="18" Margin="20" HorizontalOptions="End"   Clicked="Button_Clicked"/>     
+            <!--
+                <SearchBar BackgroundColor="WhiteSmoke"
+                               
                                WidthRequest="200"
                                MaximumWidthRequest="200"
                                VerticalOptions="Center"
                                HorizontalOptions="End"
+                               
                                x:Name="searchBar"
                                Text="{Binding TextSearch}"/>
-                </Border>
-            </HorizontalStackLayout>
+
+           -->
+
+
+
+
+          
+
         </Grid>
-    </Shell.TitleView>
+    </Shell.TitleView> 
+   
 
     <Grid ColumnDefinitions="*" RowDefinitions="*">
 
+
+        
+
         <ScrollView Grid.Column="0" Grid.Row="0">
 
+            
+            
             <VerticalStackLayout VerticalOptions="Start" 
                                  HorizontalOptions="Start"
                                  Margin="0,0,0,0"
@@ -48,8 +76,12 @@
 
                 <CollectionView ItemsSource="{Binding FoundEvents}">
 
+                    
+                    
                     <CollectionView.ItemTemplate>
 
+                        
+                        
                         <DataTemplate x:DataType="model:Event">
                             
                             <SwipeView>
@@ -64,6 +96,8 @@
 
                                 <Grid>
 
+                                    
+                                    
                                     <Frame BorderColor="#909090"
                                            MaximumWidthRequest="500"
                                            MaximumHeightRequest="500"
@@ -85,6 +119,8 @@
 
                                             <Label Text="{Binding Description}" FontFamily="Calibri"/>
 
+                                            
+                                            
                                         </VerticalStackLayout>
                                     </Frame>
                                 </Grid>
@@ -108,3 +144,4 @@
                 Command="{Binding AddNewEventCommand}"/>
     </Grid>
 </ContentPage>
+   

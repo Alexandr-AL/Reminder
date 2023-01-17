@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Reminder.Views.NewPage1"
+             >
+    
+        
+            <Shell.TitleView>
+
+            <Grid>
+
+
+ <!--          <HorizontalStackLayout HorizontalOptions="Fill">
+                <Border Stroke="Transparent" BackgroundColor="Transparent">
+                <Border.StrokeShape>
+                        <RoundRectangle BackgroundColor="Transparent" Background="Transparent" CornerRadius="10"/>
+                </Border.StrokeShape>
+
+-->
+
+
+                <SearchBar 
+                               
+                               WidthRequest="210"
+                               MaximumWidthRequest="200"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               TextColor="White"
+                        CancelButtonColor="White"
+                        Placeholder="Поиск..."
+                        FontFamily="Calibri"
+                        FontSize="Default"
+                               x:Name="searchBar"
+                               Text="{Binding TextSearch}"/>
+
+<!--                         </Border>
+                        </HorizontalStackLayout>
+-->
+            </Grid>
+            </Shell.TitleView>
+
+            
+</ContentPage>

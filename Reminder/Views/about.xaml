@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Reminder.Views.about"
+             
+             
+             
+             >
+             
+ <!--   
+        <Label 
+            Text="Reminder"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            HeightRequest="150"
+            
+            
+            />
+    
+        -->
+
+    <Shell.TitleView>
+
+
+
+        
+
+
+
+            <Label VerticalOptions="Center"
+                   FontFamily="Calibri"
+                   Text="About"
+                   FontSize="20" 
+                   TextColor="White"
+                   Margin="20,0,0,0"/>
+
+        
+        </Shell.TitleView>
+
+    <Grid>
+
+        <Image Source="logo"
+           VerticalOptions="Start" Margin="0,75,0,0" 
+            HorizontalOptions="Center"
+            HeightRequest="70"
+                                            
+           />
+
+
+        <Label Text="Reminder" FontFamily="Calibri" TextColor="#141414" FontSize="26" HorizontalOptions="Center" Margin="0,0,0,60" VerticalOptions="Center"/>
+        <Label Text="Version 1.0.3" FontFamily="Calibri" TextColor="#6E6E6E" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+        <Button Text="© 2022-2023 Alex Levin, Igor Gabov" FontFamily="Calibri" TextColor="#141414" BackgroundColor="Transparent" FontSize="14" HorizontalOptions="Center" Margin="10" VerticalOptions="End" Clicked="About_Name_Button_Clicked"/>
+
+<!--        <Label Text="© 2022-2023 Alex Levin, Igor Gabov" FontFamily="Calibri" TextColor="#141414" FontSize="14" HorizontalOptions="Center" Margin="10" VerticalOptions="End"/>    -->
+
+        
+        
+    </Grid>
+
+</ContentPage>
