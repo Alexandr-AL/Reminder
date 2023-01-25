@@ -11,7 +11,7 @@ public partial class AppShell : Shell
 	public AppShell()
 	{
 		InitializeComponent();
-        //		Routing.RegisterRoute(nameof(CreateEditEventPage), typeof(CreateEditEventPage));
+        		Routing.RegisterRoute(nameof(CreateEditEventPage), typeof(CreateEditEventPage));
         //		Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
 
     }
