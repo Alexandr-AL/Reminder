@@ -11,11 +11,5 @@ namespace Reminder.ViewModels.Base
     {
         [ObservableProperty]
         private string title;
-
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-        private bool isBusy;
-
-        public bool IsNotBusy => !isBusy;
     }
 }
