@@ -9,4 +9,9 @@ public partial class CreateEditEventPage : ContentPage
 		InitializeComponent();
 		BindingContext = createEditEventViewModel;
 	}
+
+    private void Switch_Toggled(object sender, ToggledEventArgs e)
+    {
+
+    }
 }

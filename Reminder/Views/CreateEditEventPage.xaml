@@ -4,10 +4,13 @@
              x:Class="Reminder.Views.CreateEditEventPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-             Title="{Binding Title}"
+             
+             
              
              x:DataType="vm:CreateEditEventViewModel"
-             MaximumWidthRequest="800">
+             MaximumWidthRequest="800"
+             
+             >
     <!--<Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding BackCommand}"
                             BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
@@ -15,8 +18,37 @@
     </Shell.BackButtonBehavior>-->
 
 
+    
     <Shell.TitleView>
 
+<!--
+        <Label VerticalOptions="Center"
+                   FontFamily="Calibri"
+                   Text="Reminder"
+                   FontSize="20" 
+                   TextColor="White"
+                   HorizontalOptions="Start"
+                   Margin="0,0,0,0"/>
+-->
+        <Grid>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Margin="0,0,0,0">
+                <Label Text="Show date/time" 
+                               VerticalOptions="Center"
+                               TextColor="{StaticResource Gray300}"/>
+
+            </HorizontalStackLayout>
+            <Switch HorizontalOptions="End" OnColor="White" IsToggled="{Binding EditableEvent.Displayed}" >
+
+
+
+
+
+
+        </Switch>
+
+        </Grid>
+        <!--
         <SearchBar BackgroundColor="WhiteSmoke"
                                
                                WidthRequest="200"
@@ -26,33 +58,43 @@
                                
                                x:Name="searchBar"
                                Text="{Binding }" />
+        
+        -->
     </Shell.TitleView>
+    
 
     <Grid RowDefinitions="*,auto" ColumnDefinitions="*,*">
         
         <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
             
             <Grid>
-                
+
+ 
+               
+
+
+
+
                 <VerticalStackLayout Margin="15,20,15,10"
                                      VerticalOptions="Start" 
                                      HorizontalOptions="Center" 
                                      Spacing="10">
 
-                    <HorizontalStackLayout HorizontalOptions="End" Margin="0,0,0,10">
-                        <Label Text="Show event" 
-                               VerticalOptions="Center"
-                               TextColor="{StaticResource Gray200}"/>
+                  
+                    
 
+                        
                         <Border Stroke="Transparent">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="25"/>
                             </Border.StrokeShape>
+                            <!--
                             <Switch BackgroundColor="{StaticResource Yellow300Accent}"
                                     IsToggled="{Binding EditableEvent.Displayed}"
                                     HorizontalOptions="Center"/>
+                            -->
                         </Border>
-                    </HorizontalStackLayout>
+                    
 
                     <Border Stroke="Transparent" Margin="0,0,0,10">
                         <Border.StrokeShape>

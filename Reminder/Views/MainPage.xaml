@@ -29,7 +29,8 @@
                    Text="Reminder"
                    FontSize="20" 
                    TextColor="White"
-                   Margin="20,0,0,0"/>
+                   HorizontalOptions="Start"
+                   Margin="0,0,0,0"/>
 
 
 
@@ -99,11 +100,12 @@
                                     
                                     
                                     <Frame BorderColor="#909090"
-                                           MaximumWidthRequest="500"
-                                           MaximumHeightRequest="500"
-                                           Margin="13,10,13,10" 
+                                           MaximumWidthRequest="0"
+                                           MaximumHeightRequest="200"
+                                           Margin="13,10,13,0" 
                                            CornerRadius="5"
-                                           HasShadow="True">
+                                           HasShadow="True"                                 
+                                           >
 
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
@@ -111,13 +113,13 @@
                                                                   NumberOfTapsRequired="1"/>
                                         </Frame.GestureRecognizers>
                                     
-                                        <VerticalStackLayout Margin="1">
+                                        <VerticalStackLayout Margin="0,0,0,0">
 
-                                            <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="24"/>
+                                            <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="24" />
 
-                                            <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontFamily="Calibri"/>
+                                            <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"  FontFamily="Calibri"/>
 
-                                            <Label Text="{Binding Description}" FontFamily="Calibri"/>
+                                            <Label Text="{Binding Description}"  FontFamily="Calibri"/>
 
                                             
                                             
