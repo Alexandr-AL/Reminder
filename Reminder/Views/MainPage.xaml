@@ -7,7 +7,7 @@
              x:DataType="vm:MainPageViewModel"
              
             
-             MaximumWidthRequest="800">
+             >
 
 
 
@@ -22,7 +22,7 @@
         
         <Grid>
 
-            
+           
 
                 <Label VerticalOptions="Center"
                    FontFamily="Calibri"

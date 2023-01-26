@@ -12,21 +12,27 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
         		Routing.RegisterRoute(nameof(CreateEditEventPage), typeof(CreateEditEventPage));
-        //		Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
-
+        //   		Routing.RegisterRoute(nameof(Settings), typeof(MainPage));
+      //  Routing.RegisterRoute(nameof(About), typeof(MainPage));
+        Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+        
     }
+
+    
+
 
     //открывает страницу about
     private async void MenuItem_Clicked(object sender, EventArgs e)
     {
-        
+       
          await Navigation.PushAsync(new Views.About());
          Shell.Current.FlyoutIsPresented = false;
+    
     }
 
     private async void Settings_Name_Button_Clicked(object sender, EventArgs e)
     {
-
+        
         await Navigation.PushAsync(new Views.Settings());
         Shell.Current.FlyoutIsPresented = false;
     }

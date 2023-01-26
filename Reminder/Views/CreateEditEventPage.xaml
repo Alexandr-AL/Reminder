@@ -17,7 +17,11 @@
                             IconOverride="back.png" />   
     </Shell.BackButtonBehavior>-->
 
+    <!-- Саня вот это кнопка назад, просто реализовал через команду все просто, но падает в ошибку   -->
+    <Shell.BackButtonBehavior>
 
+        <BackButtonBehavior Command="{Binding SaveEventCommand}"/>
+    </Shell.BackButtonBehavior>
     
     <Shell.TitleView>
 
@@ -160,6 +164,8 @@
             </Grid>
         </ScrollView>
 
+        
+
         <Button Command="{Binding CancelCommand}"
                 Grid.Row="1" Grid.Column="0"
                 Text="Close"
@@ -173,5 +179,7 @@
                 FontSize="20"
                 CornerRadius="20"
                 Margin="20,3,20,0"/>
+
+      
     </Grid>
 </ContentPage>

@@ -17,7 +17,7 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = mainPageViewModel;
-        
+        Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
