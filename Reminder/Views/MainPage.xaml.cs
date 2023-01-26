@@ -11,8 +11,6 @@ public partial class MainPage : ContentPage
     {
     }
   
-    
-
     public MainPage(MainPageViewModel mainPageViewModel)
 	{
 		InitializeComponent();
@@ -23,11 +21,6 @@ public partial class MainPage : ContentPage
     private async void Button_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new Views.NewPage1());
-
-
     }
-
-
-
 }
 

@@ -6,12 +6,7 @@
     xmlns:local="clr-namespace:Reminder"
     FlyoutBackgroundColor="#070707"
     FlyoutBehavior="Flyout"
-    FlyoutWidth="269"
-    
-    
-    >
-
-
+    FlyoutWidth="269">
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         
@@ -39,13 +34,7 @@
             
             
  <!--       </Tab>  -->
-
-            
-
-
-
-        
-        
+   
     </FlyoutItem>
     <!--    
     
@@ -64,25 +53,8 @@
      <ShellContent Title="About" ContentTemplate="{DataTemplate }"
     -->
 
-
-
     <Tab>
         <ShellContent  ContentTemplate="{DataTemplate local:MainPage} ">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         </ShellContent>
     </Tab>

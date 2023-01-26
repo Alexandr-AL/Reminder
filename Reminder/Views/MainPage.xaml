@@ -4,41 +4,27 @@
              x:Class="Reminder.MainPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Models"
-             x:DataType="vm:MainPageViewModel"
-             
-            
-             >
-
-
-
-   
-        
-
-
+             x:DataType="vm:MainPageViewModel">
 
     <Shell.TitleView>
 
-        
-        
         <Grid>
 
-           
-
-                <Label VerticalOptions="Center"
+            <Label VerticalOptions="Center"
                    FontFamily="Calibri"
                    Text="Reminder"
                    FontSize="20" 
                    TextColor="White"
                    HorizontalOptions="Start"
-                   Margin="0,0,0,0"/>
+                   Margin="5,0,0,0"/>
 
-
-
-
-
-
-
-            <ImageButton Source="search03.png" BackgroundColor="#141414"  WidthRequest="18" HeightRequest="18" Margin="20" HorizontalOptions="End"   Clicked="Button_Clicked"/>     
+            <ImageButton Source="search03.png" 
+                         BackgroundColor="#141414"  
+                         WidthRequest="18" 
+                         HeightRequest="18" 
+                         Margin="0,0,20,0" 
+                         HorizontalOptions="End"   
+                         Clicked="Button_Clicked"/>     
             <!--
                 <SearchBar BackgroundColor="WhiteSmoke"
                                
@@ -51,38 +37,22 @@
                                Text="{Binding TextSearch}"/>
 
            -->
-
-
-
-
-          
-
         </Grid>
     </Shell.TitleView> 
    
-
     <Grid ColumnDefinitions="*" RowDefinitions="*">
-
-
-        
 
         <ScrollView Grid.Column="0" Grid.Row="0">
 
-            
-            
             <VerticalStackLayout VerticalOptions="Start" 
                                  HorizontalOptions="Start"
                                  Margin="0,0,0,0"
                                  Padding="0,0,0,0">
 
-                <CollectionView ItemsSource="{Binding FoundEvents}">
+                <CollectionView ItemsSource="{Binding Events}">
 
-                    
-                    
                     <CollectionView.ItemTemplate>
 
-                        
-                        
                         <DataTemplate x:DataType="model:Event">
                             
                             <SwipeView>
@@ -97,15 +67,10 @@
 
                                 <Grid>
 
-                                    
-                                    
                                     <Frame BorderColor="#909090"
-                                           MaximumWidthRequest="0"
-                                           MaximumHeightRequest="200"
                                            Margin="13,10,13,0" 
                                            CornerRadius="5"
-                                           HasShadow="True"                                 
-                                           >
+                                           HasShadow="True">
 
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=EditEventCommand}"
@@ -115,14 +80,16 @@
                                     
                                         <VerticalStackLayout Margin="0,0,0,0">
 
-                                            <Label Text="{Binding Name}" FontFamily="Calibri" FontSize="24" />
+                                            <Label Text="{Binding Name}" 
+                                                   FontFamily="Calibri" 
+                                                   FontSize="24" />
 
-                                            <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"  FontFamily="Calibri"/>
+                                            <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"  
+                                                   FontFamily="Calibri"/>
 
-                                            <Label Text="{Binding Description}"  FontFamily="Calibri"/>
+                                            <Label Text="{Binding Description}"  
+                                                   FontFamily="Calibri"/>
 
-                                            
-                                            
                                         </VerticalStackLayout>
                                     </Frame>
                                 </Grid>

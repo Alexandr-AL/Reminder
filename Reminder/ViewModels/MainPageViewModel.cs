@@ -16,30 +16,30 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         private ObservableCollection<Event> events;
 
-        [ObservableProperty]
-        private ObservableCollection<Event> foundEvents;
+        //[ObservableProperty]
+        //private ObservableCollection<Event> foundEvents;
 
-        #region TextSearch Property
-        private string textSearch;
-        public string TextSearch 
-        {
-            get => textSearch;
-            set
-            {
-                SetProperty(ref textSearch, value);
-                SearchEvent(value);
-            } 
-        }
-        #endregion
+        //#region TextSearch Property
+        //private string textSearch;
+        //public string TextSearch 
+        //{
+        //    get => textSearch;
+        //    set
+        //    {
+        //        SetProperty(ref textSearch, value);
+        //        SearchEvent(value);
+        //    } 
+        //}
+        //#endregion
 
         public MainPageViewModel(EventFileIOService eventFileIOService, EventProcessor eventProcessor)
         {
             Title = "Reminder";
             this.eventFileIOService = eventFileIOService;
             GetDataEvents();
-            FoundEvents = new(Events);
+            //FoundEvents = new(Events);
             Events.CollectionChanged += Events_CollectionChanged;
-            eventProcessor.Start(Events);
+            //eventProcessor.Start(Events);
         }
 
         private void GetDataEvents()
@@ -57,7 +57,7 @@ namespace Reminder.ViewModels
         private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (Events is null) return;
-            FoundEvents = new(Events);
+            //FoundEvents = new(Events);
             lock (Events) 
                 eventFileIOService.SaveEventsData(Events);
         }
@@ -65,24 +65,23 @@ namespace Reminder.ViewModels
         private DateTime ClearTimeOfDay(DateTime dateTime) =>
             new(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
 
-        private void SearchEvent(string textSearch)
-        {
-            if (string.IsNullOrWhiteSpace(textSearch)) 
-            {
-                FoundEvents = new(Events);
-                return;
-            }
-            FoundEvents = Events.Where(item =>
-            {
-                if (item.Name is null) return false;
-                return item.Name.ToLower().Contains(textSearch.ToLower());
-            }).ToObservableCollection();
-        }
+        //private void SearchEvent(string textSearch)
+        //{
+        //    if (string.IsNullOrWhiteSpace(textSearch)) 
+        //    {
+        //        FoundEvents = new(Events);
+        //        return;
+        //    }
+        //    FoundEvents = Events.Where(item =>
+        //    {
+        //        if (item.Name is null) return false;
+        //        return item.Name.ToLower().Contains(textSearch.ToLower());
+        //    }).ToObservableCollection();
+        //}
 
         [RelayCommand]
         private async Task AddNewEvent()
         {
-
             await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
