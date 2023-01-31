@@ -1,10 +1,5 @@
 ﻿using Reminder.DAL.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reminder.DAL.Repositories
 {
@@ -15,5 +10,12 @@ namespace Reminder.DAL.Repositories
 
         T GetItem(Guid id);
         Guid AddItem(T newItem);
+        void Delete(T item);
+        void Update(T item);
+
+        Task<T> GetItemAsync(Guid id, CancellationToken token = default);
+        Task<Guid> AddItemAsync(T newItem, CancellationToken token = default);
+        Task DeleteItemAsync(T item, CancellationToken token = default);
+        Task UpdateItemAsync(T item, CancellationToken token = default);
     }
 }
