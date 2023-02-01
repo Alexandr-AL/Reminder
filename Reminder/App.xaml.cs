@@ -1,4 +1,6 @@
-﻿namespace Reminder;
+﻿using Reminder.Services;
+
+namespace Reminder;
 
 public partial class App : Application
 {

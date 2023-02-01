@@ -12,6 +12,7 @@ namespace Reminder.ViewModels
     public partial class MainPageViewModel : ViewModel
     {
         private readonly EventFileIOService eventFileIOService;
+        private readonly DbInitializer _initializer;
 
         [ObservableProperty]
         private ObservableCollection<Event> events;
@@ -32,14 +33,18 @@ namespace Reminder.ViewModels
         //}
         //#endregion
 
-        public MainPageViewModel(EventFileIOService eventFileIOService, EventProcessor eventProcessor)
+        public MainPageViewModel(EventFileIOService eventFileIOService, 
+                                 EventProcessor eventProcessor,
+                                 DbInitializer initializer)
         {
+            _initializer = initializer;
             Title = "Reminder";
             this.eventFileIOService = eventFileIOService;
             GetDataEvents();
             //FoundEvents = new(Events);
             Events.CollectionChanged += Events_CollectionChanged;
             //eventProcessor.Start(Events);
+            _initializer.Initialize();
         }
 
         private void GetDataEvents()
