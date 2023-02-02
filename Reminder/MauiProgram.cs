@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using Microsoft.Extensions.Configuration;
 using Reminder.DAL;
+using Reminder.DAL.Entities;
 using Reminder.DAL.Repositories;
 using Reminder.Services;
 using Reminder.ViewModels;
@@ -43,7 +43,8 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<EventFileIOService>();
 		builder.Services.AddSingleton<EventProcessor>();
-		builder.Services.AddTransient<DbInitializer>();
+		builder.Services.AddSingleton<IEventsDataService, EventsDbService>();
+
 		return builder.Build();
 	}
 }

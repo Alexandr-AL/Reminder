@@ -14,7 +14,7 @@ namespace Reminder.Migrator
 
             builder.ConfigureServices(services => services
                 .AddDbContext<DataContext>(options => options
-                    .UseSqlite("Data Source = ../EventsData.db", assembly => assembly
+                    .UseSqlite("Data Source = EventsData.db", assembly => assembly
                         .MigrationsAssembly("Reminder.DAL")))
                 .AddRepositories());
             

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Reminder.DAL.Entities;
 using Reminder.Extensions;
-using Reminder.Models;
 using Reminder.Services;
 using Reminder.ViewModels.Base;
 using Reminder.Views;
@@ -11,8 +11,8 @@ namespace Reminder.ViewModels
 {
     public partial class MainPageViewModel : ViewModel
     {
-        private readonly EventFileIOService eventFileIOService;
-        private readonly DbInitializer _initializer;
+        private readonly EventFileIOService _eventFileIOService;
+        private readonly IEventsDataService _eventsData;
 
         [ObservableProperty]
         private ObservableCollection<Event> events;
@@ -33,23 +33,27 @@ namespace Reminder.ViewModels
         //}
         //#endregion
 
-        public MainPageViewModel(EventFileIOService eventFileIOService, 
-                                 EventProcessor eventProcessor,
-                                 DbInitializer initializer)
+        public MainPageViewModel
+            (
+            EventFileIOService eventFileIOService,
+            EventProcessor eventProcessor,
+            IEventsDataService eventsData
+            )
         {
-            _initializer = initializer;
             Title = "Reminder";
-            this.eventFileIOService = eventFileIOService;
-            GetDataEvents();
-            //FoundEvents = new(Events);
+            _eventsData = eventsData;
+            _eventFileIOService = eventFileIOService;
+            _eventsData.Initialize();
+            Events = _eventsData.GetEvents().ToObservableCollection();
+            //GetDataEvents();
             Events.CollectionChanged += Events_CollectionChanged;
+            //FoundEvents = new(Events);
             //eventProcessor.Start(Events);
-            _initializer.Initialize();
         }
 
         private void GetDataEvents()
         {
-            var _events = eventFileIOService.LoadEventsData();
+            var _events = _eventFileIOService.LoadEventsData();
             if (_events is null) return;
 
             if (Events is null)
@@ -61,10 +65,26 @@ namespace Reminder.ViewModels
 
         private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (Events is null) return;
-            //FoundEvents = new(Events);
-            lock (Events) 
-                eventFileIOService.SaveEventsData(Events);
+            //if (Events is null) return;
+            ////FoundEvents = new(Events);
+            //lock (Events) 
+            //    _eventFileIOService.SaveEventsData(Events);
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         private DateTime ClearTimeOfDay(DateTime dateTime) =>
@@ -119,10 +139,12 @@ namespace Reminder.ViewModels
         }
 
         [RelayCommand]
-        private void DeleteEvent(Event _event)
+        private async Task DeleteEvent(Event _event)
         {
             if (_event is null) return;
+            await _eventsData.DeleteEventAsync(_event);
             Events.Remove(_event);
+            //Events.Remove(_event);
         }
     }
 }

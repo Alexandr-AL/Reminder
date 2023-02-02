@@ -2,7 +2,7 @@
 {
     public abstract class Entity : IEntity
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime DateModified { get; set; } = DateTime.Now;
     }
 }

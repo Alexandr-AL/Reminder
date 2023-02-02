@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Reminder.Models;
 using System.Collections.ObjectModel;
+using Reminder.DAL.Entities;
 
 namespace Reminder.ViewModels
 {

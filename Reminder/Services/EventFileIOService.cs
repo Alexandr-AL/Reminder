@@ -1,4 +1,4 @@
-﻿using Reminder.Models;
+﻿using Reminder.DAL.Entities;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;

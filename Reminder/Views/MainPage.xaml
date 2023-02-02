@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Reminder.MainPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
-             xmlns:model="clr-namespace:Reminder.Models"
+             xmlns:model="clr-namespace:Reminder.DAL.Entities;assembly=Reminder.DAL"
              x:DataType="vm:MainPageViewModel">
 
     <Shell.TitleView>
