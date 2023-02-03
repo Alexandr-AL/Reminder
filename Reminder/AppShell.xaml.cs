@@ -39,6 +39,14 @@ public partial class AppShell : Shell
         Shell.Current.FlyoutIsPresented = false;
     }
 
+    private async void Donat_Clicked(object sender, EventArgs e)
+    {
+
+        await Navigation.PushAsync(new Views.Support());
+        Shell.Current.FlyoutIsPresented = false;
+    }
+
+
     /*
         //показывает окошко
         private async void MenuItem_Clicked(object sender, EventArgs e)

@@ -4,7 +4,8 @@
              x:Class="Reminder.MainPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.DAL.Entities;assembly=Reminder.DAL"
-             x:DataType="vm:MainPageViewModel">
+             x:DataType="vm:MainPageViewModel"
+             Title="Reminder">
 
  <!--ТитлВью будет закомменчен пока его не починят -->   
  <!--   <Shell.TitleView>
@@ -111,6 +112,7 @@
         <Button ImageSource="plus1122.png" 
                 HorizontalOptions="End" 
                 VerticalOptions="End"
+                BorderColor="Transparent"
                 BackgroundColor="Transparent"
                 MaximumHeightRequest="64"
                 MinimumWidthRequest="64"

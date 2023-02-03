@@ -81,9 +81,33 @@
     </MenuItem>
 
 
+    <MenuItem Clicked="Donat_Clicked">
+
+        <Shell.MenuItemTemplate>
+
+            <DataTemplate>
+
+                <Grid >
 
 
-    <MenuItem Clicked="MenuItem_Clicked"/>
+
+                    <Image HorizontalOptions="Start" VerticalOptions="End" Margin="18,0,0,0" Source="donat_white"  />
+                    <Label TextColor="White" BackgroundColor="Transparent"  HorizontalOptions="Start" Margin="60,20,0,0"  Text="Support" />
+
+
+
+                </Grid>
+
+
+
+            </DataTemplate>
+
+
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    
+
+    <MenuItem Clicked="MenuItem_Clicked">
 
     <Shell.MenuItemTemplate>
 
@@ -106,8 +130,9 @@
 
         
     </Shell.MenuItemTemplate>
+</MenuItem>
 
-
+    
 
 
     <!--   <Tab>

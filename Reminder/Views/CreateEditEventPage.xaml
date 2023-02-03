@@ -17,7 +17,6 @@
                             IconOverride="back.png" />   
     </Shell.BackButtonBehavior>-->
 
-    <!-- Саня вот это кнопка назад, просто реализовал через команду все просто, но падает в ошибку   -->
     <Shell.BackButtonBehavior>
 
         <BackButtonBehavior Command="{Binding CancelCommand}"/>
