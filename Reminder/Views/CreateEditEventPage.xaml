@@ -20,7 +20,7 @@
     <!-- Саня вот это кнопка назад, просто реализовал через команду все просто, но падает в ошибку   -->
     <Shell.BackButtonBehavior>
 
-        <BackButtonBehavior Command="{Binding SaveEventCommand}"/>
+        <BackButtonBehavior Command="{Binding CancelCommand}"/>
     </Shell.BackButtonBehavior>
     
     <Shell.TitleView>

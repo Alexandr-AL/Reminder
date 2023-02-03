@@ -6,9 +6,11 @@ using Reminder.Services;
 using Reminder.ViewModels.Base;
 using Reminder.Views;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 namespace Reminder.ViewModels
 {
+
     public partial class MainPageViewModel : ViewModel
     {
         private readonly EventFileIOService eventFileIOService;
@@ -34,13 +36,25 @@ namespace Reminder.ViewModels
 
         public MainPageViewModel(EventFileIOService eventFileIOService, EventProcessor eventProcessor)
         {
-            Title = "Reminder";
+            // Title = "Reminder";
             this.eventFileIOService = eventFileIOService;
             GetDataEvents();
             //FoundEvents = new(Events);
             Events.CollectionChanged += Events_CollectionChanged;
             //eventProcessor.Start(Events);
+
+            
+           
         }
+       
+        
+
+        //ImageButton imageButton = new ImageButton()
+        //{
+        //    Source = "search03.png",
+        //    HorizontalOptions= LayoutOptions.Center,
+        //};
+
 
         private void GetDataEvents()
         {

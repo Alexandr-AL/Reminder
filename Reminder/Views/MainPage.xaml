@@ -4,9 +4,11 @@
              x:Class="Reminder.MainPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.Models"
-             x:DataType="vm:MainPageViewModel">
+             x:DataType="vm:MainPageViewModel"
+             Title="Reminder">
 
-    <Shell.TitleView>
+ <!--ТитлВью будет закомменчен пока его не починят -->   
+ <!--   <Shell.TitleView>
 
         <Grid>
 
@@ -19,26 +21,24 @@
                    Margin="5,0,0,0"/>
 
             <ImageButton Source="search03.png" 
-                         BackgroundColor="#141414"  
-                         WidthRequest="18" 
-                         HeightRequest="18" 
-                         Margin="0,0,20,0" 
-                         HorizontalOptions="End"   
-                         Clicked="Button_Clicked"/>     
-            <!--
-                <SearchBar BackgroundColor="WhiteSmoke"
-                               
-                               WidthRequest="200"
-                               MaximumWidthRequest="200"
-                               VerticalOptions="Center"
-                               HorizontalOptions="End"
-                               
-                               x:Name="searchBar"
-                               Text="{Binding TextSearch}"/>
-
-           -->
+                   BackgroundColor="#141414"  
+                   WidthRequest="18" 
+                   HeightRequest="18" 
+                   Margin="0,0,20,0" 
+                   HorizontalOptions="End"   
+                   Clicked="Button_Clicked"/>     
+            
+            <SearchBar BackgroundColor="WhiteSmoke"       
+                   WidthRequest="200"
+                   MaximumWidthRequest="200"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End"             
+                   x:Name="searchBar"
+                   Text="{Binding TextSearch}"/>
+           
         </Grid>
-    </Shell.TitleView> 
+    
+        </Shell.TitleView> -->
    
     <Grid ColumnDefinitions="*" RowDefinitions="*">
 
@@ -57,13 +57,18 @@
                             
                             <SwipeView>
                                 
-                                <SwipeView.LeftItems>
+                                <SwipeView.RightItems>
                                     <SwipeItems>
-                                        <SwipeItem IconImageSource="trash_can2.png"
+
+                                        <SwipeItemView
                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
-                                                   CommandParameter="{Binding .}"/>
+                                                   CommandParameter="{Binding .}">
+
+                                            <Image Source="trash_can2.pdf" IsAnimationPlaying="True" HeightRequest="32" WidthRequest="32"  />
+
+                                        </SwipeItemView>
                                     </SwipeItems>
-                                </SwipeView.LeftItems>
+                                </SwipeView.RightItems>
 
                                 <Grid>
 
@@ -101,9 +106,6 @@
         </ScrollView>
         
         <Button ImageSource="plus1122.png" 
-                Grid.Column="0"
-                Grid.Row="0"
-                BorderColor="Transparent"
                 HorizontalOptions="End" 
                 VerticalOptions="End"
                 BackgroundColor="Transparent"
@@ -111,6 +113,9 @@
                 MinimumWidthRequest="64"
                 Margin="0,0,5,5"
                 Command="{Binding AddNewEventCommand}"/>
+        
+        <!--<Button ImageSource="plus1122.png" Command="{Binding AddNewEventCommand}" HeightRequest="16" WidthRequest="16" ContentLayout="Bottom, 20"/>-->
+        
     </Grid>
 </ContentPage>
    
