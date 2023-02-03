@@ -6,7 +6,6 @@ using Reminder.Services;
 using Reminder.ViewModels.Base;
 using Reminder.Views;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 
 namespace Reminder.ViewModels
 {
@@ -16,7 +15,7 @@ namespace Reminder.ViewModels
         private readonly IEventsDataService _eventsData;
 
         [ObservableProperty]
-        private ObservableCollection<Event> events;
+        private ObservableCollection<Event> _events;
 
         //[ObservableProperty]
         //private ObservableCollection<Event> foundEvents;
@@ -47,16 +46,10 @@ namespace Reminder.ViewModels
             Events.CollectionChanged += Events_CollectionChanged;
             //FoundEvents = new(Events);
             //eventProcessor.Start(Events);
-
-            
-           
         }
 
         private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            var items = sender as ObservableCollection<Event>;
-
-            if (items is null) return;
             if (e is null) return;
 
             switch (e.Action)
@@ -83,7 +76,6 @@ namespace Reminder.ViewModels
                 default:
                     break;
             }
-
         }
 
         private DateTime ClearTimeOfDay(DateTime dateTime) =>
@@ -111,8 +103,8 @@ namespace Reminder.ViewModels
                 {
                     { "Title", "Add new"},
                     { "Events", Events },
-                    { "Event", new Event{DateTimeEvent = ClearTimeOfDay(DateTime.Now) } },
-                    { "TimeEvent", DateTime.Now.TimeOfDay },
+                    { "Event", new Event(){ DateTimeEvent = DateTime.Now} },
+                    //{ "TimeEvent", DateTime.Now.TimeOfDay },
                     { "IsNew", true }
                 });
         }

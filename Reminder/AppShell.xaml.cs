@@ -11,17 +11,14 @@ public partial class AppShell : Shell
 	public AppShell()
 	{
 		InitializeComponent();
-        		Routing.RegisterRoute(nameof(CreateEditEventPage), typeof(CreateEditEventPage));
-        //   		Routing.RegisterRoute(nameof(Settings), typeof(MainPage));
-        //  Routing.RegisterRoute(nameof(About), typeof(MainPage));
-       // Routing.RegisterRoute(nameof(MainPage), typeof(Settings));
-
         Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+        Routing.RegisterRoute(nameof(CreateEditEventPage), typeof(CreateEditEventPage));
+        //Routing.RegisterRoute(nameof(Settings), typeof(MainPage));
+        //Routing.RegisterRoute(nameof(About), typeof(MainPage));
+        //Routing.RegisterRoute(nameof(MainPage), typeof(Settings));
+
         
     }
-
-    
-
 
     //открывает страницу about
     private async void MenuItem_Clicked(object sender, EventArgs e)

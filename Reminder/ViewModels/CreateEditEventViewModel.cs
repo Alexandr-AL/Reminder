@@ -7,56 +7,54 @@ namespace Reminder.ViewModels
 {
     [QueryProperty(nameof(Title), "Title")]
     [QueryProperty(nameof(Events),"Events")]
-    [QueryProperty(nameof(EditableEvent), "Event")]
-    [QueryProperty(nameof(TimeEvent), "TimeEvent")]
+    [QueryProperty(nameof(CrEvent), "Event")]
+    //[QueryProperty(nameof(TimeEvent), "TimeEvent")]
     [QueryProperty(nameof(IsNew), "IsNew")]
     public partial class CreateEditEventViewModel : Base.ViewModel
     {
         [ObservableProperty]
-        private ObservableCollection<Event> events;
+        private ObservableCollection<Event> _events;
 
         [ObservableProperty]
-        private Event editableEvent;
+        private Event _crEvent;
 
-        [ObservableProperty]
-        private TimeSpan timeEvent;
+        //[ObservableProperty]
+        //private TimeSpan timeEvent;
 
-        [ObservableProperty]
-        private bool isEnabledEditors = true;
+        //[ObservableProperty]
+        //private bool isEnabledEditors = true;
 
         public bool IsNew { get; set; }
 
         [RelayCommand]
         private async Task SaveEvent()
         {
-            if (EditableEvent is null || Events is null) return;
+            if (CrEvent is null || Events is null) return;
 
-            EditableEvent.DateTimeEvent = EditableEvent.DateTimeEvent.Add(TimeEvent);
-            EditableEvent.DateModified = DateTime.Now;
+            //CrEvent.DateTimeEvent = CrEvent.DateTimeEvent.Add(TimeEvent);
+            CrEvent.DateModified = DateTime.Now;
 
-            if (IsNew) 
-                lock(Events) 
-                    Events.Insert(0, EditableEvent);
+            if (IsNew)
+            {
+                //Events.Insert(0, CrEvent);
+                Events.Add(CrEvent);
+            }
             else
             {
-                var index = Events.IndexOf(Events.FirstOrDefault(x => x.Id == EditableEvent.Id));
+                var index = Events.IndexOf(Events.FirstOrDefault(x => x.Id == CrEvent.Id));
+
                 if (index < 0) return;
 
-                lock(Events) 
-                    Events[index] = EditableEvent;
+                Events[index] = CrEvent;
             }
-            await Cancel();
+            //await Cancel();
         }
 
         [RelayCommand]
         private async Task Cancel()
         {
-            IsEnabledEditors = false;
-            //  await Shell.Current.GoToAsync("..", true);
-              Shell.Current.SendBackButtonPressed();
+            await Shell.Current.GoToAsync("..", true);
+            //Shell.Current.SendBackButtonPressed();
         }
-
-        
-
     }
 }
