@@ -4,13 +4,9 @@
              x:Class="Reminder.Views.CreateEditEventPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-             
-             
-             
              x:DataType="vm:CreateEditEventViewModel"
-             MaximumWidthRequest="800"
-             
-             >
+             MaximumWidthRequest="800">
+    
     <!--<Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding BackCommand}"
                             BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
@@ -18,14 +14,12 @@
     </Shell.BackButtonBehavior>-->
 
     <!-- Саня вот это кнопка назад, просто реализовал через команду все просто, но падает в ошибку   -->
-    <Shell.BackButtonBehavior>
-
-        <BackButtonBehavior Command="{Binding CancelCommand}"/>
+    <Shell.BackButtonBehavior >
+        <BackButtonBehavior Command="{Binding SaveEventCommand}"/>
     </Shell.BackButtonBehavior>
-    
-    <Shell.TitleView>
 
-<!--
+    <Shell.TitleView>
+        <!--
         <Label VerticalOptions="Center"
                    FontFamily="Calibri"
                    Text="Reminder"
@@ -42,14 +36,7 @@
                                TextColor="{StaticResource Gray300}"/>
 
             </HorizontalStackLayout>
-            <Switch HorizontalOptions="End" OnColor="White" IsToggled="{Binding EditableEvent.Displayed}" >
-
-
-
-
-
-
-        </Switch>
+            <Switch HorizontalOptions="End" OnColor="White" IsToggled="{Binding }"/>
 
         </Grid>
         <!--
@@ -66,46 +53,35 @@
         -->
     </Shell.TitleView>
     
-
     <Grid RowDefinitions="*,auto" ColumnDefinitions="*,*">
         
         <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
             
             <Grid>
-
- 
-               
-
-
-
-
+                
                 <VerticalStackLayout Margin="15,20,15,10"
                                      VerticalOptions="Start" 
                                      HorizontalOptions="Center" 
                                      Spacing="10">
 
-                  
+                    <Border Stroke="Transparent">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="25"/>
+                        </Border.StrokeShape>
+                        <!--
+                        <Switch BackgroundColor="{StaticResource Yellow300Accent}"
+                                IsToggled="{Binding EditableEvent.Displayed}"
+                                HorizontalOptions="Center"/>
+                        -->
+                    </Border>
                     
-
-                        
-                        <Border Stroke="Transparent">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="25"/>
-                            </Border.StrokeShape>
-                            <!--
-                            <Switch BackgroundColor="{StaticResource Yellow300Accent}"
-                                    IsToggled="{Binding EditableEvent.Displayed}"
-                                    HorizontalOptions="Center"/>
-                            -->
-                        </Border>
-                    
-
                     <Border Stroke="Transparent" Margin="0,0,0,10">
+                        
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
                         
-                        <Editor Text="{Binding EditableEvent.Name}"
+                        <Editor Text="{Binding CrEvent.Name}"
                                 Placeholder="enter event name"
                                 PlaceholderColor="{StaticResource Gray200}"
                                 AutoSize="TextChanges"
@@ -113,28 +89,28 @@
                                 MaxLength="256"
                                 FontSize="25"
                                 BackgroundColor="{StaticResource Yellow300Accent}"
-                                x:Name="NameEditor"
-                                IsEnabled="{Binding IsEnabledEditors}"
                                 Keyboard="Text"/>
                     </Border>
 
-                    <Border IsVisible="{Binding EditableEvent.Displayed}">
+                    <Border IsVisible="{Binding CrEvent.Displayed}">
+                        
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
                         
-                        <DatePicker Date="{Binding EditableEvent.DateTimeEvent}" 
+                        <DatePicker Date="{Binding CrEvent.DateTimeEvent}" 
                                     HorizontalOptions="Center"
                                     FontSize="25"
                                     Format="dd MMMM yyyy"/>
                     </Border>
 
-                    <Border IsVisible="{Binding EditableEvent.Displayed}">
+                    <Border IsVisible="{Binding CrEvent.Displayed}">
+                        
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
                         
-                        <TimePicker Time="{Binding TimeEvent}"
+                        <TimePicker Time="{Binding CrEvent.DateTimeEvent.TimeOfDay}"
                                     HorizontalOptions="Center"
                                     FontSize="25"
                                     BackgroundColor="LightGrey"
@@ -146,7 +122,7 @@
                             <RoundRectangle CornerRadius="5"/>
                         </Border.StrokeShape>
                         
-                        <Editor Text="{Binding EditableEvent.Description}"
+                        <Editor Text="{Binding CrEvent.Description}"
                                 Placeholder="description"
                                 PlaceholderColor="{StaticResource Yellow100Accent}"
                                 AutoSize="TextChanges"
@@ -155,8 +131,6 @@
                                 FontSize="22"
                                 MinimumWidthRequest="600"
                                 BackgroundColor="{StaticResource Gray100}"
-                                x:Name="DescriptionEditor"
-                                IsEnabled="{Binding IsEnabledEditors}"
                                 Keyboard="Text"/>
                     </Border>
                     
