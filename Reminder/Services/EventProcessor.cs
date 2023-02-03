@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using Reminder.Models;
+using Reminder.DAL.Entities;
 using System.Collections.ObjectModel;
 
 namespace Reminder.Services

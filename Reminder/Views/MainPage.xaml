@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Reminder.MainPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
-             xmlns:model="clr-namespace:Reminder.Models"
-             x:DataType="vm:MainPageViewModel"
-             Title="Reminder">
+             xmlns:model="clr-namespace:Reminder.DAL.Entities;assembly=Reminder.DAL"
+             x:DataType="vm:MainPageViewModel">
 
  <!--ТитлВью будет закомменчен пока его не починят -->   
  <!--   <Shell.TitleView>
@@ -94,6 +93,10 @@
 
                                             <Label Text="{Binding Description}"  
                                                    FontFamily="Calibri"/>
+                                            <Button Text="Del"
+                                                    HorizontalOptions="End"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
+                                                    CommandParameter="{Binding .}"/>
 
                                         </VerticalStackLayout>
                                     </Frame>

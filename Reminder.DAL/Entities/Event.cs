@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Reminder.DAL.Entities
+﻿namespace Reminder.DAL.Entities
 {
     public class Event : Base.Entity
     {
@@ -15,5 +9,17 @@ namespace Reminder.DAL.Entities
         public string? Description { get; set; }
 
         public bool Displayed { get; set; } = false;
+
+        public Event() { }
+
+        public Event(Event _event)
+        {
+            Id = _event.Id;
+            Name = _event.Name;
+            DateTimeEvent = _event.DateTimeEvent;
+            Description = _event.Description;
+            DateModified = _event.DateModified;
+            Displayed = _event.Displayed;
+        }
     }
 }

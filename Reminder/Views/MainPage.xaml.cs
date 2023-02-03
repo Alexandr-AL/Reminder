@@ -1,6 +1,4 @@
 ﻿
-
-using Reminder.Models;
 using Reminder.ViewModels;
 using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
