@@ -25,10 +25,7 @@ public static class MauiProgram
 
 		builder.UseMauiApp<App>().UseMauiCommunityToolkit();
 
-        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-		builder.Configuration.AddConfiguration(config);
-
-		var connStr = builder.Configuration.GetConnectionString("SqliteConnections");
+		var connStr = $"FileName = {Path.Combine(FileSystem.AppDataDirectory, "EventsData.db")}";
 		builder.Services
 			.AddDbContext<DataContext>(options => options
 				.UseSqlite(connStr, assembly => assembly
@@ -41,9 +38,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<CreateEditEventPage>();
 		builder.Services.AddTransient<CreateEditEventViewModel>();
 
-		builder.Services.AddSingleton<EventFileIOService>();
-		builder.Services.AddSingleton<EventProcessor>();
 		builder.Services.AddSingleton<IEventsDataService, EventsDbService>();
+		builder.Services.AddSingleton<EventProcessor>();
 
 		return builder.Build();
 	}

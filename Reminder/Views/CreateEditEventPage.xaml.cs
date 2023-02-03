@@ -1,5 +1,4 @@
 using Reminder.ViewModels;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Reminder.Views;
 

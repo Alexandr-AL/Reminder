@@ -52,7 +52,7 @@ namespace Reminder.ViewModels
         private async Task Cancel()
         {
             IsEnabledEditors = false;
-            await Shell.Current.GoToAsync("..", true);
+            await Shell.Current.GoToAsync(nameof(MainPage), true);
         }
     }
 }

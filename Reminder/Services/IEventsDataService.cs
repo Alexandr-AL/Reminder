@@ -9,7 +9,7 @@ namespace Reminder.Services
         IEnumerable<Event> GetEvents();
 
         Task AddEventAsync(Event @event);
-        Task SaveEventAsync(Event @event);
+        Task UpdateEventAsync(Event @event);
         Task DeleteEventAsync(Event @event);
     }
 }

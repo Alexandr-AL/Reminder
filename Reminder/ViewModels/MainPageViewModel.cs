@@ -11,7 +11,6 @@ namespace Reminder.ViewModels
 {
     public partial class MainPageViewModel : ViewModel
     {
-        private readonly EventFileIOService _eventFileIOService;
         private readonly IEventsDataService _eventsData;
 
         [ObservableProperty]
@@ -35,48 +34,43 @@ namespace Reminder.ViewModels
 
         public MainPageViewModel
             (
-            EventFileIOService eventFileIOService,
             EventProcessor eventProcessor,
             IEventsDataService eventsData
             )
         {
             Title = "Reminder";
             _eventsData = eventsData;
-            _eventFileIOService = eventFileIOService;
             _eventsData.Initialize();
-            Events = _eventsData.GetEvents().ToObservableCollection();
-            //GetDataEvents();
+            Events = _eventsData.GetEvents().OrderByDescending(key => key.DateModified).ToObservableCollection();
             Events.CollectionChanged += Events_CollectionChanged;
             //FoundEvents = new(Events);
             //eventProcessor.Start(Events);
         }
 
-        private void GetDataEvents()
-        {
-            var _events = _eventFileIOService.LoadEventsData();
-            if (_events is null) return;
-
-            if (Events is null)
-                Events = _events;
-            else
-                lock (Events)
-                    Events = _events;
-        }
-
         private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            //if (Events is null) return;
-            ////FoundEvents = new(Events);
-            //lock (Events) 
-            //    _eventFileIOService.SaveEventsData(Events);
+            var items = sender as ObservableCollection<Event>;
+
+            if (items is null) return;
+            if (e is null) return;
+
             switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    if (e.NewItems is null) break;
+                    _eventsData.AddEventAsync(e.NewItems[0] as Event);
                     break;
+
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    if (e.OldItems is null) break;
+                    _eventsData.DeleteEventAsync(e.OldItems[0] as Event);
                     break;
+
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    if (e.NewItems is null) break;
+                    _eventsData.UpdateEventAsync(e.NewItems[0] as Event);
                     break;
+
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
@@ -139,12 +133,10 @@ namespace Reminder.ViewModels
         }
 
         [RelayCommand]
-        private async Task DeleteEvent(Event _event)
+        private void DeleteEvent(Event _event)
         {
             if (_event is null) return;
-            await _eventsData.DeleteEventAsync(_event);
             Events.Remove(_event);
-            //Events.Remove(_event);
         }
     }
 }

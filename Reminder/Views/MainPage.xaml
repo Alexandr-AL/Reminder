@@ -89,6 +89,10 @@
 
                                             <Label Text="{Binding Description}"  
                                                    FontFamily="Calibri"/>
+                                            <Button Text="Del"
+                                                    HorizontalOptions="End"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
+                                                    CommandParameter="{Binding .}"/>
 
                                         </VerticalStackLayout>
                                     </Frame>
@@ -110,7 +114,8 @@
                 MaximumHeightRequest="64"
                 MinimumWidthRequest="64"
                 Margin="0,0,5,5"
-                Command="{Binding AddNewEventCommand}"/>
+                Command="{Binding AddNewEventCommand}"
+                />
     </Grid>
 </ContentPage>
    

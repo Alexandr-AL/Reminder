@@ -9,12 +9,12 @@ namespace Reminder.Services
     public class EventsDbService: IEventsDataService
     {
         private readonly DataContext _dataContext;
-        private readonly IRepository<Event> _repository;
+        private readonly IRepository<Event> _eventRepository;
 
         public EventsDbService(DataContext dataContext, IRepository<Event> repository)
         {
             _dataContext = dataContext;
-            _repository = repository;
+            _eventRepository = repository;
         }
 
         public void Initialize()
@@ -22,16 +22,16 @@ namespace Reminder.Services
             if (_dataContext is null) return;
             _dataContext.Database.Migrate();
 
-            if (_repository is null) return;
+            if (_eventRepository is null) return;
             if (!_dataContext.Events.Any())
             {
-                _repository.AddItem(new Event()
+                _eventRepository.AddItem(new Event()
                 {
                     Name = "TestName1",
                     Description = "TestDescription1",
                     DateTimeEvent = DateTime.Now
                 });
-                _repository.AddItem(new Event()
+                _eventRepository.AddItem(new Event()
                 {
                     Name = "TestName2",
                     Description = "TestDescription2",
@@ -42,26 +42,32 @@ namespace Reminder.Services
 
         public IEnumerable<Event> GetEvents()
         {
-            if (_repository is null) return Enumerable.Empty<Event>();
-            return _repository.GetAll().AsEnumerable();
+            if (_eventRepository is null) return Enumerable.Empty<Event>();
+            return _eventRepository.GetAll().AsEnumerable();
         }
 
         public async Task AddEventAsync(Event @event)
         {
-            if (_repository is null) return;
-            await _repository.AddItemAsync(@event);
+            if (_eventRepository is null) return;
+            if (@event is null) return;
+
+            await _eventRepository.AddItemAsync(@event);
         }
 
-        public async Task SaveEventAsync(Event @event) 
+        public async Task UpdateEventAsync(Event @event) 
         {
-            if (_repository is null) return;
-            await _repository.UpdateItemAsync(@event);
+            if (_eventRepository is null) return;
+            if (@event is null) return;
+
+            await _eventRepository.UpdateItemAsync(@event);
         }
 
         public  async Task DeleteEventAsync(Event @event)
         {
-            if (_repository is null) return;
-            await _repository.DeleteItemAsync(@event);
+            if (_eventRepository is null) return;
+            if (@event is null) return;
+
+            await _eventRepository.DeleteItemAsync(@event);
         }
     }
 }
