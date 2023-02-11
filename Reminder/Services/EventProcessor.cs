@@ -64,10 +64,10 @@ namespace Reminder.Services
         {
             if (_event is null) return false;
 
-            if (_event.DateTimeEvent.Date != DateTime.Now.Date) return false;
+            if (_event.DateEvent.Date != DateTime.Now.Date) return false;
 
             var timeNow = DateTime.Now.TimeOfDay;
-            var timeExec = _event.DateTimeEvent.TimeOfDay;
+            var timeExec = _event.DateEvent.TimeOfDay;
 
             if (timeNow.Hours == timeExec.Hours && timeNow.Minutes == timeExec.Minutes)
                 return true;

@@ -100,7 +100,7 @@
 
         </Shell.MenuItemTemplate>
     </MenuItem>
-    
+
 
     <MenuItem Clicked="MenuItem_Clicked">
 
@@ -123,39 +123,8 @@
             </Grid>
         </DataTemplate>
     </Shell.MenuItemTemplate>
-</MenuItem>
+</MenuItem>-->
 
-    <Shell.FlyoutHeaderTemplate>
-
-        <DataTemplate>
-
-            <Grid>
-
-                <Image HorizontalOptions="Start"
-                       VerticalOptions="Start"
-                       Source="r_white"/>
-
-                <Label Margin="60,0,0,0"
-                       HorizontalOptions="Start"
-                       VerticalOptions="Center"
-                       FontFamily="Calibri"
-                       FontSize="18"
-                       Text="Reminder"
-                       TextColor="White"/>
-
-                <Image Margin="0,0,0,4"
-                       VerticalOptions="End"
-                       Source="line"/>
-            </Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>-->
-
-    <!--   <Shell.FlyoutFooter>
-        <Grid>
-            <Image HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0,0,15" Source="information_black"  />
-            <Button TextColor="White" BackgroundColor="Transparent" HorizontalOptions="Start" Margin="50,0,0,15"  Text="About" Clicked="MenuItem_Clicked"/>
-        </Grid>
-    </Shell.FlyoutFooter>-->
 </Shell>
 
 

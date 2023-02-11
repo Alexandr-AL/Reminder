@@ -7,37 +7,23 @@
              x:DataType="vm:CreateEditEventViewModel"
              MaximumWidthRequest="800">
 
-    <!--<Shell.BackButtonBehavior>
-        <BackButtonBehavior Command="{Binding BackCommand}"
-                            BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
-                            IconOverride="back.png" />
-    </Shell.BackButtonBehavior>-->
-
-    <!--  Саня вот это кнопка назад, просто реализовал через команду все просто, но падает в ошибку  -->
     <Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding SaveEventCommand}"/>
     </Shell.BackButtonBehavior>
 
     <Shell.TitleView>
-        <!--
-        <Label VerticalOptions="Center"
-                   FontFamily="Calibri"
-                   Text="Reminder"
-                   FontSize="20"
-                   TextColor="White"
-                   HorizontalOptions="Start"
-                   Margin="0,0,0,0"/>-->
+
         <Grid>
 
             <HorizontalStackLayout Margin="0,0,0,0"
                                    HorizontalOptions="Center">
                 <Label VerticalOptions="Center"
-                       Text="Show date/time"
+                       Text="remind me"
                        TextColor="{StaticResource Gray300}"/>
             </HorizontalStackLayout>
 
             <Switch HorizontalOptions="End"
-                    IsToggled="{Binding CrEvent.Displayed}"
+                    IsToggled="{Binding CeEvent.Displayed}"
                     OnColor="White"/>
 
         </Grid>
@@ -55,102 +41,78 @@
         -->
     </Shell.TitleView>
 
-    <Grid ColumnDefinitions="*,*"
-          RowDefinitions="*,auto">
+    <ScrollView Grid.Row="0"
+                Grid.ColumnSpan="2">
 
-        <ScrollView Grid.Row="0"
-                    Grid.ColumnSpan="2">
+        <Grid>
 
-            <Grid>
+            <VerticalStackLayout Margin="15,20,15,10"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Start"
+                                 Spacing="10">
 
-                <VerticalStackLayout Margin="15,20,15,10"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="Start"
-                                     Spacing="10">
+                <Border Margin="0,0,0,10"
+                        Stroke="Transparent">
 
-                    <Border Margin="0,0,0,10"
-                            Stroke="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
 
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
+                    <Editor AutoSize="TextChanges"
+                            BackgroundColor="{StaticResource Yellow300Accent}"
+                            FontSize="25"
+                            Keyboard="Text"
+                            MaxLength="256"
+                            MaximumHeightRequest="150"
+                            Placeholder="enter event name"
+                            PlaceholderColor="{StaticResource Gray200}"
+                            Text="{Binding CeEvent.Name}"/>
+                </Border>
 
-                        <Editor AutoSize="TextChanges"
-                                BackgroundColor="{StaticResource Yellow300Accent}"
+                <Border IsVisible="{Binding CeEvent.Displayed}">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+
+                    <DatePicker HorizontalOptions="Center"
+                                Date="{Binding CeEvent.DateEvent}"
                                 FontSize="25"
-                                Keyboard="Text"
-                                MaxLength="256"
-                                MaximumHeightRequest="150"
-                                Placeholder="enter event name"
-                                PlaceholderColor="{StaticResource Gray200}"
-                                Text="{Binding CrEvent.Name}"/>
-                    </Border>
+                                Format="dd MMMM yyyy"/>
+                </Border>
 
-                    <Border IsVisible="{Binding CrEvent.Displayed}">
+                <Border IsVisible="{Binding CeEvent.Displayed}">
 
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
 
-                        <DatePicker HorizontalOptions="Center"
-                                    Date="{Binding CrEvent.DateTimeEvent}"
-                                    FontSize="25"
-                                    Format="dd MMMM yyyy"/>
-                    </Border>
+                    <TimePicker HorizontalOptions="Center"
+                                BackgroundColor="LightGrey"
+                                FontSize="25"
+                                Format="HH:mm"
+                                Time="{Binding CeEvent.TimeEvent}"/>
+                </Border>
 
-                    <Border IsVisible="{Binding CrEvent.Displayed}">
+                <Border Margin="0,10,0,0"
+                        Stroke="Transparent">
 
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
 
-                        <TimePicker HorizontalOptions="Center"
-                                    BackgroundColor="LightGrey"
-                                    FontSize="25"
-                                    Format="HH:mm"
-                                    Time="{Binding CrEvent.DateTimeEvent.TimeOfDay}"/>
-                    </Border>
-
-                    <Border Margin="0,10,0,0"
-                            Stroke="Transparent">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
-
-                        <Editor AutoSize="TextChanges"
-                                BackgroundColor="{StaticResource Gray100}"
-                                FontSize="22"
-                                Keyboard="Text"
-                                MaximumHeightRequest="300"
-                                MinimumHeightRequest="300"
-                                MinimumWidthRequest="600"
-                                Placeholder="description"
-                                PlaceholderColor="{StaticResource Yellow100Accent}"
-                                Text="{Binding CrEvent.Description}"/>
-                    </Border>
-
-                </VerticalStackLayout>
-            </Grid>
-        </ScrollView>
-
-
-
-        <Button Grid.Row="1"
-                Grid.Column="0"
-                Margin="20,3,20,0"
-                Command="{Binding BackCommand}"
-                CornerRadius="20"
-                FontSize="20"
-                Text="Close"/>
-
-        <Button Grid.Row="1"
-                Grid.Column="1"
-                Margin="20,3,20,0"
-                Command="{Binding SaveEventCommand}"
-                CornerRadius="20"
-                FontSize="20"
-                Text="Save"/>
-
-
-    </Grid>
+                    <Editor AutoSize="TextChanges"
+                            BackgroundColor="{StaticResource Gray100}"
+                            FontSize="22"
+                            Keyboard="Text"
+                            MaximumHeightRequest="300"
+                            MinimumHeightRequest="300"
+                            MinimumWidthRequest="600"
+                            Placeholder="description"
+                            PlaceholderColor="{StaticResource Yellow100Accent}"
+                            Text="{Binding CeEvent.Description}"/>
+                </Border>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

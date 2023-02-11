@@ -1,4 +1,6 @@
-﻿namespace Reminder.DAL.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Reminder.DAL.Entities
 {
     public class Event : Base.Entity
     {
@@ -9,11 +11,18 @@
             set => Set(ref _name, value); 
         }
 
-        private DateTime _dateTimeEvent;
-        public DateTime DateTimeEvent 
+        private DateTime _dateEvent;
+        public DateTime DateEvent 
         { 
-            get => _dateTimeEvent; 
-            set => Set(ref _dateTimeEvent, value); 
+            get => _dateEvent; 
+            set => Set(ref _dateEvent, value); 
+        }
+
+        private TimeSpan _timeEvent;
+        public TimeSpan TimeEvent
+        {
+            get => _timeEvent;
+            set => Set(ref _timeEvent, value);
         }
 
         private string? _description;
@@ -36,10 +45,22 @@
         {
             Id = _event.Id;
             Name = _event.Name;
-            DateTimeEvent = _event.DateTimeEvent;
+            DateEvent = _event.DateEvent;
+            TimeEvent = _event.TimeEvent;
             Description = _event.Description;
             DateModified = _event.DateModified;
             Displayed = _event.Displayed;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not Event other) return false;
+            return Id == other.Id &&
+                   Name == other.Name &&
+                   DateEvent == other.DateEvent &&
+                   TimeEvent == other.TimeEvent &&
+                   Description == other.Description&&
+                   Displayed == other.Displayed;
         }
     }
 }

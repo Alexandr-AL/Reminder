@@ -8,9 +8,6 @@ namespace Reminder.Services
 {
     public class EventsFileService //: IEventsDataService
     {
-        public void Initialize()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

@@ -10,14 +10,13 @@ namespace Reminder.ViewModels
     {
         private readonly IEventsDataService _eventsDataService;
 
+        private Event _oldEvent;
+
         [ObservableProperty]
         private ObservableCollection<Event> _events;
 
         [ObservableProperty]
-        private Event _crEvent;
-
-        [ObservableProperty]
-        private TimeSpan _timeEvent;
+        private Event _ceEvent;
 
         //[ObservableProperty]
         //private bool isEnabledEditors = true;
@@ -33,37 +32,38 @@ namespace Reminder.ViewModels
         {
             Title = query["Title"] as string;
             Events = query["Events"] as ObservableCollection<Event>;
-            CrEvent = query["Event"] as Event;
+            CeEvent = query["Event"] as Event;
             IsNew = (bool)query["IsNew"];
-            //TimeEvent = CrEvent.DateTimeEvent.TimeOfDay;
+            _oldEvent = new(CeEvent);
         }
 
         [RelayCommand]
         private async void SaveEvent()
         {
-            if (CrEvent is null || Events is null) return;
+            if (CeEvent is null || Events is null) return;
 
-            var index = Events.IndexOf(Events.FirstOrDefault(x => x.Id == CrEvent.Id));
-
-            CrEvent.DateTimeEvent = CrEvent.DateTimeEvent.Add(TimeEvent);
+            if (_oldEvent.Equals(CeEvent))
+            {
+                Back();
+                return;
+            }
 
             if (IsNew)
             {
-                Events.Insert(0, CrEvent);
-                _eventsDataService.AddEvent(CrEvent);
+                Events.Insert(0, CeEvent);
+                await _eventsDataService.AddEventAsync(CeEvent);
             }
             else
             {
-                _eventsDataService.UpdateEvent(CrEvent);
+                await _eventsDataService.UpdateEventAsync(CeEvent);
             }
-            await Back();
+            Back();
         }
 
         [RelayCommand]
-        private async Task Back()
+        private async void Back()
         {
             await Shell.Current.GoToAsync("..", true);
-            //Shell.Current.SendBackButtonPressed();
         }
     }
 }

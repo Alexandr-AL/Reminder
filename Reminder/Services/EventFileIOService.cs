@@ -13,8 +13,8 @@ namespace Reminder.Services
         {
             return new ObservableCollection<Event> 
             {
-                new Event{Name="My first Event", DateTimeEvent = DateTime.Now, Description = "My first Description"},
-                new Event{Name="My second Event", DateTimeEvent = DateTime.Now, Description = "My second Description"}
+                new Event{Name="My first Event", DateEvent = DateTime.Now, Description = "My first Description"},
+                new Event{Name="My second Event", DateEvent = DateTime.Now, Description = "My second Description"}
             };
         }
 

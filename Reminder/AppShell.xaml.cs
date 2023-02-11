@@ -32,18 +32,4 @@ public partial class AppShell : Shell
         await Navigation.PushAsync(new Views.Support());
         Shell.Current.FlyoutIsPresented = false;
     }
-
-
-    /*
-        //показывает окошко
-        private async void MenuItem_Clicked(object sender, EventArgs e)
-        {
-            Shell.Current.FlyoutIsPresented = false;
-            //await DisplayActionSheet("About Reminder", "OKEY", null, "EMAIL", "TWIT");
-            await DisplayAlert("About", "Version 1.0.3        © 2022-2023", "OK");
-
-
-        }
-    */
-
 }

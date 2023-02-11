@@ -3,8 +3,9 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Reminder.DAL.Entities;assembly=Reminder.DAL"
-             x:DataType="vm:MainPageViewModel"
-             Title="Reminder">
+             xmlns:vm="clr-namespace:Reminder.ViewModels"
+             Title="Reminder"
+             x:DataType="vm:MainPageViewModel">
 
     <!--  ТитлВью будет закомменчен пока его не починят  -->
     <!--   <Shell.TitleView>
@@ -91,8 +92,13 @@
                                                    FontSize="24"
                                                    Text="{Binding Name}"/>
 
-                                            <Label FontFamily="Calibri"
-                                                   Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
+                                            <HorizontalStackLayout IsVisible="{Binding Displayed}">
+                                                <Label FontFamily="Calibri"
+                                                       Text="{Binding DateEvent, StringFormat='{0:dd/MM/yyyy}'}"/>
+
+                                                <Label FontFamily="Calibri"
+                                                       Text="{Binding TimeEvent, StringFormat=' {0:hh\\:mm}'}"/>
+                                            </HorizontalStackLayout>
 
                                             <Label FontFamily="Calibri"
                                                    Text="{Binding Description}"/>
@@ -115,8 +121,8 @@
         <Button Margin="0,0,5,5"
                 HorizontalOptions="End"
                 VerticalOptions="End"
-                BorderColor="Transparent"
                 BackgroundColor="Transparent"
+                BorderColor="Transparent"
                 Command="{Binding AddNewEventCommand}"
                 ImageSource="plus1122.png"
                 MaximumHeightRequest="64"
