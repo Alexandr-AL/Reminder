@@ -10,20 +10,17 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         Routing.RegisterRoute(nameof(CreateEditEventPage), typeof(CreateEditEventPage));
         Routing.RegisterRoute(nameof(Settings), typeof(Settings));
-    }
-
-    //открывает страницу about
-    private async void MenuItem_Clicked(object sender, EventArgs e)
-    {
-         await Navigation.PushAsync(new Views.About());
-         Shell.Current.FlyoutIsPresented = false;
+        Routing.RegisterRoute(nameof(About), typeof(About));
     }
 
     private async void Settings_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("Settings");
-        //await Navigation.PushAsync(new Views.Settings());
-        //Shell.Current.FlyoutIsPresented = false;
+        await Current.GoToAsync(nameof(Settings));
+    }
+
+    private async void About_Clicked(object sender, EventArgs e)
+    {
+        await Current.GoToAsync(nameof(About));
     }
 
     private async void Donat_Clicked(object sender, EventArgs e)

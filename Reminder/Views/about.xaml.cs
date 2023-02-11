@@ -1,60 +1,24 @@
-
-
 namespace Reminder.Views;
 
 public partial class About : ContentPage
 {
-
-
     public About()
     {
-        
-        
         InitializeComponent();
-        //   Routing.RegisterRoute(nameof(About), typeof(MainPage));
-           Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
-        //  Shell.Current.Navigation.PopToRootAsync();
-        //  Shell.Current.GoToAsync("MainPage");
-
-       
+        
         Shell.SetBackButtonBehavior(this, new BackButtonBehavior
         {
-           Command = new Command(  () =>
-            {
-                //  Shell.Current.SendBackButtonPressed();
-                // Shell.Current.GoToAsync("MainPage");
-                //await Navigation.PopAsync();
-                Shell.Current.Navigation.PopToRootAsync();
-
-            }),
-     
-            
-
+           Command = new Command(async () => await Shell.Current.GoToAsync("..")),
         });
-       
     }
-
-    
-   
-    /*
-    private async void Button_Clicked(object sender, EventArgs e)
+    protected override bool OnBackButtonPressed()
     {
-        
+        return base.OnBackButtonPressed();
     }
-
-  */
-    
-
     private async void About_Name_Button_Clicked(object sender, EventArgs e)
     {
         Shell.Current.FlyoutIsPresented = false;
-        //   await Shell.Current.GoToAsync("MainPage");
-        
-        await DisplayAlert("Developers:", "Alex Levin - programming, coding, back-end.                                  Igor Gabov - development, design, front-end.", "OK");
-
-
+        await DisplayAlert("Developers:", "Alex Levin - programming, coding, back-end.\n" +
+                                          "Igor Gabov - development, design, front-end.", "OK");
     }
-
-
-
 }

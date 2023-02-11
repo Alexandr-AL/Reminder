@@ -21,7 +21,7 @@ namespace Reminder.ViewModels
         //[ObservableProperty]
         //private bool isEnabledEditors = true;
 
-        public bool IsNew { get; set; }
+        private bool IsNew { get; set; }
 
         public CreateEditEventViewModel(IEventsDataService eventsDataService)
         {
@@ -30,7 +30,6 @@ namespace Reminder.ViewModels
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            Title = query["Title"] as string;
             Events = query["Events"] as ObservableCollection<Event>;
             CeEvent = query["Event"] as Event;
             IsNew = (bool)query["IsNew"];
@@ -53,17 +52,12 @@ namespace Reminder.ViewModels
                 Events.Insert(0, CeEvent);
                 await _eventsDataService.AddEventAsync(CeEvent);
             }
-            else
-            {
-                await _eventsDataService.UpdateEventAsync(CeEvent);
-            }
+            else await _eventsDataService.UpdateEventAsync(CeEvent);
+
             Back();
         }
 
         [RelayCommand]
-        private async void Back()
-        {
-            await Shell.Current.GoToAsync("..", true);
-        }
+        private async void Back() => await Shell.Current.GoToAsync("..", true);
     }
 }

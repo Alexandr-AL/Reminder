@@ -2,7 +2,6 @@
 <ContentPage x:Class="Reminder.Views.CreateEditEventPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              x:DataType="vm:CreateEditEventViewModel"
              MaximumWidthRequest="800">
@@ -27,18 +26,6 @@
                     OnColor="White"/>
 
         </Grid>
-        <!--
-        <SearchBar BackgroundColor="WhiteSmoke"
-
-                               WidthRequest="200"
-                               MaximumWidthRequest="200"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-
-                               x:Name="searchBar"
-                               Text="{Binding }" />
-
-        -->
     </Shell.TitleView>
 
     <ScrollView Grid.Row="0"

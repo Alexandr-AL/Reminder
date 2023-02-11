@@ -44,7 +44,8 @@
               IconImageSource="gear.png"
               Text="Settings"/>
 
-    <MenuItem IconImageSource="information_black.png"
+    <MenuItem Clicked="About_Clicked"
+              IconImageSource="information_black.png"
               Text="About"/>
 
     <!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems"/>

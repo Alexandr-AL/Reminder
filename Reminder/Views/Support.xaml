@@ -1,70 +1,68 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Reminder.Views.Support"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Reminder.Views.Support"
              Title="Support">
+
     <VerticalStackLayout Margin="0,5,0,0">
-        <Label 
-            Text="Developers:"
-            FontSize="18"
-            FontFamily="Calibri"
-            VerticalOptions="Start"
-            FontAttributes="Bold"
-            Margin="15,15,0,0"            
-            HorizontalOptions="Start" />
 
-        <Label 
-            Text="Alex Levin - programming, coding, back-end."
-            FontSize="16"
-            FontFamily="Calibri"            
-            VerticalOptions="Start" 
-            Margin="15,15,0,0"
-            HorizontalOptions="Start" />
+        <Label Margin="15,15,0,0"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               FontAttributes="Bold"
+               FontFamily="Calibri"
+               FontSize="18"
+               Text="Developers:"/>
 
-        <Label 
-            Text="Igor Gabov - development, design, front-end."
-            FontSize="16"
-            FontFamily="Calibri"
-            VerticalOptions="Start"
-            Margin="15,0,0,0"
-            HorizontalOptions="Start" />
+        <Label Margin="15,15,0,0"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               FontFamily="Calibri"
+               FontSize="16"
+               Text="Alex Levin - programming, coding, back-end."/>
 
-      <!--  <Image Source ="line.png" Margin="0,15,20,0"  HorizontalOptions="Start"/> -->
+        <Label Margin="15,0,0,0"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               FontFamily="Calibri"
+               FontSize="16"
+               Text="Igor Gabov - development, design, front-end."/>
 
-        <Label 
-            Text="You can support us with money."
-            FontSize="18"
-            FontFamily="Calibri"
-            VerticalOptions="Start"
-            FontAttributes="Bold"
-            Margin="15,15,0,0"            
-            HorizontalOptions="Start" />
+        <!--  <Image Source ="line.png" Margin="0,15,20,0"  HorizontalOptions="Start"/> -->
 
-        <Label 
-            Text="BTC"
-            FontSize="18"
-            FontFamily="Calibri"
-            VerticalOptions="Start"
-            FontAttributes="Bold"
-            Margin="15,15,0,0"            
-            HorizontalOptions="Start" />
+        <Label Margin="15,15,0,0"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               FontAttributes="Bold"
+               FontFamily="Calibri"
+               FontSize="18"
+               Text="You can support us with money."/>
 
-        <Button Text="15r48vw3qjq9fRxD9HA9bjB9hHYLds153X"  ToolTipProperties.Text ="copied"  TextColor="Black" BackgroundColor="LightGrey" BorderColor="Grey" BorderWidth="0.6" Clicked="Copy_buffer" CornerRadius="1"  HorizontalOptions="Center" Margin="0,15,0,0"/>
+        <Label Margin="15,15,0,0"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               FontAttributes="Bold"
+               FontFamily="Calibri"
+               FontSize="18"
+               Text="BTC"/>
 
-        <Label 
-            Text="Thank You."
-            FontSize="18"
-            FontFamily="Calibri"
-            VerticalOptions="Start"
-            FontAttributes="Bold"
-            Margin="15,15,0,0"            
-            HorizontalOptions="Start" />
+        <Button Margin="0,15,0,0"
+                HorizontalOptions="Center"
+                BackgroundColor="LightGrey"
+                BorderColor="Grey"
+                BorderWidth="0.6"
+                Clicked="Copy_buffer"
+                CornerRadius="1"
+                Text="15r48vw3qjq9fRxD9HA9bjB9hHYLds153X"
+                TextColor="Black"
+                ToolTipProperties.Text="copied"/>
 
-        
-
+        <Label Margin="15,15,0,0"
+               HorizontalOptions="Start"
+               VerticalOptions="Start"
+               FontAttributes="Bold"
+               FontFamily="Calibri"
+               FontSize="18"
+               Text="Thank You."/>
     </VerticalStackLayout>
-
-    
-        
-   
 </ContentPage>
