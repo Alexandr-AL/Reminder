@@ -10,6 +10,7 @@
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <Grid>
+
                 <Image HorizontalOptions="Start"
                        VerticalOptions="Start"
                        Source="r_white"/>
@@ -29,11 +30,24 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
-    <!--<Shell.MenuItemTemplate>
+    <Shell.MenuItemTemplate>
         <DataTemplate>
-            <Grid/>
+            <Grid>
+
+                <Image Margin="18,0,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="End"
+                       Source="{Binding Icon}"
+                       WidthRequest="20"/>
+
+                <Label Margin="60,0,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="End"
+                       Text="{Binding Text}"
+                       TextColor="White"/>
+            </Grid>
         </DataTemplate>
-    </Shell.MenuItemTemplate>-->
+    </Shell.MenuItemTemplate>
 
     <ShellContent x:Name="mainPage"
                   Title="Reminder"
@@ -44,87 +58,13 @@
               IconImageSource="gear.png"
               Text="Settings"/>
 
+    <MenuItem Clicked="Donat_Clicked"
+              IconImageSource="donat_white.png"
+              Text="Support"/>
+
     <MenuItem Clicked="About_Clicked"
               IconImageSource="information_black.png"
               Text="About"/>
-
-    <!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems"/>
-
-    <Tab>
-        <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
-    </Tab>
-
-    <MenuItem Clicked="Settings_Name_Button_Clicked">
-
-        <Shell.MenuItemTemplate>
-
-            <DataTemplate>
-
-                <Grid HeightRequest="30">
-
-                    <Label Margin="60,0,0,0"
-                           HorizontalOptions="Start"
-                           VerticalOptions="End"
-                           Text="Settings"
-                           TextColor="White"/>
-                    <Image Margin="20,0,0,0"
-                           HorizontalOptions="Start"
-                           VerticalOptions="End"
-                           Source="gear"/>
-                </Grid>
-            </DataTemplate>
-        </Shell.MenuItemTemplate>
-    </MenuItem>
-
-
-    <MenuItem Clicked="Donat_Clicked">
-
-        <Shell.MenuItemTemplate>
-
-            <DataTemplate>
-
-                <Grid >
-
-
-
-                    <Image HorizontalOptions="Start" VerticalOptions="End" Margin="18,0,0,0" Source="donat_white"  />
-                    <Label TextColor="White" BackgroundColor="Transparent"  HorizontalOptions="Start" Margin="60,20,0,0"  Text="Support" />
-
-
-
-                </Grid>
-
-
-
-            </DataTemplate>
-
-
-        </Shell.MenuItemTemplate>
-    </MenuItem>
-
-
-    <MenuItem Clicked="MenuItem_Clicked">
-
-    <Shell.MenuItemTemplate>
-
-        <DataTemplate>
-
-            <Grid>
-
-                <Image Margin="20,0,0,0"
-                       HorizontalOptions="Start"
-                       VerticalOptions="End"
-                       Source="information_black"/>
-                <Label Margin="60,20,0,0"
-                       HorizontalOptions="Start"
-                       BackgroundColor="Transparent"
-                       Text="About"
-                       TextColor="White"/>
-
-            </Grid>
-        </DataTemplate>
-    </Shell.MenuItemTemplate>
-</MenuItem>-->
 
 </Shell>
 

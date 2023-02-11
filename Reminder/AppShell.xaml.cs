@@ -10,6 +10,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         Routing.RegisterRoute(nameof(CreateEditEventPage), typeof(CreateEditEventPage));
         Routing.RegisterRoute(nameof(Settings), typeof(Settings));
+        Routing.RegisterRoute(nameof(Support), typeof(Support));
         Routing.RegisterRoute(nameof(About), typeof(About));
     }
 
@@ -25,8 +26,8 @@ public partial class AppShell : Shell
 
     private async void Donat_Clicked(object sender, EventArgs e)
     {
-
-        await Navigation.PushAsync(new Views.Support());
-        Shell.Current.FlyoutIsPresented = false;
+        await Current.GoToAsync(nameof(Support));
+        //await Navigation.PushAsync(new Views.Support());
+        //Current.FlyoutIsPresented = false;
     }
 }

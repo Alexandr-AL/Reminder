@@ -12,9 +12,7 @@ public partial class Support : ContentPage
 
     private async void Copy_buffer(object sender, EventArgs e)
     {
-       
         await Clipboard.SetTextAsync ("15r48vw3qjq9fRxD9HA9bjB9hHYLds153X");
-
     }
 
 }
