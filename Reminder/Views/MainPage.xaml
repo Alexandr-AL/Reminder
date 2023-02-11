@@ -3,8 +3,8 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Reminder.DAL.Entities;assembly=Reminder.DAL"
-             xmlns:vm="clr-namespace:Reminder.ViewModels"
-             x:DataType="vm:MainPageViewModel">
+             x:DataType="vm:MainPageViewModel"
+             Title="Reminder">
 
     <!--  ТитлВью будет закомменчен пока его не починят  -->
     <!--   <Shell.TitleView>
@@ -115,6 +115,7 @@
         <Button Margin="0,0,5,5"
                 HorizontalOptions="End"
                 VerticalOptions="End"
+                BorderColor="Transparent"
                 BackgroundColor="Transparent"
                 Command="{Binding AddNewEventCommand}"
                 ImageSource="plus1122.png"
