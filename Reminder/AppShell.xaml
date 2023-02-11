@@ -1,87 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="Reminder.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Reminder"
-    FlyoutBackgroundColor="#070707"
-    FlyoutBehavior="Flyout"
-    FlyoutWidth="269">
+<Shell x:Class="Reminder.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:Views="clr-namespace:Reminder.Views"
+       xmlns:local="clr-namespace:Reminder"
+       FlyoutBackgroundColor="#070707"
+       FlyoutWidth="269">
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        
-        
-        <!--                <Tab Title="yyyyyyyyyyy" 
-             Icon="trash_can2"
-             
-             
-             >
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>
+                <Image HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       Source="r_white"/>
 
-            -->
-                
+                <Label Margin="60,0,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       FontFamily="Calibri"
+                       FontSize="18"
+                       Text="Reminder"
+                       TextColor="White"/>
 
+                <Image Margin="0,0,0,4"
+                       VerticalOptions="End"
+                       Source="line"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
 
-<!--
-                <ShellContent 
-   
- 
-       
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <!--<Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid/>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>-->
 
-            
-      -->      
-            
-            
- <!--       </Tab>  -->
-   
-    </FlyoutItem>
-    <!--    
-    
-    Title="yyyyyyyyyyyyy" 
-        FlyoutIcon="trash_can2" 
-    
-    <ShellContent
-        Title="program"
-    ContentTemplate="{DataTemplate local:AppShell}"
-    />
--->
-<!--    <ShellContent Title="About"  ContentTemplate="{DataTemplate local:MainPage}"/> 
-    
-    <MenuItem Text="fghf" Clicked="MenuItem_Clicked"/>
-    
-     <ShellContent Title="About" ContentTemplate="{DataTemplate }"
-    -->
+    <ShellContent x:Name="mainPage"
+                  Title="Reminder"
+                  ContentTemplate="{DataTemplate local:MainPage}"
+                  FlyoutItemIsVisible="False"/>
+
+    <MenuItem Clicked="Settings_Clicked"
+              IconImageSource="gear.png"
+              Text="Settings"/>
+
+    <MenuItem IconImageSource="information_black.png"
+              Text="About"/>
+
+    <!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems"/>
 
     <Tab>
-        <ShellContent  ContentTemplate="{DataTemplate local:MainPage} ">
-
-        </ShellContent>
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
     </Tab>
 
-
     <MenuItem Clicked="Settings_Name_Button_Clicked">
+
         <Shell.MenuItemTemplate>
 
             <DataTemplate>
 
-                <Grid  HeightRequest="30">
+                <Grid HeightRequest="30">
 
-
-                    <Label Text ="Settings" TextColor="White" Margin="60,0,0,0" VerticalOptions="End" HorizontalOptions="Start"/>
-                    <Image Source="gear"  Margin="20,0,0,0" HorizontalOptions="Start" VerticalOptions="End"/>
-
-
+                    <Label Margin="60,0,0,0"
+                           HorizontalOptions="Start"
+                           VerticalOptions="End"
+                           Text="Settings"
+                           TextColor="White"/>
+                    <Image Margin="20,0,0,0"
+                           HorizontalOptions="Start"
+                           VerticalOptions="End"
+                           Source="gear"/>
                 </Grid>
-
             </DataTemplate>
-
         </Shell.MenuItemTemplate>
-
     </MenuItem>
-
-
-
 
     <MenuItem Clicked="MenuItem_Clicked"/>
 
@@ -89,76 +81,53 @@
 
         <DataTemplate>
 
-            <Grid >
+            <Grid>
 
-
-
-                <Image HorizontalOptions="Start" VerticalOptions="End" Margin="20,0,0,0" Source="information_black"  />
-                <Label TextColor="White" BackgroundColor="Transparent"  HorizontalOptions="Start" Margin="60,20,0,0"  Text="About" />
-
-
+                <Image Margin="20,0,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="End"
+                       Source="information_black"/>
+                <Label Margin="60,20,0,0"
+                       HorizontalOptions="Start"
+                       BackgroundColor="Transparent"
+                       Text="About"
+                       TextColor="White"/>
 
             </Grid>
-            
-            
-            
         </DataTemplate>
-
-        
     </Shell.MenuItemTemplate>
-
-
-
-
-    <!--   <Tab>
-        <ShellContent  ContentTemplate="{DataTemplate local:MainPage} ">
-
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </ShellContent>
-    </Tab>
-
--->
 
     <Shell.FlyoutHeaderTemplate>
 
         <DataTemplate>
+
             <Grid>
-                <Image HorizontalOptions="Start" VerticalOptions="Start"  Source="r_white"  />
-                <Label Text ="Reminder" TextColor="White" Margin="60,0,0,0" FontFamily="Calibri" FontSize="18" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Image Source="line" Margin="0,0,0,4" VerticalOptions="End"/>
+
+                <Image HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       Source="r_white"/>
+
+                <Label Margin="60,0,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       FontFamily="Calibri"
+                       FontSize="18"
+                       Text="Reminder"
+                       TextColor="White"/>
+
+                <Image Margin="0,0,0,4"
+                       VerticalOptions="End"
+                       Source="line"/>
             </Grid>
-
         </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
-
-
-
+    </Shell.FlyoutHeaderTemplate>-->
 
     <!--   <Shell.FlyoutFooter>
         <Grid>
             <Image HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0,0,15" Source="information_black"  />
             <Button TextColor="White" BackgroundColor="Transparent" HorizontalOptions="Start" Margin="50,0,0,15"  Text="About" Clicked="MenuItem_Clicked"/>
         </Grid>
-    </Shell.FlyoutFooter>
-
-    -->
-    
-    
-    
+    </Shell.FlyoutFooter>-->
 </Shell>
 
 

@@ -2,13 +2,33 @@
 {
     public class Event : Base.Entity
     {
-        public string? Name { get; set; }
+        private string? _name;
+        public string? Name 
+        {
+            get => _name;
+            set => Set(ref _name, value); 
+        }
 
-        public DateTime DateTimeEvent { get; set; }
+        private DateTime _dateTimeEvent;
+        public DateTime DateTimeEvent 
+        { 
+            get => _dateTimeEvent; 
+            set => Set(ref _dateTimeEvent, value); 
+        }
 
-        public string? Description { get; set; }
+        private string? _description;
+        public string? Description 
+        { 
+            get => _description; 
+            set => Set(ref _description, value); 
+        }
 
-        public bool Displayed { get; set; } = false;
+        private bool _displayed = false;
+        public bool Displayed 
+        { 
+            get => _displayed; 
+            set => Set(ref _displayed, value); 
+        }
 
         public Event() { }
 

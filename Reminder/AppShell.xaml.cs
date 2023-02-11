@@ -1,8 +1,4 @@
-﻿using Microsoft.Maui.Controls.Platform;
-
-using Reminder.Views;
-using System.Diagnostics;
-
+﻿using Reminder.Views;
 
 namespace Reminder;
 
@@ -13,27 +9,21 @@ public partial class AppShell : Shell
 		InitializeComponent();
         Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         Routing.RegisterRoute(nameof(CreateEditEventPage), typeof(CreateEditEventPage));
-        //Routing.RegisterRoute(nameof(Settings), typeof(MainPage));
-        //Routing.RegisterRoute(nameof(About), typeof(MainPage));
-        //Routing.RegisterRoute(nameof(MainPage), typeof(Settings));
-
-        
+        Routing.RegisterRoute(nameof(Settings), typeof(Settings));
     }
 
     //открывает страницу about
     private async void MenuItem_Clicked(object sender, EventArgs e)
     {
-       
          await Navigation.PushAsync(new Views.About());
          Shell.Current.FlyoutIsPresented = false;
-    
     }
 
-    private async void Settings_Name_Button_Clicked(object sender, EventArgs e)
+    private async void Settings_Clicked(object sender, EventArgs e)
     {
-        
-        await Navigation.PushAsync(new Views.Settings());
-        Shell.Current.FlyoutIsPresented = false;
+        await Shell.Current.GoToAsync("Settings");
+        //await Navigation.PushAsync(new Views.Settings());
+        //Shell.Current.FlyoutIsPresented = false;
     }
 
     /*

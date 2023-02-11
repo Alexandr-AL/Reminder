@@ -1,69 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Reminder.MainPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Reminder.MainPage"
-             xmlns:vm="clr-namespace:Reminder.ViewModels"
              xmlns:model="clr-namespace:Reminder.DAL.Entities;assembly=Reminder.DAL"
+             xmlns:vm="clr-namespace:Reminder.ViewModels"
              x:DataType="vm:MainPageViewModel">
 
- <!--ТитлВью будет закомменчен пока его не починят -->   
- <!--   <Shell.TitleView>
+    <!--  ТитлВью будет закомменчен пока его не починят  -->
+    <!--   <Shell.TitleView>
 
         <Grid>
 
             <Label VerticalOptions="Center"
                    FontFamily="Calibri"
                    Text="Reminder"
-                   FontSize="20" 
+                   FontSize="20"
                    TextColor="White"
                    HorizontalOptions="Start"
                    Margin="5,0,0,0"/>
 
-            <ImageButton Source="search03.png" 
-                   BackgroundColor="#141414"  
-                   WidthRequest="18" 
-                   HeightRequest="18" 
-                   Margin="0,0,20,0" 
-                   HorizontalOptions="End"   
-                   Clicked="Button_Clicked"/>     
-            
-            <SearchBar BackgroundColor="WhiteSmoke"       
+            <ImageButton Source="search03.png"
+                   BackgroundColor="#141414"
+                   WidthRequest="18"
+                   HeightRequest="18"
+                   Margin="0,0,20,0"
+                   HorizontalOptions="End"
+                   Clicked="Button_Clicked"/>
+
+            <SearchBar BackgroundColor="WhiteSmoke"
                    WidthRequest="200"
                    MaximumWidthRequest="200"
                    VerticalOptions="Center"
-                   HorizontalOptions="End"             
+                   HorizontalOptions="End"
                    x:Name="searchBar"
                    Text="{Binding TextSearch}"/>
-           
+
         </Grid>
-    
-        </Shell.TitleView> -->
-   
-    <Grid ColumnDefinitions="*" RowDefinitions="*">
 
-        <ScrollView Grid.Column="0" Grid.Row="0">
+        </Shell.TitleView>-->
 
-            <VerticalStackLayout VerticalOptions="Start" 
+    <Grid ColumnDefinitions="*"
+          RowDefinitions="*">
+
+        <ScrollView Grid.Row="0"
+                    Grid.Column="0">
+
+            <VerticalStackLayout Margin="0,0,0,0"
+                                 Padding="0,0,0,0"
                                  HorizontalOptions="Start"
-                                 Margin="0,0,0,0"
-                                 Padding="0,0,0,0">
+                                 VerticalOptions="Start">
 
                 <CollectionView ItemsSource="{Binding Events}">
 
                     <CollectionView.ItemTemplate>
 
                         <DataTemplate x:DataType="model:Event">
-                            
+
                             <SwipeView>
-                                
+
                                 <SwipeView.RightItems>
                                     <SwipeItems>
+                                        <SwipeItemView Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
+                                                       CommandParameter="{Binding .}">
 
-                                        <SwipeItemView
-                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
-                                                   CommandParameter="{Binding .}">
-
-                                            <Image Source="trash_can2.pdf" IsAnimationPlaying="True" HeightRequest="32" WidthRequest="32"  />
+                                            <Image HeightRequest="32"
+                                                   IsAnimationPlaying="True"
+                                                   Source="trash_can2.pdf"
+                                                   WidthRequest="32"/>
 
                                         </SwipeItemView>
                                     </SwipeItems>
@@ -71,8 +74,8 @@
 
                                 <Grid>
 
-                                    <Frame BorderColor="#909090"
-                                           Margin="13,10,13,0" 
+                                    <Frame Margin="13,10,13,0"
+                                           BorderColor="#909090"
                                            CornerRadius="5"
                                            HasShadow="True">
 
@@ -81,22 +84,23 @@
                                                                   CommandParameter="{Binding .}"
                                                                   NumberOfTapsRequired="1"/>
                                         </Frame.GestureRecognizers>
-                                    
+
                                         <VerticalStackLayout Margin="0,0,0,0">
 
-                                            <Label Text="{Binding Name}" 
-                                                   FontFamily="Calibri" 
-                                                   FontSize="24" />
+                                            <Label FontFamily="Calibri"
+                                                   FontSize="24"
+                                                   Text="{Binding Name}"/>
 
-                                            <Label Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"  
-                                                   FontFamily="Calibri"/>
+                                            <Label FontFamily="Calibri"
+                                                   Text="{Binding DateTimeEvent, StringFormat='{0:dd/MM/yyyy HH:mm}'}"/>
 
-                                            <Label Text="{Binding Description}"  
-                                                   FontFamily="Calibri"/>
-                                            <Button Text="Del"
-                                                    HorizontalOptions="End"
+                                            <Label FontFamily="Calibri"
+                                                   Text="{Binding Description}"/>
+
+                                            <Button HorizontalOptions="End"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
-                                                    CommandParameter="{Binding .}"/>
+                                                    CommandParameter="{Binding .}"
+                                                    Text="Del"/>
 
                                         </VerticalStackLayout>
                                     </Frame>
@@ -107,18 +111,17 @@
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-        
-        <Button ImageSource="plus1122.png" 
-                HorizontalOptions="End" 
+
+        <Button Margin="0,0,5,5"
+                HorizontalOptions="End"
                 VerticalOptions="End"
                 BackgroundColor="Transparent"
+                Command="{Binding AddNewEventCommand}"
+                ImageSource="plus1122.png"
                 MaximumHeightRequest="64"
-                MinimumWidthRequest="64"
-                Margin="0,0,5,5"
-                Command="{Binding AddNewEventCommand}"/>
-        
+                MinimumWidthRequest="64"/>
+
         <!--<Button ImageSource="plus1122.png" Command="{Binding AddNewEventCommand}" HeightRequest="16" WidthRequest="16" ContentLayout="Bottom, 20"/>-->
-        
+
     </Grid>
 </ContentPage>
-   

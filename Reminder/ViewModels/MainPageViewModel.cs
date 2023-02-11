@@ -12,7 +12,7 @@ namespace Reminder.ViewModels
 
     public partial class MainPageViewModel : ViewModel
     {
-        private readonly IEventsDataService _eventsData;
+        private readonly IEventsDataService _eventsDataService;
 
         [ObservableProperty]
         private ObservableCollection<Event> _events;
@@ -33,53 +33,20 @@ namespace Reminder.ViewModels
         //}
         //#endregion
 
-        public MainPageViewModel
-            (
-            EventProcessor eventProcessor,
-            IEventsDataService eventsData
-            )
+        public MainPageViewModel(EventProcessor eventProcessor, IEventsDataService eventsDataService)
         {
             Title = "Reminder";
-            _eventsData = eventsData;
-            _eventsData.Initialize();
-            Events = _eventsData.GetEvents().OrderByDescending(key => key.DateModified).ToObservableCollection();
-            Events.CollectionChanged += Events_CollectionChanged;
+            _eventsDataService = eventsDataService;
+            Events = _eventsDataService
+                        .GetEvents()
+                        .OrderByDescending(key => key.DateModified)
+                        .ToObservableCollection();
             //FoundEvents = new(Events);
             //eventProcessor.Start(Events);
         }
 
-        private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e is null) return;
-
-            switch (e.Action)
-            {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    if (e.NewItems is null) break;
-                    _eventsData.AddEventAsync(e.NewItems[0] as Event);
-                    break;
-
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    if (e.OldItems is null) break;
-                    _eventsData.DeleteEventAsync(e.OldItems[0] as Event);
-                    break;
-
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
-                    if (e.NewItems is null) break;
-                    _eventsData.UpdateEventAsync(e.NewItems[0] as Event);
-                    break;
-
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private DateTime ClearTimeOfDay(DateTime dateTime) =>
-            new(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
+        //private DateTime ClearTimeOfDay(DateTime dateTime) =>
+            //new(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
 
         //private void SearchEvent(string textSearch)
         //{
@@ -110,30 +77,31 @@ namespace Reminder.ViewModels
         }
 
         [RelayCommand]
-        private async Task EditEvent(Event _event)
+        private async Task EditEvent(Event @event)
         {
-            if (_event is null) return;
-            var newEvent = new Event(_event);
+            if (@event is null) return;
+            //var newEvent = new Event(_event);
 
-            var timeEvent = newEvent.DateTimeEvent.TimeOfDay;
-            newEvent.DateTimeEvent = ClearTimeOfDay(newEvent.DateTimeEvent);
+            //var timeEvent = newEvent.DateTimeEvent.TimeOfDay;
+            //newEvent.DateTimeEvent = ClearTimeOfDay(newEvent.DateTimeEvent);
 
             await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
                 new Dictionary<string, object>
                 {
-                    { "Title", $"Edit \"{_event.Name}\""},
+                    { "Title", $"Edit \"{@event.Name}\""},
                     { "Events", Events },
-                    { "Event", newEvent },
-                    { "TimeEvent", timeEvent },
+                    { "Event", @event },
+                    //{ "TimeEvent", timeEvent },
                     { "IsNew", false }
                 });
         }
 
         [RelayCommand]
-        private void DeleteEvent(Event _event)
+        private void DeleteEvent(Event @event)
         {
-            if (_event is null) return;
-            Events.Remove(_event);
+            if (@event is null) return;
+            Events.Remove(@event);
+            _eventsDataService.DeleteEvent(@event);
         }
     }
 }

@@ -15,11 +15,13 @@ namespace Reminder.Services
         {
             _dataContext = dataContext;
             _eventRepository = repository;
+            Initialize();
         }
 
-        public void Initialize()
+        private void Initialize()
         {
             if (_dataContext is null) return;
+
             _dataContext.Database.Migrate();
 
             if (_eventRepository is null) return;
@@ -46,7 +48,7 @@ namespace Reminder.Services
             return _eventRepository.GetAll().AsEnumerable();
         }
 
-        public async Task AddEventAsync(Event @event)
+        public async void AddEvent(Event @event)
         {
             if (_eventRepository is null) return;
             if (@event is null) return;
@@ -54,20 +56,44 @@ namespace Reminder.Services
             await _eventRepository.AddItemAsync(@event);
         }
 
-        public async Task UpdateEventAsync(Event @event) 
+        public async void UpdateEvent(Event @event) 
         {
             if (_eventRepository is null) return;
             if (@event is null) return;
-
+            @event.DateModified = DateTime.Now;
             await _eventRepository.UpdateItemAsync(@event);
         }
 
-        public  async Task DeleteEventAsync(Event @event)
+        public async void DeleteEvent(Event @event)
         {
             if (_eventRepository is null) return;
             if (@event is null) return;
 
-            await _eventRepository.DeleteItemAsync(@event);
+             await _eventRepository.DeleteItemAsync(@event);
         }
+
+        //public async Task AddEventAsync(Event @event)
+        //{
+        //    if (_eventRepository is null) return;
+        //    if (@event is null) return;
+
+        //    await _eventRepository.AddItemAsync(@event);
+        //}
+
+        //public async Task UpdateEventAsync(Event @event)
+        //{
+        //    if (_eventRepository is null) return;
+        //    if (@event is null) return;
+        //    @event.DateModified = DateTime.Now;
+        //    await _eventRepository.UpdateItemAsync(@event);
+        //}
+
+        //public async Task DeleteEventAsync(Event @event)
+        //{
+        //    if (_eventRepository is null) return;
+        //    if (@event is null) return;
+
+        //    await _eventRepository.DeleteItemAsync(@event);
+        //}
     }
 }

@@ -4,12 +4,14 @@ namespace Reminder.Services
 {
     public interface IEventsDataService
     {
-        void Initialize();
-
         IEnumerable<Event> GetEvents();
 
-        Task AddEventAsync(Event @event);
-        Task UpdateEventAsync(Event @event);
-        Task DeleteEventAsync(Event @event);
+        void AddEvent(Event @event);
+        void UpdateEvent(Event @event);
+        void DeleteEvent(Event @event);
+
+        //Task AddEventAsync(Event @event);
+        //Task UpdateEventAsync(Event @event);
+        //Task DeleteEventAsync(Event @event);
     }
 }

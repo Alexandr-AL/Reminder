@@ -10,8 +10,8 @@ namespace Reminder.DAL.Repositories
 
         T GetItem(Guid id);
         Guid AddItem(T newItem);
-        void Delete(T item);
-        void Update(T item);
+        void DeleteItem(T item);
+        void UpdateItem(T item);
 
         Task<T> GetItemAsync(Guid id, CancellationToken token = default);
         Task<Guid> AddItemAsync(T newItem, CancellationToken token = default);

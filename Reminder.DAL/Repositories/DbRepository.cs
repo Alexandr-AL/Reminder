@@ -25,23 +25,22 @@ namespace Reminder.DAL.Repositories
             return newItem.Id;
         }
 
-        public void Delete(T item)
+        public void DeleteItem(T item)
         {
             IfIsNull(item);
             _db.Entry(item).State = EntityState.Deleted;
             _db.SaveChanges();
         }
 
-        public void Update(T item)
+        public void UpdateItem(T item)
         {
             IfIsNull(item);
-            item.DateModified = DateTime.Now;
             _db.Entry(item).State = EntityState.Modified;
             _db.SaveChanges();
         }
 
         public async Task<T> GetItemAsync(Guid id, CancellationToken token = default) => 
-            await Items.SingleOrDefaultAsync(item => item.Id == id, token);
+            await Items.SingleOrDefaultAsync(item =>  item.Id == id, token);
 
         public async Task<Guid> AddItemAsync(T newItem, CancellationToken token = default)
         {
