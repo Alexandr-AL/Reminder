@@ -73,13 +73,13 @@
                                     </SwipeItems>
                                 </SwipeView.RightItems>
 
-                                <FlyoutBase.ContextFlyout>
+                                <!--<FlyoutBase.ContextFlyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
                                                         CommandParameter="{Binding .}"
                                                         Text="Delete"/>
                                     </MenuFlyout>
-                                </FlyoutBase.ContextFlyout>
+                                </FlyoutBase.ContextFlyout>-->
 
                                 <Grid>
 
