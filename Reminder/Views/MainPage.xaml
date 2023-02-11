@@ -73,6 +73,14 @@
                                     </SwipeItems>
                                 </SwipeView.RightItems>
 
+                                <FlyoutBase.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        Text="Delete"/>
+                                    </MenuFlyout>
+                                </FlyoutBase.ContextFlyout>
+
                                 <Grid>
 
                                     <Frame Margin="13,10,13,0"
@@ -86,13 +94,7 @@
                                                                   NumberOfTapsRequired="1"/>
                                         </Frame.GestureRecognizers>
 
-                                        <FlyoutBase.ContextFlyout>
-                                            <MenuFlyout>
-                                                <MenuFlyoutItem Command="{Binding}"
-                                                                CommandParameter="{Binding .}"
-                                                                Text="Delete"/>
-                                            </MenuFlyout>
-                                        </FlyoutBase.ContextFlyout>
+
 
                                         <VerticalStackLayout Margin="0,0,0,0">
 
