@@ -32,17 +32,20 @@
 
     <Shell.MenuItemTemplate>
         <DataTemplate>
-            <Grid>
+            <Grid ColumnDefinitions="1*,5*">
 
-                <Image Margin="18,0,0,0"
+                <Image Grid.Column="0"
+                       Margin="30,15,0,0"
                        HorizontalOptions="Start"
                        VerticalOptions="End"
                        Source="{Binding Icon}"
                        WidthRequest="20"/>
 
-                <Label Margin="60,0,0,0"
+                <Label Grid.Column="1"
+                       Margin="30,0,0,0"
                        HorizontalOptions="Start"
                        VerticalOptions="End"
+                       FontSize="18"
                        Text="{Binding Text}"
                        TextColor="White"/>
             </Grid>

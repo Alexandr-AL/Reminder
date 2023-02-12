@@ -10,6 +10,8 @@ namespace Reminder.ViewModels
     {
         private readonly IEventsDataService _eventsDataService;
 
+        private bool IsNew { get; set; }
+
         private Event _oldEvent;
 
         [ObservableProperty]
@@ -18,10 +20,8 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         private Event _ceEvent;
 
-        //[ObservableProperty]
-        //private bool isEnabledEditors = true;
-
-        private bool IsNew { get; set; }
+        [ObservableProperty]
+        private bool _enableEditors = true;
 
         public CreateEditEventViewModel(IEventsDataService eventsDataService)
         {
@@ -58,6 +58,10 @@ namespace Reminder.ViewModels
         }
 
         [RelayCommand]
-        private async void Back() => await Shell.Current.GoToAsync("..", true);
+        private async void Back()
+        {
+            EnableEditors= false;
+            await Shell.Current.GoToAsync("..", true);
+        }
     }
 }
