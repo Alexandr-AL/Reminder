@@ -2,43 +2,38 @@
 <ContentPage x:Class="Reminder.MainPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Reminder.Controls"
              xmlns:model="clr-namespace:Reminder.DAL.Entities;assembly=Reminder.DAL"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
              Title="Reminder"
              x:DataType="vm:MainPageViewModel">
 
-    <!--  ТитлВью будет закомменчен пока его не починят  -->
-    <!--   <Shell.TitleView>
 
+    <!--<Shell.TitleView>
         <Grid>
 
-            <Label VerticalOptions="Center"
-                   FontFamily="Calibri"
-                   Text="Reminder"
-                   FontSize="20"
-                   TextColor="White"
+            <Label Margin="5,0,0,0"
                    HorizontalOptions="Start"
-                   Margin="5,0,0,0"/>
-
-            <ImageButton Source="search03.png"
-                   BackgroundColor="#141414"
-                   WidthRequest="18"
-                   HeightRequest="18"
-                   Margin="0,0,20,0"
-                   HorizontalOptions="End"
-                   Clicked="Button_Clicked"/>
-
-            <SearchBar BackgroundColor="WhiteSmoke"
-                   WidthRequest="200"
-                   MaximumWidthRequest="200"
                    VerticalOptions="Center"
-                   HorizontalOptions="End"
-                   x:Name="searchBar"
-                   Text="{Binding TextSearch}"/>
+                   FontFamily="Calibri"
+                   FontSize="20"
+                   Text="Reminder"
+                   TextColor="White"/>
 
+
+
+            <ImageButton Margin="0,0,20,0"
+                         HorizontalOptions="End"
+                         BackgroundColor="#141414"
+                         HeightRequest="18"
+                         Source="search03.png"
+                         WidthRequest="18"/>
         </Grid>
+    </Shell.TitleView>-->
 
-        </Shell.TitleView>-->
+    <Shell.SearchHandler>
+        <controls:EventsSearchHandler SearchBoxVisibility="Collapsible"/>
+    </Shell.SearchHandler>
 
     <Grid ColumnDefinitions="*"
           RowDefinitions="*">
@@ -73,14 +68,6 @@
                                     </SwipeItems>
                                 </SwipeView.RightItems>
 
-                                <!--<FlyoutBase.ContextFlyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
-                                                        CommandParameter="{Binding .}"
-                                                        Text="Delete"/>
-                                    </MenuFlyout>
-                                </FlyoutBase.ContextFlyout>-->
-
                                 <Grid>
 
                                     <Frame Margin="13,10,13,0"
@@ -94,7 +81,18 @@
                                                                   NumberOfTapsRequired="1"/>
                                         </Frame.GestureRecognizers>
 
+                                        <FlyoutBase.ContextFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Clicked="DeleteEvent_Clicked"
+                                                                CommandParameter="{Binding .}"
+                                                                Text="Delete"/>
 
+                                                <!--<MenuFlyoutItem Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
+                                                                CommandParameter="{Binding .}"
+                                                                Text="Delete"/>-->
+
+                                            </MenuFlyout>
+                                        </FlyoutBase.ContextFlyout>
 
                                         <VerticalStackLayout Margin="0,0,0,0">
 
@@ -112,11 +110,6 @@
 
                                             <Label FontFamily="Calibri"
                                                    Text="{Binding Description}"/>
-
-                                            <Button HorizontalOptions="End"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPageViewModel}}, Path=DeleteEventCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    Text="Del"/>
 
                                         </VerticalStackLayout>
                                     </Frame>

@@ -16,46 +16,14 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         private ObservableCollection<Event> _events;
 
-        //[ObservableProperty]
-        //private ObservableCollection<Event> foundEvents;
-
-        //#region TextSearch Property
-        //private string textSearch;
-        //public string TextSearch 
-        //{
-        //    get => textSearch;
-        //    set
-        //    {
-        //        SetProperty(ref textSearch, value);
-        //        SearchEvent(value);
-        //    } 
-        //}
-        //#endregion
-
         public MainPageViewModel(EventProcessor eventProcessor, IEventsDataService eventsDataService)
         {
-            Title = "Reminder";
             _eventsDataService = eventsDataService;
             Events = _eventsDataService
                         .GetEvents()
                         .OrderByDescending(key => key.DateModified)
                         .ToObservableCollection();
-            //FoundEvents = new(Events);
-            //eventProcessor.Start(Events);
         }
-        //private void SearchEvent(string textSearch)
-        //{
-        //    if (string.IsNullOrWhiteSpace(textSearch)) 
-        //    {
-        //        FoundEvents = new(Events);
-        //        return;
-        //    }
-        //    FoundEvents = Events.Where(item =>
-        //    {
-        //        if (item.Name is null) return false;
-        //        return item.Name.ToLower().Contains(textSearch.ToLower());
-        //    }).ToObservableCollection();
-        //}
 
         [RelayCommand]
         private async void AddNewEvent()
@@ -64,7 +32,10 @@ namespace Reminder.ViewModels
                 new Dictionary<string, object>
                 {
                     { "Events", Events },
-                    { "Event", new Event(){ DateEvent = DateTime.Now } },
+                    { "Event", new Event(){ DateEvent = DateTime.Now,
+                                            TimeEvent = new (DateTime.Now.TimeOfDay.Hours, 
+                                                             DateTime.Now.TimeOfDay.Minutes, 
+                                                             0) } },
                     { "IsNew", true }
                 });
         }
