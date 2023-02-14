@@ -28,9 +28,9 @@ public partial class AppShell : Shell
 
     private async void Donat_Clicked(object sender, EventArgs e)
     {
-        Current.FlyoutIsPresented = false;
-        await Current.GoToAsync(nameof(Support));
-        //await Navigation.PushAsync(new Views.Support());
         //Current.FlyoutIsPresented = false;
+        //await Current.GoToAsync(nameof(Support));
+        await Navigation.PushAsync(new Views.Support());
+        Current.FlyoutIsPresented = false;
     }
 }
