@@ -5,6 +5,7 @@
        xmlns:Views="clr-namespace:Reminder.Views"
        xmlns:local="clr-namespace:Reminder"
        FlyoutBackgroundColor="#070707"
+       FlyoutBehavior="Flyout"
        FlyoutWidth="269">
 
     <Shell.FlyoutHeaderTemplate>
