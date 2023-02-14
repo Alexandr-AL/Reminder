@@ -16,16 +16,19 @@ public partial class AppShell : Shell
 
     private async void Settings_Clicked(object sender, EventArgs e)
     {
+        Current.FlyoutIsPresented = false;
         await Current.GoToAsync(nameof(Settings));
     }
 
     private async void About_Clicked(object sender, EventArgs e)
     {
+        Current.FlyoutIsPresented = false;
         await Current.GoToAsync(nameof(About));
     }
 
     private async void Donat_Clicked(object sender, EventArgs e)
     {
+        Current.FlyoutIsPresented = false;
         await Current.GoToAsync(nameof(Support));
         //await Navigation.PushAsync(new Views.Support());
         //Current.FlyoutIsPresented = false;
