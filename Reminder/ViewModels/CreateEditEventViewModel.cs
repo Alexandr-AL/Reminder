@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 using Reminder.DAL.Entities;
 using Reminder.Services;
+using System.Collections.ObjectModel;
 
 namespace Reminder.ViewModels
 {

@@ -29,14 +29,8 @@ namespace Reminder.Services
             {
                 _eventRepository.AddItem(new Event()
                 {
-                    Name = "TestName1",
-                    Description = "TestDescription1",
-                    DateEvent = DateTime.Now
-                });
-                _eventRepository.AddItem(new Event()
-                {
-                    Name = "TestName2",
-                    Description = "TestDescription2",
+                    Name = "First Event Name",
+                    Description = "Frst Description",
                     DateEvent = DateTime.Now
                 });
             }
