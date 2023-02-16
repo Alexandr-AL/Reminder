@@ -58,13 +58,13 @@
                   ContentTemplate="{DataTemplate local:MainPage}"
                   FlyoutItemIsVisible="False"/>
 
-    <MenuItem Clicked="Settings_Clicked"
+    <!--<MenuItem Clicked="Settings_Clicked"
               IconImageSource="gear.png"
               Text="Settings"/>
 
-    <MenuItem Clicked="Donat_Clicked"
+    <MenuItem Clicked="Support_Clicked"
               IconImageSource="donat_white.png"
-              Text="Support"/>
+              Text="Support"/>-->
 
     <MenuItem Clicked="About_Clicked"
               IconImageSource="information_black.png"

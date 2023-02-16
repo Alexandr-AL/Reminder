@@ -11,5 +11,6 @@
                FontSize="20"
                Text="Settings"
                TextColor="White"/>
+
     </Shell.TitleView>
 </ContentPage>

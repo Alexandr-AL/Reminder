@@ -28,8 +28,6 @@
                FontSize="16"
                Text="Igor Gabov - development, design, front-end."/>
 
-        <!--  <Image Source ="line.png" Margin="0,15,20,0"  HorizontalOptions="Start"/> -->
-
         <Label Margin="15,15,0,0"
                HorizontalOptions="Start"
                VerticalOptions="Start"
@@ -64,5 +62,6 @@
                FontFamily="Calibri"
                FontSize="18"
                Text="Thank You."/>
+
     </VerticalStackLayout>
 </ContentPage>

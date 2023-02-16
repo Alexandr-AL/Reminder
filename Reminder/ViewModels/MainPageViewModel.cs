@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Reminder.Controls;
 using Reminder.DAL.Entities;
 using Reminder.Extensions;
 using Reminder.Services;
@@ -16,9 +17,10 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         private ObservableCollection<Event> _events;
 
-        public MainPageViewModel(EventProcessor eventProcessor, IEventsDataService eventsDataService)
+        public MainPageViewModel(IEventsDataService eventsDataService)
         {
             _eventsDataService = eventsDataService;
+             
             Events = _eventsDataService
                         .GetEvents()
                         .OrderByDescending(key => key.DateModified)
@@ -28,7 +30,7 @@ namespace Reminder.ViewModels
         [RelayCommand]
         private async void AddNewEvent()
         {
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage),
                 new Dictionary<string, object>
                 {
                     { "Events", Events },
@@ -45,7 +47,7 @@ namespace Reminder.ViewModels
         {
             if (@event is null) return;
             
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage),
                 new Dictionary<string, object>
                 {
                     { "Events", Events },

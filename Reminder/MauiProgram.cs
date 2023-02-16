@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Reminder.Controls;
 using Reminder.DAL;
 using Reminder.DAL.Entities;
 using Reminder.DAL.Repositories;
@@ -38,10 +39,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<CreateEditEventPage>();
 		builder.Services.AddTransient<CreateEditEventViewModel>();
 
-		builder.Services.AddTransient<Settings>();
-
 		builder.Services.AddSingleton<IEventsDataService, EventsDbService>();
-		builder.Services.AddSingleton<EventProcessor>();
 
 		return builder.Build();
 	}

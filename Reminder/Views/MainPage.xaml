@@ -8,31 +8,33 @@
              Title="Reminder"
              x:DataType="vm:MainPageViewModel">
 
-
-    <!--<Shell.TitleView>
-        <Grid>
-
-            <Label Margin="5,0,0,0"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Center"
-                   FontFamily="Calibri"
-                   FontSize="20"
-                   Text="Reminder"
-                   TextColor="White"/>
-
-
-
-            <ImageButton Margin="0,0,20,0"
-                         HorizontalOptions="End"
-                         BackgroundColor="#141414"
-                         HeightRequest="18"
-                         Source="search03.png"
-                         WidthRequest="18"/>
-        </Grid>
-    </Shell.TitleView>-->
-
     <Shell.SearchHandler>
-        <controls:EventsSearchHandler SearchBoxVisibility="Collapsible"/>
+        <controls:EventsSearchHandler Events="{Binding Events}"
+                                      SearchBoxVisibility="Collapsible"
+                                      ShowsResults="True">
+
+            <controls:EventsSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="model:Event">
+
+                    <Border>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="3"/>
+                        </Border.StrokeShape>
+
+                        <VerticalStackLayout>
+
+                            <Label FontAttributes="Bold"
+                                   MaxLines="1"
+                                   Text="{Binding Name}"/>
+
+                            <Label MaxLines="3"
+                                   Text="{Binding Description}"/>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </controls:EventsSearchHandler.ItemTemplate>
+        </controls:EventsSearchHandler>
     </Shell.SearchHandler>
 
     <Grid ColumnDefinitions="*"

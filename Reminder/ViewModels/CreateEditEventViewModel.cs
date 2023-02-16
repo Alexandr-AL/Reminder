@@ -33,6 +33,7 @@ namespace Reminder.ViewModels
             Events = query["Events"] as ObservableCollection<Event>;
             CeEvent = query["Event"] as Event;
             IsNew = (bool)query["IsNew"];
+
             _oldEvent = new(CeEvent);
         }
 
@@ -52,7 +53,8 @@ namespace Reminder.ViewModels
                 Events.Insert(0, CeEvent);
                 await _eventsDataService.AddEventAsync(CeEvent);
             }
-            else await _eventsDataService.UpdateEventAsync(CeEvent);
+            else
+                await _eventsDataService.UpdateEventAsync(CeEvent);
 
             Back();
         }
@@ -61,7 +63,7 @@ namespace Reminder.ViewModels
         private async void Back()
         {
             EnableEditors= false;
-            await Shell.Current.GoToAsync("..", true);
+            await Shell.Current.GoToAsync("..");
         }
     }
 }
