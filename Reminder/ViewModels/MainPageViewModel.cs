@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Reminder.Controls;
 using Reminder.DAL.Entities;
 using Reminder.Extensions;
 using Reminder.Services;
@@ -20,7 +19,7 @@ namespace Reminder.ViewModels
         public MainPageViewModel(IEventsDataService eventsDataService)
         {
             _eventsDataService = eventsDataService;
-             
+
             Events = _eventsDataService
                         .GetEvents()
                         .OrderByDescending(key => key.DateModified)
