@@ -9,12 +9,12 @@ namespace Reminder.Controls
         #region BindableProperty Events
         public static readonly BindableProperty EventsProperty = BindableProperty
             .Create(nameof(Events), 
-                    typeof(ObservableCollection<Event>), 
+                    typeof(IEnumerable<Event>), 
                     typeof(EventsSearchHandler));
 
-        public ObservableCollection<Event> Events 
+        public IEnumerable<Event> Events 
         { 
-            get => (ObservableCollection<Event>)GetValue(EventsProperty); 
+            get => (IEnumerable<Event>)GetValue(EventsProperty); 
             set => SetValue(EventsProperty, value); 
         }
         #endregion
@@ -39,7 +39,7 @@ namespace Reminder.Controls
                         eventDescriptionFound = @event.Description.ToLower().Contains(newValue.ToLower());
 
                     return eventNameFound || eventDescriptionFound;
-                }).ToList();
+                });
         }
 
         protected override async void OnItemSelected(object item)
