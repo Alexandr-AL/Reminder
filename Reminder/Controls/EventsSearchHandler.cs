@@ -1,4 +1,4 @@
-﻿using Reminder.DAL.Entities;
+using Reminder.DAL.Entities;
 using Reminder.Views;
 using System.Collections.ObjectModel;
 
