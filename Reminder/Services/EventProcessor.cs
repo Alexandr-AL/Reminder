@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.AndroidOption;
@@ -13,7 +13,6 @@ namespace Reminder.Services
         private IDispatcherTimer _timer;
         private IAudioPlayer _soundNotification;
         private IEnumerable<Event> _events;
-
 
         public EventProcessor(IEventsDataService eventsDataService)
         {
