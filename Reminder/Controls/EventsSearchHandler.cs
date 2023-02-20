@@ -52,8 +52,7 @@ namespace Reminder.Controls
                     new Dictionary<string, object>
                     {
                         { "Events", Events },
-                        { "Event", item },
-                        { "IsNew", false }
+                        { "Event", item }
                     });
             }
         }
