@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Reminder.Controls;
+using Plugin.LocalNotification;
 using Reminder.DAL;
-using Reminder.DAL.Entities;
 using Reminder.DAL.Repositories;
 using Reminder.Services;
 using Reminder.ViewModels;
@@ -26,6 +24,10 @@ public static class MauiProgram
 
 		builder.UseMauiApp<App>().UseMauiCommunityToolkit();
 
+		#if ANDROID
+		builder.UseLocalNotification();
+		#endif
+
 		var connStr = $"FileName = {Path.Combine(FileSystem.AppDataDirectory, "EventsData.db")}";
 		builder.Services
 			.AddDbContext<DataContext>(options => options
@@ -40,6 +42,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<CreateEditEventViewModel>();
 
 		builder.Services.AddSingleton<IEventsDataService, EventsDbService>();
+
+		builder.Services.AddSingleton<EventProcessor>();
 
 		return builder.Build();
 	}

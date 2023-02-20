@@ -16,7 +16,7 @@ namespace Reminder.ViewModels
         [ObservableProperty]
         private ObservableCollection<Event> _events;
 
-        public MainPageViewModel(IEventsDataService eventsDataService)
+        public MainPageViewModel(IEventsDataService eventsDataService, EventProcessor eventProcessor)
         {
             _eventsDataService = eventsDataService;
 
@@ -24,6 +24,8 @@ namespace Reminder.ViewModels
                         .GetEvents()
                         .OrderByDescending(key => key.DateModified)
                         .ToObservableCollection();
+
+            eventProcessor.Start(Events);
         }
 
         [RelayCommand]
