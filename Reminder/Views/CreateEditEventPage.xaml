@@ -1,121 +1,107 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage x:Class="Reminder.Views.CreateEditEventPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Reminder.Views.CreateEditEventPage"
              xmlns:vm="clr-namespace:Reminder.ViewModels"
-             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-             Title="{Binding Title}"
-             Shell.PresentationMode="ModalAnimated"
              x:DataType="vm:CreateEditEventViewModel"
              MaximumWidthRequest="800">
-    <!--<Shell.BackButtonBehavior>
-        <BackButtonBehavior Command="{Binding BackCommand}"
-                            BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
-                            IconOverride="back.png" />   
-    </Shell.BackButtonBehavior>-->
 
-    <Grid RowDefinitions="*,auto" ColumnDefinitions="*,*">
-        
-        <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
-            
-            <Grid>
-                
-                <VerticalStackLayout Margin="15,20,15,10"
-                                     VerticalOptions="Start" 
-                                     HorizontalOptions="Center" 
-                                     Spacing="10">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding SaveEventCommand}"/>
+    </Shell.BackButtonBehavior>
 
-                    <HorizontalStackLayout HorizontalOptions="End" Margin="0,0,0,10">
-                        <Label Text="Show event" 
-                               VerticalOptions="Center"
-                               TextColor="{StaticResource Gray200}"/>
+    <Shell.TitleView>
 
-                        <Border Stroke="Transparent">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="25"/>
-                            </Border.StrokeShape>
-                            <Switch BackgroundColor="{StaticResource Yellow300Accent}"
-                                    IsToggled="{Binding EditableEvent.Displayed}"
-                                    HorizontalOptions="Center"/>
-                        </Border>
-                    </HorizontalStackLayout>
+        <Grid>
 
-                    <Border Stroke="Transparent" Margin="0,0,0,10">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
-                        
-                        <Editor Text="{Binding EditableEvent.Name}"
-                                Placeholder="enter event name"
-                                PlaceholderColor="{StaticResource Gray200}"
-                                AutoSize="TextChanges"
-                                MaximumHeightRequest="150"
-                                MaxLength="256"
+            <HorizontalStackLayout Margin="0,0,0,0"
+                                   HorizontalOptions="Center">
+                <Label VerticalOptions="Center"
+                       Text="remind me"
+                       TextColor="{StaticResource Gray300}"/>
+            </HorizontalStackLayout>
+
+            <Switch HorizontalOptions="End"
+                    IsToggled="{Binding CeEvent.Displayed}"
+                    OnColor="White"/>
+
+        </Grid>
+    </Shell.TitleView>
+
+    <ScrollView Grid.Row="0"
+                Grid.ColumnSpan="2">
+
+        <Grid>
+
+            <VerticalStackLayout Margin="15,20,15,10"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Start"
+                                 Spacing="10">
+
+                <Border Margin="0,0,0,10"
+                        Stroke="Transparent">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+
+                    <Editor AutoSize="TextChanges"
+                            BackgroundColor="{StaticResource Yellow300Accent}"
+                            FontSize="25"
+                            IsEnabled="{Binding EnableEditors}"
+                            Keyboard="Text"
+                            MaxLength="256"
+                            MaximumHeightRequest="150"
+                            Placeholder="enter event name"
+                            PlaceholderColor="{StaticResource Gray200}"
+                            Text="{Binding CeEvent.Name}"/>
+                </Border>
+
+                <Border IsVisible="{Binding CeEvent.Displayed}">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+
+                    <DatePicker HorizontalOptions="Center"
+                                Date="{Binding CeEvent.DateEvent}"
                                 FontSize="25"
-                                BackgroundColor="{StaticResource Yellow300Accent}"
-                                x:Name="NameEditor"
-                                IsEnabled="{Binding IsEnabledEditors}"
-                                Keyboard="Text"/>
-                    </Border>
+                                Format="dd MMMM yyyy"/>
+                </Border>
 
-                    <Border IsVisible="{Binding EditableEvent.Displayed}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
-                        
-                        <DatePicker Date="{Binding EditableEvent.DateTimeEvent}" 
-                                    HorizontalOptions="Center"
-                                    FontSize="25"
-                                    Format="dd MMMM yyyy"/>
-                    </Border>
+                <Border IsVisible="{Binding CeEvent.Displayed}">
 
-                    <Border IsVisible="{Binding EditableEvent.Displayed}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
-                        
-                        <TimePicker Time="{Binding TimeEvent}"
-                                    HorizontalOptions="Center"
-                                    FontSize="25"
-                                    BackgroundColor="LightGrey"
-                                    Format="HH:mm"/>
-                    </Border>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
 
-                    <Border Stroke="Transparent" Margin="0,10,0,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
-                        
-                        <Editor Text="{Binding EditableEvent.Description}"
-                                Placeholder="description"
-                                PlaceholderColor="{StaticResource Yellow100Accent}"
-                                AutoSize="TextChanges"
-                                MinimumHeightRequest="300"
-                                MaximumHeightRequest="300"
-                                FontSize="22"
-                                MinimumWidthRequest="600"
-                                BackgroundColor="{StaticResource Gray100}"
-                                x:Name="DescriptionEditor"
-                                IsEnabled="{Binding IsEnabledEditors}"
-                                Keyboard="Text"/>
-                    </Border>
-                    
-                </VerticalStackLayout>
-            </Grid>
-        </ScrollView>
+                    <TimePicker HorizontalOptions="Center"
+                                BackgroundColor="LightGrey"
+                                FontSize="25"
+                                Format="HH:mm"
+                                Time="{Binding CeEvent.TimeEvent}"/>
+                </Border>
 
-        <Button Command="{Binding CancelCommand}"
-                Grid.Row="1" Grid.Column="0"
-                Text="Close"
-                FontSize="20"
-                CornerRadius="20"
-                Margin="20,3,20,0"/>
+                <Border Margin="0,10,0,0"
+                        Stroke="Transparent">
 
-        <Button Command="{Binding SaveEventCommand}"
-                Grid.Row="1" Grid.Column="1"
-                Text="Save"
-                FontSize="20"
-                CornerRadius="20"
-                Margin="20,3,20,0"/>
-    </Grid>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+
+                    <Editor AutoSize="TextChanges"
+                            BackgroundColor="{StaticResource Gray100}"
+                            FontSize="22"
+                            IsEnabled="{Binding EnableEditors}"
+                            Keyboard="Text"
+                            MaximumHeightRequest="300"
+                            MinimumHeightRequest="300"
+                            MinimumWidthRequest="600"
+                            Placeholder="description"
+                            PlaceholderColor="{StaticResource Yellow100Accent}"
+                            Text="{Binding CeEvent.Description}"/>
+                </Border>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

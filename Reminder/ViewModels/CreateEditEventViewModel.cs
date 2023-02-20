@@ -1,58 +1,69 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Reminder.Models;
+using Reminder.DAL.Entities;
+using Reminder.Services;
 using System.Collections.ObjectModel;
 
 namespace Reminder.ViewModels
 {
-    [QueryProperty(nameof(Title), "Title")]
-    [QueryProperty(nameof(Events),"Events")]
-    [QueryProperty(nameof(EditableEvent), "Event")]
-    [QueryProperty(nameof(TimeEvent), "TimeEvent")]
-    [QueryProperty(nameof(IsNew), "IsNew")]
-    public partial class CreateEditEventViewModel : Base.ViewModel
+    public partial class CreateEditEventViewModel : Base.ViewModel, IQueryAttributable
     {
-        [ObservableProperty]
-        private ObservableCollection<Event> events;
+        private readonly IEventsDataService _eventsDataService;
+
+        private bool IsNew { get; set; }
+
+        private Event _oldEvent;
 
         [ObservableProperty]
-        private Event editableEvent;
+        private ObservableCollection<Event> _events;
 
         [ObservableProperty]
-        private TimeSpan timeEvent;
+        private Event _ceEvent;
 
         [ObservableProperty]
-        private bool isEnabledEditors = true;
+        private bool _enableEditors = true;
 
-        public bool IsNew { get; set; }
-
-        [RelayCommand]
-        private async Task SaveEvent()
+        public CreateEditEventViewModel(IEventsDataService eventsDataService)
         {
-            if (EditableEvent is null || Events is null) return;
+            _eventsDataService = eventsDataService;
+        }
 
-            EditableEvent.DateTimeEvent = EditableEvent.DateTimeEvent.Add(TimeEvent);
-            EditableEvent.DateModified = DateTime.Now;
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            Events = query["Events"] as ObservableCollection<Event>;
+            CeEvent = query["Event"] as Event;
+            IsNew = (bool)query["IsNew"];
 
-            if (IsNew) 
-                lock(Events) 
-                    Events.Insert(0, EditableEvent);
-            else
-            {
-                var index = Events.IndexOf(Events.FirstOrDefault(x => x.Id == EditableEvent.Id));
-                if (index < 0) return;
-
-                lock(Events) 
-                    Events[index] = EditableEvent;
-            }
-            await Cancel();
+            _oldEvent = new(CeEvent);
         }
 
         [RelayCommand]
-        private async Task Cancel()
+        private async void SaveEvent()
         {
-            IsEnabledEditors = false;
-            await Shell.Current.GoToAsync("..", true);
+            if (CeEvent is null || Events is null) return;
+
+            if (_oldEvent.Equals(CeEvent))
+            {
+                Back();
+                return;
+            }
+
+            if (IsNew)
+            {
+                lock(App.LockObj) Events.Insert(0, CeEvent);
+                await _eventsDataService.AddEventAsync(CeEvent);
+            }
+            else
+                await _eventsDataService.UpdateEventAsync(CeEvent);
+
+            Back();
+        }
+
+        [RelayCommand]
+        private async void Back()
+        {
+            EnableEditors= false;
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

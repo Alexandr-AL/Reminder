@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Reminder.Views.About"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Shell.TitleView>
+
+        <Label Margin="20,0,0,0"
+               VerticalOptions="Center"
+               FontFamily="Calibri"
+               FontSize="20"
+               Text="About"
+               TextColor="White"/>
+    </Shell.TitleView>
+
+    <Grid>
+
+        <Image Margin="0,75,0,0"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               HeightRequest="70"
+               Source="logo"/>
+
+
+        <Label Margin="0,0,0,60"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               FontFamily="Calibri"
+               FontSize="26"
+               Text="Reminder"
+               TextColor="#141414"/>
+
+        <Label HorizontalOptions="Center"
+               VerticalOptions="Center"
+               FontFamily="Calibri"
+               FontSize="14"
+               Text="Version 1.0.3"
+               TextColor="#6E6E6E"/>
+
+        <Button Margin="10"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                BackgroundColor="Transparent"
+                Clicked="About_Name_Button_Clicked"
+                FontFamily="Calibri"
+                FontSize="14"
+                Text="© 2022-2023 Alex Levin, Igor Gabov"
+                TextColor="#141414"/>
+
+    </Grid>
+
+</ContentPage>

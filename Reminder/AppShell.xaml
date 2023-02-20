@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="Reminder.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Reminder"
-    Shell.FlyoutBehavior="Disabled">
+<Shell x:Class="Reminder.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:Views="clr-namespace:Reminder.Views"
+       xmlns:local="clr-namespace:Reminder"
+       FlyoutBackgroundColor="#070707"
+       FlyoutBehavior="Flyout"
+       FlyoutWidth="269">
 
-    <ShellContent
-        
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>
+
+                <Image HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       Source="r_white"/>
+
+                <Label Margin="60,0,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       FontFamily="Calibri"
+                       FontSize="18"
+                       Text="Reminder"
+                       TextColor="White"/>
+
+                <Image Margin="0,0,0,4"
+                       VerticalOptions="End"
+                       Source="line"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="1*,5*">
+
+                <Image Grid.Column="0"
+                       Margin="30,15,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="End"
+                       Source="{Binding Icon}"
+                       WidthRequest="20"/>
+
+                <Label Grid.Column="1"
+                       Margin="30,0,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="End"
+                       FontSize="18"
+                       Text="{Binding Text}"
+                       TextColor="White"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+    <ShellContent x:Name="mainPage"
+                  Title="Reminder"
+                  ContentTemplate="{DataTemplate local:MainPage}"
+                  FlyoutItemIsVisible="False"/>
+
+    <!--<MenuItem Clicked="Settings_Clicked"
+              IconImageSource="gear.png"
+              Text="Settings"/>
+
+    <MenuItem Clicked="Support_Clicked"
+              IconImageSource="donat_white.png"
+              Text="Support"/>-->
+
+    <MenuItem Clicked="About_Clicked"
+              IconImageSource="information_black.png"
+              Text="About"/>
 
 </Shell>
+
+

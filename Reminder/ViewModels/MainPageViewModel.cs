@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Reminder.DAL.Entities;
 using Reminder.Extensions;
-using Reminder.Models;
 using Reminder.Services;
 using Reminder.ViewModels.Base;
 using Reminder.Views;
@@ -11,114 +11,58 @@ namespace Reminder.ViewModels
 {
     public partial class MainPageViewModel : ViewModel
     {
-        private readonly EventFileIOService eventFileIOService;
+        private readonly IEventsDataService _eventsDataService;
 
         [ObservableProperty]
-        private ObservableCollection<Event> events;
+        private ObservableCollection<Event> _events;
 
-        [ObservableProperty]
-        private ObservableCollection<Event> foundEvents;
-
-        #region TextSearch Property
-        private string textSearch;
-        public string TextSearch 
+        public MainPageViewModel(IEventsDataService eventsDataService, EventProcessor eventProcessor)
         {
-            get => textSearch;
-            set
-            {
-                SetProperty(ref textSearch, value);
-                SearchEvent(value);
-            } 
-        }
-        #endregion
+            _eventsDataService = eventsDataService;
 
-        public MainPageViewModel(EventFileIOService eventFileIOService, EventProcessor eventProcessor)
-        {
-            Title = "Reminder";
-            this.eventFileIOService = eventFileIOService;
-            GetDataEvents();
-            FoundEvents = new(Events);
-            Events.CollectionChanged += Events_CollectionChanged;
+            Events = _eventsDataService
+                        .GetEvents()
+                        .OrderByDescending(key => key.DateModified)
+                        .ToObservableCollection();
+
             eventProcessor.Start(Events);
         }
 
-        private void GetDataEvents()
-        {
-            var _events = eventFileIOService.LoadEventsData();
-            if (_events is null) return;
-
-            if (Events is null)
-                Events = _events;
-            else
-                lock (Events)
-                    Events = _events;
-        }
-
-        private void Events_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (Events is null) return;
-            FoundEvents = new(Events);
-            lock (Events) 
-                eventFileIOService.SaveEventsData(Events);
-        }
-
-        private DateTime ClearTimeOfDay(DateTime dateTime) =>
-            new(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
-
-        private void SearchEvent(string textSearch)
-        {
-            if (string.IsNullOrWhiteSpace(textSearch)) 
-            {
-                FoundEvents = new(Events);
-                return;
-            }
-            FoundEvents = Events.Where(item =>
-            {
-                if (item.Name is null) return false;
-                return item.Name.ToLower().Contains(textSearch.ToLower());
-            }).ToObservableCollection();
-        }
-
         [RelayCommand]
-        private async Task AddNewEvent()
+        private async void AddNewEvent()
         {
-
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage),
                 new Dictionary<string, object>
                 {
-                    { "Title", "Add new"},
                     { "Events", Events },
-                    { "Event", new Event{DateTimeEvent = ClearTimeOfDay(DateTime.Now) } },
-                    { "TimeEvent", DateTime.Now.TimeOfDay },
+                    { "Event", new Event(){ DateEvent = DateTime.Now,
+                                            TimeEvent = new (DateTime.Now.TimeOfDay.Hours, 
+                                                             DateTime.Now.TimeOfDay.Minutes, 
+                                                             0) } },
                     { "IsNew", true }
                 });
         }
 
         [RelayCommand]
-        private async Task EditEvent(Event _event)
+        private async void EditEvent(Event @event)
         {
-            if (_event is null) return;
-            var newEvent = new Event(_event);
-
-            var timeEvent = newEvent.DateTimeEvent.TimeOfDay;
-            newEvent.DateTimeEvent = ClearTimeOfDay(newEvent.DateTimeEvent);
-
-            await Shell.Current.GoToAsync(nameof(CreateEditEventPage), true,
+            if (@event is null) return;
+            
+            await Shell.Current.GoToAsync(nameof(CreateEditEventPage),
                 new Dictionary<string, object>
                 {
-                    { "Title", $"Edit \"{_event.Name}\""},
                     { "Events", Events },
-                    { "Event", newEvent },
-                    { "TimeEvent", timeEvent },
+                    { "Event", @event },
                     { "IsNew", false }
                 });
         }
 
         [RelayCommand]
-        private void DeleteEvent(Event _event)
+        private async void DeleteEvent(Event @event)
         {
-            if (_event is null) return;
-            Events.Remove(_event);
+            if (@event is null) return;
+            lock(App.LockObj) Events.Remove(@event);
+            await _eventsDataService.DeleteEventAsync(@event);
         }
     }
 }

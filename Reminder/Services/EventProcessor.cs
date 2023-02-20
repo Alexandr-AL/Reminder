@@ -1,85 +1,108 @@
-﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using Reminder.Models;
-using System.Collections.ObjectModel;
+using Plugin.LocalNotification;
+using Plugin.LocalNotification.AndroidOption;
+using Plugin.Maui.Audio;
+using Reminder.DAL.Entities;
 
 namespace Reminder.Services
 {
     public class EventProcessor
     {
-        private ObservableCollection<Event> events;
-        private CancellationTokenSource cts;
+        private readonly IEventsDataService _eventsDataService;
+        private IDispatcherTimer _timer;
+        private IAudioPlayer _soundNotification;
+        private IEnumerable<Event> _events;
 
-        private async void EventExecution(object ct) 
+        public EventProcessor(IEventsDataService eventsDataService)
         {
-            var token = (CancellationToken)ct;
+            _eventsDataService = eventsDataService;
+            InitTimer();
+            InitMedia();
+        }
 
-            await Task.Run(() =>
-            {
-                while (!token.IsCancellationRequested)
+        private void InitTimer()
+        {
+            _timer = Application.Current.Dispatcher.CreateTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.IsRepeating = true;
+            _timer.Tick += (s, e) => EventExecution();
+        }
+
+        private async void InitMedia()
+        {
+            using var audioFileStream = await FileSystem.Current.OpenAppPackageFileAsync("Sound_21001.mp3");
+            _soundNotification = AudioManager.Current.CreatePlayer(audioFileStream);
+        }
+
+        ~EventProcessor()
+        {
+            if (_timer.IsRunning)
+                _timer.Stop();
+        }
+
+        private void EventExecution()
+        {
+            if (_events is null) return;
+
+            lock(App.LockObj)
+                foreach (var @event in _events)
                 {
-                    if (events is null) continue;
+                    if (@event is null || !@event.Displayed) continue;
 
-                    lock (events)
-                    { 
-                        foreach (var _event in events)
-                        {
-                            if (!_event.Displayed) continue;
-
-                            if (CompareEventTime(_event))
-                            {
-                                Application.Current.Dispatcher.Dispatch(() =>
-                                {
-                                    EventDisplayed(_event.Name);
-                                    EventIsDone(_event);
-                                });
-                            }
-                        }
+                    if (CompareDateTimeEvent(@event))
+                    {
+                        @event.Displayed = false;
+                        _eventsDataService.UpdateEventAsync(@event);
+                        EventNotice(@event);
                     }
-                    Task.Delay(1000).Wait(token);
                 }
-            },token);
         }
 
-        private void EventDisplayed(string textMSG)
+        private async void EventNotice(Event @event)
         {
-            var toast = Toast.Make($"{textMSG}", ToastDuration.Long, 30d);
-            toast.Show();
+            #if ANDROID
+            if (!await LocalNotificationCenter.Current.AreNotificationsEnabled())
+                await LocalNotificationCenter.Current.RequestNotificationPermission();
+
+            var notification = new NotificationRequest
+            {
+                NotificationId = 101,
+                Title = @event.Name,
+                Description = @event.Description,
+                CategoryType = NotificationCategoryType.Status,
+                Android = new AndroidOptions()
+                {
+                    Priority = AndroidPriority.Max,
+                    IconSmallName = new AndroidIcon(),
+                    VisibilityType = AndroidVisibilityType.Public
+                }
+            };
+            await LocalNotificationCenter.Current.Show(notification);
+
+            await Toast.Make($"{@event.Name}\n{@event.Description}", ToastDuration.Long, 18).Show();
+            #endif
+
+            _soundNotification.Play();
+
+            #if WINDOWS
+            await Shell.Current.DisplayAlert($"{@event.Name}", $"{@event.Description}", "OK");
+            #endif
         }
 
-        private void EventIsDone(Event _event)
+        private bool CompareDateTimeEvent(Event @event) => 
+            @event.DateEvent.Date == DateTime.Now.Date &&
+            @event.TimeEvent.Hours == DateTime.Now.Hour &&
+            @event.TimeEvent.Minutes == DateTime.Now.Minute;
+
+        public void Start(IEnumerable<Event> events)
         {
-            if (events is null || _event is null) return;
+            if (events is null) return;
 
-            var index = events.IndexOf(events.FirstOrDefault(x => x.Id == _event.Id));
+            _events = events;
 
-            if (index < 0) return;
-
-            _event.Displayed = false;
-            _event.DateModified = DateTime.Now;
-            events[index] = _event;
-        }
-
-        private bool CompareEventTime(Event _event)
-        {
-            if (_event is null) return false;
-
-            if (_event.DateTimeEvent.Date != DateTime.Now.Date) return false;
-
-            var timeNow = DateTime.Now.TimeOfDay;
-            var timeExec = _event.DateTimeEvent.TimeOfDay;
-
-            if (timeNow.Hours == timeExec.Hours && timeNow.Minutes == timeExec.Minutes)
-                return true;
-
-            return false;
-        }
-
-        public void Start(ObservableCollection<Event> events)
-        {
-            this.events = events;
-            cts ??= new CancellationTokenSource();
-            ThreadPool.QueueUserWorkItem(new WaitCallback(EventExecution), cts.Token);
+            if (!_timer.IsRunning)
+                _timer.Start();
         }
     }
 }
