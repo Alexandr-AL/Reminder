@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Reminder.DAL.Entities
+﻿namespace Reminder.DAL.Entities
 {
     public class Event : Base.Entity
     {
@@ -62,5 +60,7 @@ namespace Reminder.DAL.Entities
                    Description == other.Description&&
                    Displayed == other.Displayed;
         }
+
+        public override int GetHashCode() => base.GetHashCode();
     }
 }

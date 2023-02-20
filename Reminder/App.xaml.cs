@@ -1,9 +1,9 @@
-﻿using Reminder.Services;
-
-namespace Reminder;
+﻿namespace Reminder;
 
 public partial class App : Application
 {
+	public static readonly object LockObj = new();
+
 	public App()
 	{
 		InitializeComponent();

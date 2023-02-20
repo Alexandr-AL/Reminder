@@ -50,7 +50,7 @@ namespace Reminder.ViewModels
 
             if (IsNew)
             {
-                Events.Insert(0, CeEvent);
+                lock(App.LockObj) Events.Insert(0, CeEvent);
                 await _eventsDataService.AddEventAsync(CeEvent);
             }
             else

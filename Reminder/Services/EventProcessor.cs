@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.AndroidOption;
@@ -11,9 +11,8 @@ namespace Reminder.Services
     {
         private readonly IEventsDataService _eventsDataService;
         private IDispatcherTimer _timer;
-        private IAudioPlayer _audioPlayer;
+        private IAudioPlayer _soundNotification;
         private IEnumerable<Event> _events;
-
 
         public EventProcessor(IEventsDataService eventsDataService)
         {
@@ -32,8 +31,8 @@ namespace Reminder.Services
 
         private async void InitMedia()
         {
-            using var mediaFile = await FileSystem.Current.OpenAppPackageFileAsync("Sound_21001.mp3");
-            _audioPlayer = AudioManager.Current.CreatePlayer(mediaFile);
+            using var audioFileStream = await FileSystem.Current.OpenAppPackageFileAsync("Sound_21001.mp3");
+            _soundNotification = AudioManager.Current.CreatePlayer(audioFileStream);
         }
 
         ~EventProcessor()
@@ -42,26 +41,27 @@ namespace Reminder.Services
                 _timer.Stop();
         }
 
-        private async void EventExecution()
+        private void EventExecution()
         {
             if (_events is null) return;
 
-            foreach (var @event in _events)
-            {
-                if (@event is null || !@event.Displayed) continue;
-
-                if (CompareDateTimeEvent(@event))
+            lock(App.LockObj)
+                foreach (var @event in _events)
                 {
-                    @event.Displayed = false;
-                    await _eventsDataService.UpdateEventAsync(@event);
-                    EventNotice(@event);
+                    if (@event is null || !@event.Displayed) continue;
+
+                    if (CompareDateTimeEvent(@event))
+                    {
+                        @event.Displayed = false;
+                        _eventsDataService.UpdateEventAsync(@event);
+                        EventNotice(@event);
+                    }
                 }
-            }
         }
 
         private async void EventNotice(Event @event)
         {
-#if ANDROID
+            #if ANDROID
             if (!await LocalNotificationCenter.Current.AreNotificationsEnabled())
                 await LocalNotificationCenter.Current.RequestNotificationPermission();
 
@@ -79,11 +79,15 @@ namespace Reminder.Services
                 }
             };
             await LocalNotificationCenter.Current.Show(notification);
-#endif
 
             await Toast.Make($"{@event.Name}\n{@event.Description}", ToastDuration.Long, 18).Show();
+            #endif
 
-            _audioPlayer.Play();
+            _soundNotification.Play();
+
+            #if WINDOWS
+            await Shell.Current.DisplayAlert($"{@event.Name}", $"{@event.Description}", "OK");
+            #endif
         }
 
         private bool CompareDateTimeEvent(Event @event) => 
