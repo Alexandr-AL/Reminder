@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Reminder.DAL.Entities;
 using Reminder.Extensions;
@@ -37,10 +37,8 @@ namespace Reminder.ViewModels
                     { "Events", Events },
                     { "Event", new Event(){ DateEvent = DateTime.Now,
                                             TimeEvent = new (DateTime.Now.TimeOfDay.Hours, 
-                                                             DateTime.Now.TimeOfDay.Minutes, 
-                                                             0) } },
-                    { "IsNew", true }
-                });
+                                                             DateTime.Now.TimeOfDay.Minutes,
+                                                             0) } }
         }
 
         [RelayCommand]
@@ -52,8 +50,7 @@ namespace Reminder.ViewModels
                 new Dictionary<string, object>
                 {
                     { "Events", Events },
-                    { "Event", @event },
-                    { "IsNew", false }
+                    { "Event", @event }
                 });
         }
 

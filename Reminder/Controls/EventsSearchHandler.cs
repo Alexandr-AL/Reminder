@@ -1,4 +1,4 @@
-﻿using Reminder.DAL.Entities;
+using Reminder.DAL.Entities;
 using Reminder.Views;
 using System.Collections.ObjectModel;
 
@@ -52,8 +52,7 @@ namespace Reminder.Controls
                     new Dictionary<string, object>
                     {
                         { "Events", Events },
-                        { "Event", item },
-                        { "IsNew", false }
+                        { "Event", item }
                     });
             }
         }
