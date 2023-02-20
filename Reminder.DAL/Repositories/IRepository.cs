@@ -8,12 +8,12 @@ namespace Reminder.DAL.Repositories
         IQueryable<T> Get(Expression<Func<T, bool>> expression);
         IQueryable<T> GetAll();
 
-        T GetItem(Guid id);
+        T? GetItem(Guid id);
         Guid AddItem(T newItem);
         void DeleteItem(T item);
         void UpdateItem(T item);
 
-        Task<T> GetItemAsync(Guid id, CancellationToken token = default);
+        Task<T?> GetItemAsync(Guid id, CancellationToken token = default);
         Task<Guid> AddItemAsync(T newItem, CancellationToken token = default);
         Task DeleteItemAsync(T item, CancellationToken token = default);
         Task UpdateItemAsync(T item, CancellationToken token = default);

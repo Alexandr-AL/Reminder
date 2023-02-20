@@ -61,7 +61,7 @@ namespace Reminder.ViewModels
         private async void DeleteEvent(Event @event)
         {
             if (@event is null) return;
-            Events.Remove(@event);
+            lock(App.LockObj) Events.Remove(@event);
             await _eventsDataService.DeleteEventAsync(@event);
         }
     }

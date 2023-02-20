@@ -5,6 +5,6 @@ namespace Reminder.ViewModels.Base
     public partial class ViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string title;
+        private string _title;
     }
 }

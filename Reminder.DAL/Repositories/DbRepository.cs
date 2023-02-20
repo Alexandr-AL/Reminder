@@ -15,7 +15,7 @@ namespace Reminder.DAL.Repositories
 
         public IQueryable<T> GetAll() => Items.AsQueryable();
 
-        public T GetItem(Guid id) => Items.SingleOrDefault(item => item.Id == id);
+        public T? GetItem(Guid id) => Items.SingleOrDefault(item => item.Id == id);
 
         public Guid AddItem(T newItem)
         {
@@ -39,7 +39,7 @@ namespace Reminder.DAL.Repositories
             _db.SaveChanges();
         }
 
-        public async Task<T> GetItemAsync(Guid id, CancellationToken token = default) => 
+        public async Task<T?> GetItemAsync(Guid id, CancellationToken token = default) => 
             await Items.SingleOrDefaultAsync(item =>  item.Id == id, token);
 
         public async Task<Guid> AddItemAsync(T newItem, CancellationToken token = default)
