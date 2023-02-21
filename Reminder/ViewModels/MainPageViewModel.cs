@@ -36,9 +36,10 @@ namespace Reminder.ViewModels
                 {
                     { "Events", Events },
                     { "Event", new Event(){ DateEvent = DateTime.Now,
-                                            TimeEvent = new (DateTime.Now.TimeOfDay.Hours, 
+                                            TimeEvent = new (DateTime.Now.TimeOfDay.Hours,
                                                              DateTime.Now.TimeOfDay.Minutes,
                                                              0) } }
+                });
         }
 
         [RelayCommand]
